@@ -1,5 +1,7 @@
 ![alt text](http://i.imgur.com/3EiNkXk.png?1 "PinndIt")
 
+# Proposal
+
 ## Meet The Team
 
 Dylan Terry - Senior Software Engineer
@@ -36,7 +38,7 @@ This sort of problem came up all the time in our courses:
 -In an Alternative Spring Break course we wanted to fundraise by having a huge party, but 
 -In Sociology 240 we were required to attend sociology presentations. It was difficult to keep track of when and where talks were being given.
 
-Ariel Reches- 09/28/2014
+_Ariel Reches- 09/28/2014_
 
 
 ## Product Description
@@ -51,7 +53,7 @@ PinndIt is the social event broadcasting app where users can drop a Pinn at the 
 
 
 
-Who wrote it - 09/28/2014
+_Who wrote it - 09/28/2014_
 
 
 ## Cost Estimate
@@ -63,4 +65,4 @@ $1,000   - Pizza and beer for team meetings
 
 $35,000 - Total
 
-Steve Jones - 09/28/2014
+_Steve Jones - 09/28/2014_
