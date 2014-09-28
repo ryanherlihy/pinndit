@@ -47,8 +47,14 @@ PinndIt is the social event broadcasting app where users can drop a Pinn at the 
 
 
 ## Timeline
-
-
+Weeks 1-2
+Research, design documents
+Week 3-5
+Create map interface, drop pins and view others' pins
+Week 6-9
+Add User interface, comments functionality
+Week 10
+Test and debug
 
 
 
