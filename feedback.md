@@ -1,0 +1,5 @@
+**Project 1:** Thumbs up! You guys included everything needed in the profile. The idea itself isn't necessarily anything new, but I think there's a lot of potential. If it's done well, the course project could turn into something bigger. There's been a few people at UMass over the last few years that have tried variations of this idea and it looks like none of them got it right. What makes this idea interesting is the ability to see the quality of the event, whether people are having a good time or not. Im curious to see how you guys develop this and looking forward to what it might look like.
+
+You guys seem like you're on the right track so far. Your meeting notes are pretty good as well. I noticed there have been cards added to the Trello board, so it's good to see you've been using that. 
+
+Be sure to keep using Trello and good job!
