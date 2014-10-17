@@ -7,6 +7,8 @@ http//:getbootstrap.com
 
 It's a CSS framework that gives a lot of HTML tags a certain styling (which you can preview on their website), so you don't have style. One thing I will note though about Bootstrap: make sure you don't overuse div tags. It can be very easy to get caught up with making div tags everywhere and adding classes to them, but doing that convolutes the code and makes it harder to follow. The point of HTML is structure.
 
+WHAT YOU WERE MISSING: Research on other similar apps was missing from this project.
+
 The proposal seems fine and the presentation slides were good. Your proposal could've been more detailed, but it was good enough overall. So, thumbs up; you've been fully funded!
 
 **Project 1**
