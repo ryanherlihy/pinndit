@@ -1,60 +1,134 @@
-`PinndIt `
+![image alt text](image_0.png)
 
-Version: 1.0.0
+Functional/User Specification
 
-Project Assignment 01
+## Team Organization
 
-PinndIt is the social event broadcasting app where users can drop a Pinn at the location of an event. Users are able to view this on a map interface where each Pinn represents an event. Users at the location are able to "upvote" or “downvote” each pin depending on the experience of the event. This gives prospective event attendees an idea of if they are interested in going to the event. For example if Sigma Phi Epsilon has a barbecue to raise money for cancer research, someone can drop a Pinn at the event and people can vote on if the event is enjoyable.
+**Dylan Terry** - Software Engineer
 
-Assignment: [http://www-edlab.cs.umass.edu/cs326/hw/hw1/overview/](http://www-edlab.cs.umass.edu/cs326/hw/hw1/overview/)
+Responsible for the organization and development of the codebase for the PinndIt webpage.
 
-Doc: [https://docs.google.com/forms/d/1drhu1wUByhucsgevJjguchQA29dNKN0U-jSB_eRAv_Q/viewform](https://docs.google.com/forms/d/1drhu1wUByhucsgevJjguchQA29dNKN0U-jSB_eRAv_Q/viewform)
+**Steve Jones** - Project Manager
 
-**Team Member:** Steve Jones
+Responsible for guiding the plan and development of PinndIt to meet our goals and requirements.
 
-**Previous CS courses taken**: CS 121, 187, 197u, 197c, 220, 230, 240, 250, 
+**Ryan Herlihy** - Lead Content Editor
 
-**Two prior college-level courses (not CS): **MGMT 397a Intro to Entrepreneurship, BDIC 397b Leadership & Networking
+	Responsible for the quality, presentation and effectiveness of PinndIt documents, 
 
-**Bio**: Steve Jones is a Junior computer science major at the with aspirations to attend graduate school to study business. As a sophomore in high school Jones started the company SeascapeTech and has created over 50 high quality websites for a wide range of clientele. 
+visuals and code implementations. Focuses on reviewing all team members contributions and making necessary adjustments if needed.
 
-**Team Member**: Derek Costigan
+**Ariel Reches** - Duke of Customer Satisfaction/Software Engineer
 
-**Previous CS courses taken**: CS121, CS 187, CS230, CS240, CS220, CS250
+	Evangelize about PinndIt to the people and convey their concerns to the company.
 
-**Two prior college-level courses (not CS**): Math 235 Linear Algebra, Ideas that changed the World
+Also organize and develop the software. 
 
-**Bio**: Derek Costigan is a computer science major in his junior year here at Umass Amherst. He hopes to graduate by 2016 with a Bachelors degree and with general studies. He has experience with C#, C, Java, HTML, and XML. 
+**Stephen Collins** - Web Strategist
 
-**Team Member**: Stephen Collins
+Responsible for fixing and solving implementation problems when they arise. Also responsible for spreading the word of PinndIt as well as recording our teams progress.
 
-**Previous CS courses taken**: CS121, CS187, CS197u, CS220, CS230, CS240, CS250
+**Derek Costigan** - Director of Quality Assurance
 
-**Two prior college-level courses (not CS): **Linear Algebra MATH 235, Physics 151
+Responsible for thoroughly testing the application and making sure there are no serious bugs or issues. Then report these issues as they arise and help develop a solution.  
 
-**Bio**: Stephen Collins is a junior computer science major who specializes in Java, C, Scala, and HTML. He is expected to get his bachelors degree at UMass in 2016 with possibly an Artificial Intelligence track. 
+Written by all - 10/05/2014* * *
 
-**Team Member**:Ariel Reches 
 
-**Previous CS courses taken**: 121, 187, 220, 230, 240, 250
+## Overview
 
-**Two prior college-level courses (not CS**):Introduction to Acting, Linear Algebra
+PinndIt is the social event broadcasting app where users can drop a Pinn at the location of an event. Users are able to view this on a map interface where each Pinn represents an event. Users at the location are able to "upvote" or “downvote” each Pinn depending on the experience of the event. As the event accumulates votes the Pinn may change color from the default red to green if the event is highly regarded. This gives prospective event attendees an idea of if they are interested in going to the event. For example if Sigma Phi Epsilon has a barbecue to raise money for cancer research, someone can drop a Pinn at the event and people can vote on if the event is enjoyable. 
 
-**Bio**: Ariel Reches is a Junior CS major, in addition to what he’s learned in UMASS Ariel also took a course on web programming and can make some pretty decent static web pages. He’s not sure in what direction he’s going in computer science but knows he’d rather write a program than an essay any day. 
+As a user selects an event a window will pop up with the capability to read and write comments. Each individual comment will have the same rating system applied to the Pinns and will enable users to post valuable information about the event. For example a comment saying, "Free food!" might convince someone to come to an event over a simple green Pinn icon. 
 
-**Team Member**: Dylan Terry
+Written by Steve Jones & Derek Costigan - 10/05/2014* * *
 
-**Previous CS courses taken**: 121, 187, 230, 220, 240, 250, 311, 320, 377
 
-**Two prior college-level courses (not CS**):  Microbiology of Cancer and AIDS, Introduction to Modern Fiction
+## User case scenarios
 
-**Bio**: Dylan Terry is a senior Computer Science major at UMass. He works as an software engineering intern at a information security company, Bit9, and mostly works in Java and Python on the Testing Automation team under QA. 
+Scenario 1: Susan is hosting a booth at the weekly amherst farmers’ market and has extra rhubarb this week, she wants to bring more people to the market so she can sell off her surplus. Susan opens PinndIt and drops a Pinn on the Amherst Town Common with the title "Amherst Farmers’ Market" and the description, “So much rhubarb, you don’t even know” so more people will visit the market and maybe buy some rhubarb.
 
-**Team Member**: Ryan Herlihy
+Scenario 2: It’s Karaoke night at Worcester dining hall and turnout is surprisingly low. Jamie, who’s in charge of the event decides to see how her Pinn is doing. She sees that the Pinn has 5 upvotes and 9 downvotes! The top comment under the Pinn reads,"if another lady gaga song comes on I’m outta here", and it has 7 upvotes. The second top comment reads, “seriously, no Biebs at Karaoke night” and it has 5 upvotes. No wonder nobody’s coming! Jamie pulls the mic on the kid singing “Just Dance” and announces no more Lady Gaga. The crowd erupts and Jamie sees many of them pulling out their smartphones. Many of them go on PinndIt to change their downvotes to upvotes. Karaoke night rescued. 
 
-**Previous CS courses taken**: 121, 187, 220, 240, 250
+Scenario 3: Tim is craving a hamburger and hotdog, but is feeling cheap and doesn’t want to spend any money for lunch. He heard from his friends last night that there will be a barbecue outside of the student union. He doesn’t remember what time the event is being held. Tim opens PinndIt and clicks on the red Pinn over the student union, sees in the event description that the event started at 1:00, and plans accordingly. 
 
-**Two prior college-level courses (not CS**): ART 274: Animation Fundamentals, ART 201: Advanced Drawing
+Scenario 4: It’s another Friday night and Sam is pumped. He always looks forward to the weekend. But it’s getting late and he still hasn’t heard about anything from his friends. Luckily at UMASS Amherst, everyone’s on PinndIt. Sam opens PinndIt and the map is bursting with Pinns. Sam sees one party on Phillips St. has 300 upvotes, half Sam’s crew is out the door already to head there but... hold up! There’s a green Pinn over Antonio’s reading "free pizza for all PinndIt users!". Looks like Sam and his friends are going to get cheesy tonight.
 
-**Bio**: Ryan Herlihy is a senior at UMass pursuing a BA degree in Computer Science, with a minor in Art. He was previously a Studio Art major studying Animation, but switched to Computer Science last semester. He is from Walpole, MA and spent last summer interning with the HR department of a roofing company,  working on a company website.
+Scenario 5: Jordan drops a Pinn on his house for a slip and slide competition. He realizes 3 minutes later he neither knows how to slip nor slide. Also he doesn’t have running water and it’s below freezing out. He promptly deletes the Pinn before too many people show up.
+
+Scenario 6:  Drew is relaxing at his house on a Friday night watching Game of Thrones with a few of his bros. He opens up PinndIt to check what events there are on in his area. He sees immediately that there’s a Pinn on his house that says, "Party at 560 Puffton Village!" Drew gets outraged and tells his friends. They all mark the Pinn as spam and the Pinn soon gets deleted. Now Drew can sit back and enjoy his show.
+
+Scenario 7: Alex used PinndIt yesterday to find some sweet free events in his area. He wakes up today and he is looking forward to another day of enjoying great local events. He opens up PinndIt again, his location is acquired, and a map of his area appears. All the Pinns with yesterdays events have disappeared, and a new set of Pinns are now visible with todays events.
+
+Scenario 8: 
+
+Zachariah is having his 67th birthday party and attempts to put a Pinn down on his farm  but a message pops up saying "You have too many live Pinns, would you like to delete one?" He suddenly remembers that he already put down a bunch of Pinns for his birthday party! He decides to delete one of them so he can put up another one. 
+
+Written by all - 10/05/2014* * *
+
+
+## Non-Goals
+
+* Accounts and User Login
+
+* Custom Pinns
+
+* Third-party integration
+
+* List of events
+
+Written by all- 10/05/2014* * *
+
+
+**Wireframe Images**
+
+![image alt text](image_1.png)
+
+Opening Screen, able to drag and drop your own pinn, or click a pinn for details. Pinn colors represent popularity.
+
+![image alt text](image_2.png)
+
+When creating pinn, box appears to name your pinn
+
+![image alt text](image_3.png)
+
+Click on pinn: see pin details, comments, up/down votes, time
+
+![image alt text](image_4.png)
+
+Click your own pinn: Trash icon to delete
+
+![image alt text](image_5.png)
+
+When clicking a pinn you commented on: Comment has trash icon to delete
+
+Written by Steve Jones - 10/05/2014
+
+* * *
+
+
+## Flowchart
+
+![image alt text](image_6.png)
+
+Written by Dylan Terry - 10/05/2014
+
+* * *
+
+
+## Open Issues
+
+* Algorithm for Pinn popularity.
+
+* Algorithm for deleting old or unpopular Pinns
+
+* Deciding on Pinn color
+
+* Deciding if there’s a limit to the distance between a user and a pinn they’d like to drop
+
+* How we’ll limit Pinns per day per user
+
+* How we’ll handle Pinns dropped on the same location.
+
+* Handling Pinns when zooming out
 
