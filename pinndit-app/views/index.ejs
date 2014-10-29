@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title><%= title %></title>
-        <link rel='stylesheet' href='/stylesheets/style.css' />
-    </head>
-    <body>
-        <img src="/images/PinndItLogo250.png" alt="Logo" >
-        <p>Welcome to <%= title %></p>
-    </body>
+<head>
+    <style type="text/css">
+        html, body, #map-canvas { border-radius: 5px; height: 95%; padding-left: 20px; padding-right: 20px;}
+    </style>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaPH3EcFX_G-bjbb6JIdKwT65_N9mKX7E">
+    </script>
+    <script type="text/javascript">
+        function initialize() {
+            var mapOptions = {
+                center: { lat: -34.397, lng: 150.644},
+                zoom: 8
+            };
+            var map = new google.maps.Map(document.getElementById('map-canvas'),
+                    mapOptions);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+<body>
+<div id="map-canvas"></div>
+</body>
 </html>
