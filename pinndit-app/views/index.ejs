@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <img src="/images/PinndItLogo250.png" alt="Logo" align="middle">
     <style type="text/css">
-        html, body, #map-canvas { border-radius: 5px; height: 95%; padding-left: 20px; padding-right: 20px;}
+        html, body, #map-canvas { border-radius: 5px; height: 90%; padding-left: 20px; padding-right: 20px;}
     </style>
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaPH3EcFX_G-bjbb6JIdKwT65_N9mKX7E">
     </script>
     <script type="text/javascript">
-        function initialize() {
-            var mapOptions = {
-                center: { lat: -34.397, lng: 150.644},
-                zoom: 8
+        function success(position) {
+
+            var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+            var options = {
+                zoom: 15,
+                center: coords,
+                mapTypeControl: false,
+                navigationControlOptions: {
+                    style: google.maps.NavigationControlStyle.SMALL
+                },
+                mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            var map = new google.maps.Map(document.getElementById('map-canvas'),
-                    mapOptions);
+            var map = new google.maps.Map(document.getElementById("map-canvas"), options);
+            var marker = new google.maps.Marker({
+                position: coords,
+                map: map,
+                title:"You are here!"
+            });
         }
-        google.maps.event.addDomListener(window, 'load', initialize);
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(success);
+        } else {
+            error('Geo Location is not supported');
+        }
     </script>
 </head>
 <body>
 <div id="map-canvas"></div>
 </body>
+<footer align="center">
+    "Pinndit Copyright 2014"
+</footer>
 </html>
