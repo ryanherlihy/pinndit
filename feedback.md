@@ -1,3 +1,11 @@
+**Project 3**
+--
+I think you all did a pretty good job on this. While I was hoping for possibly a little more detail in the screen-by-screen section, the graphics for each screen were great. 
+
+Your meeting notes were great. They were nicely detailed and clearly showed  everyones level of contribution to the project.
+
+It looks like you're going in the right direction so far, so keep it up.
+
 **Project 2**
 --
 I think the idea has potential. There have a been a few ideas similar to this that I've seen over the last 3 years, and none of them are around still. Their problem, I think, was their user experience that their web apps offered. They weren't designed nicely. I think as long as you make sure your implementation works and make sure it's an enjoyable experience using the app, this could turn out to be something people actually use. 
