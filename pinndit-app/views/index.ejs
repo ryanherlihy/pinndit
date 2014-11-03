@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <img src="/images/PinndItLogo250.png" alt="Logo" align="middle">
-    <style type="text/css">
-        html, body, #map-canvas { border-radius: 5px; height: 90%; padding-left: 20px; padding-right: 20px;}
-    </style>
+    <img src="/images/PinndItLogo250.png" alt="Logo">
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaPH3EcFX_G-bjbb6JIdKwT65_N9mKX7E">
     </script>
@@ -27,7 +26,7 @@
             var marker = new google.maps.Marker({
                 position: coords,
                 map: map,
-                title:"You are here!"
+                title:"tittie sprinkles!"
             });
         }
         if (navigator.geolocation) {
@@ -40,7 +39,8 @@
 <body>
 <div id="map-canvas"></div>
 </body>
+<br>
 <footer align="center">
-    "Pinndit Copyright 2014"
+    Pinndit Copyright 2014
 </footer>
 </html>
