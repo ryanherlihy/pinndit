@@ -9,6 +9,17 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaPH3EcFX_G-bjbb6JIdKwT65_N9mKX7E">
     </script>
     <script type="text/javascript">
+
+        function AddControlPinn(controlDiv, map) {
+
+            controlDiv.style.padding = '15px';
+
+            var controlPinn = document.createElement('div');
+            controlPinn.style.cursor = 'pointer';
+            controlPinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'>";
+            controlDiv.appendChild(controlPinn);
+        }
+
         function success(position) {
 
             var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -37,7 +48,25 @@
             google.maps.event.addListener(marker, 'click', function() {
                 infowindow.open(map,marker);
             });
+
+            var pinnDiv = document.createElement('div');
+            var addPinn = new AddControlPinn(pinnDiv, map);
+
+            pinnDiv.index = 1;
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(pinnDiv);
+
+            // google.maps.event.addListener(pinnDiv, 'click', function() {
+            //     addNewPinn(event.latLng);
+            // });
         }
+
+        // function addNewPinn(location) {
+        //     var pinn = new google.maps.Marker({
+        //         position: location, 
+        //         map: map
+        //     });
+        // }
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(success);
         } else {
