@@ -30,6 +30,13 @@
                 animation: google.maps.Animation.DROP,
                 title:"tittie sprinkles!"
             });
+            var infowindow = new google.maps.InfoWindow({
+                content: '<div id="content"><p>First Pinn!</p></div>',
+                maxWidth: 500
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.open(map,marker);
+            });
         }
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(success);
