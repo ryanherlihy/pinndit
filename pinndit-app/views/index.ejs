@@ -18,6 +18,12 @@
             controlPinn.style.cursor = 'pointer';
             controlPinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'>";
             controlDiv.appendChild(controlPinn);
+
+            google.maps.event.addDomListener(controlPinn, 'click', function() {
+                
+                map.setZoom(5);
+                
+            });
         }
 
         function success(position) {
@@ -56,7 +62,8 @@
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(pinnDiv);
 
             // google.maps.event.addListener(pinnDiv, 'click', function() {
-            //     addNewPinn(event.latLng);
+                
+            //     //addNewPinn(event.latLng);
             // });
         }
 
