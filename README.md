@@ -17,3 +17,8 @@ Team Members
 # Original Proposal
 
 We wrote a proposal consisting of an introduction to the team, the problem statement, a description of the product, a timeline and a funding outlook. This is all in the  proposal.md 
+
+# Design Specification
+
+The design specification is the listing of each of the components for our product and how they all interact with one another. It contains 
+the outline for who is doing what in the project as well as what the project summary is. This is all in the dspec.md.
