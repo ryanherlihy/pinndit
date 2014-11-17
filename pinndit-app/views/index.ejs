@@ -19,12 +19,15 @@
             controlPinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'>";
             controlDiv.appendChild(controlPinn);
 
-            google.maps.event.addDomListener(controlPinn, 'click', function() {
-                
-                map.setZoom(5);
-                
-            });
+            // google.maps.event.addDomListener(controlPinn, 'click', function(e) {                
+            //     //map.setZoom(5);
+            //     placeMarker(e.latLng, map);
+            // });
+            // google.maps.event.addDomListener(controlPinn, 'mouseover', function() {                
+            //     map.setZoom(5);
+            // });
         }
+
 
         function success(position) {
 
@@ -61,15 +64,33 @@
             pinnDiv.index = 1;
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(pinnDiv);
 
-            // google.maps.event.addListener(pinnDiv, 'click', function() {
-                
-            //     //addNewPinn(event.latLng);
-            // });
+            google.maps.event.addListener(map, 'click', function(e) {
+                newPinn(e.latLng, map);
+            });
         }
 
-        // function addNewPinn(location) {
+        function newPinn(position, map) {
+            var marker = new google.maps.Marker({
+                position: position,
+                map: map
+            });
+            map.panTo(position);
+
+            var infowindow = new google.maps.InfoWindow({
+                content: '<div><p>New Pinn Information</p>' + 
+                    '<form method="post" action="/admin/newuser">' + 
+                    'Event Name: <input type="text" name="event-name"> <br>' + 
+                    'Event Description:  <input type="text" name="event-description"> <br>' + 
+                    '<button>Create Event</button>' + 
+                    '</form></div>',
+                maxWidth: 500
+            });
+            infowindow.open(map, marker);
+        }
+
+        // function addNewPinn(map) {
         //     var pinn = new google.maps.Marker({
-        //         position: location, 
+        //         position: map.getCenter(), 
         //         map: map
         //     });
         // }
