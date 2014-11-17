@@ -4,11 +4,23 @@
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <img src="/images/PinndItLogo250.png" alt="Logo">
+    <img src="/images/PinndItLogo250.png" alt="Logo"> 
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaPH3EcFX_G-bjbb6JIdKwT65_N9mKX7E">
     </script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
     <script type="text/javascript">
+    var overlay;
+    var map;
+        var PinndItPin = {
+            url: '/images/PinndItPin.png',
+            size: new google.maps.Size(100, 100),
+             origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(0, 32)
+        };
+
 
         function AddControlPinn(controlDiv, map) {
 
@@ -18,9 +30,35 @@
             controlPinn.style.cursor = 'pointer';
             controlPinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'>";
             controlDiv.appendChild(controlPinn);
+           $(controlPinn).draggable({helper: 'clone',
+            stop: function(e,ui) {
+              var mOffset=$(map.getDiv()).offset();
+              var point=new google.maps.Point(
+              ui.offset.left-mOffset.left+(ui.helper.width()/2),
+               ui.offset.top-mOffset.top+(ui.helper.height())
+    );
+    var ll=overlay.getProjection().fromContainerPixelToLatLng(point);
+    addNewPinn(ll);
+    }
+});
+
+
+
+
+
+
+            // google.maps.event.addDomListener(controlPinn, 'click', function(e) {                
+            //     //map.setZoom(5);
+            //     placeMarker(e.latLng, map);
+            // });
+            // google.maps.event.addDomListener(controlPinn, 'mouseover', function() {                
+            //     map.setZoom(5);
+            // });
         }
 
+
         function success(position) {
+            
 
             var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -34,37 +72,73 @@
                 streetViewControl: false,
                 panControl: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
+            
             };
-            var map = new google.maps.Map(document.getElementById("map-canvas"), options);
-            var marker = new google.maps.Marker({
+            map = new google.maps.Map(document.getElementById("map-canvas"), options);
+            overlay = new google.maps.OverlayView();
+            overlay.draw = function(){};
+            overlay.onAdd = function(){};
+            overlay.setMap(map);
+           
+           /* var marker = new google.maps.Marker({
                 position: coords,
                 map: map,
+                //icon : PinndItPin,
                 draggable: true,
                 animation: google.maps.Animation.DROP,
                 title:"tittie sprinkles!" //<--agreed
             });
+            */
+            /*
             var infowindow = new google.maps.InfoWindow({
                 content: '<div id="content"><p>Computer Science BBQ</p></div>',
                 maxWidth: 500
             });
+           
             google.maps.event.addListener(marker, 'click', function() {
                 infowindow.open(map,marker);
             });
+            */
 
             var pinnDiv = document.createElement('div');
+            
             var addPinn = new AddControlPinn(pinnDiv, map);
+            addNewPinn(coords);
 
             pinnDiv.index = 1;
+           
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(pinnDiv);
 
-            // google.maps.event.addListener(pinnDiv, 'click', function() {
-            //     addNewPinn(event.latLng);
-            // });
+            
         }
 
-        // function addNewPinn(location) {
+        function addNewPinn(location) {
+            console.log(location.toString());
+
+             var pinn = new google.maps.Marker({
+                 position: location, 
+                 map: map
+             });
+         
+          
+
+            var infowindow = new google.maps.InfoWindow({
+                content: '<div><p>New Pinn Information</p>' + 
+                    '<form method="post" action="/admin/newuser">' + 
+                    'Event Name: <input type="text" name="event-name"> <br>' + 
+                    'Event Description:  <input type="text" name="event-description"> <br>' + 
+                    '<button>Create Event</button>' + 
+                    '</form></div>',
+                maxWidth: 500
+            });
+            infowindow.open(map, pinn);
+        }
+
+      
+
+        // function addNewPinn(map) {
         //     var pinn = new google.maps.Marker({
-        //         position: location, 
+        //         position: map.getCenter(), 
         //         map: map
         //     });
         // }
