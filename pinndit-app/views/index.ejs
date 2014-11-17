@@ -40,6 +40,8 @@
                 navigationControlOptions: {
                     style: google.maps.NavigationControlStyle.SMALL
                 },
+                streetViewControl: false,
+                panControl: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             var map = new google.maps.Map(document.getElementById("map-canvas"), options);
@@ -48,7 +50,7 @@
                 map: map,
                 draggable: true,
                 animation: google.maps.Animation.DROP,
-                title:"tittie sprinkles!"
+                title:"tittie sprinkles!" //<--agreed
             });
             var infowindow = new google.maps.InfoWindow({
                 content: '<div id="content"><p>First Pinn!</p></div>',
@@ -107,6 +109,6 @@
 </body>
 <br>
 <footer align="center">
-    Pinndit Copyright 2014
+    Pinnd.It &copy; Copyright 2014
 </footer>
 </html>
