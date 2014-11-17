@@ -45,7 +45,17 @@
 
 
 
+
+
+            // google.maps.event.addDomListener(controlPinn, 'click', function(e) {                
+            //     //map.setZoom(5);
+            //     placeMarker(e.latLng, map);
+            // });
+            // google.maps.event.addDomListener(controlPinn, 'mouseover', function() {                
+            //     map.setZoom(5);
+            // });
         }
+
 
         function success(position) {
             
@@ -59,6 +69,8 @@
                 navigationControlOptions: {
                     style: google.maps.NavigationControlStyle.SMALL
                 },
+                streetViewControl: false,
+                panControl: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             
             };
@@ -74,7 +86,7 @@
                 //icon : PinndItPin,
                 draggable: true,
                 animation: google.maps.Animation.DROP,
-                title:"tittie sprinkles!"
+                title:"tittie sprinkles!" //<--agreed
             });
             */
             /*
@@ -107,7 +119,29 @@
                  position: location, 
                  map: map
              });
-         }
+         
+          
+
+            var infowindow = new google.maps.InfoWindow({
+                content: '<div><p>New Pinn Information</p>' + 
+                    '<form method="post" action="/admin/newuser">' + 
+                    'Event Name: <input type="text" name="event-name"> <br>' + 
+                    'Event Description:  <input type="text" name="event-description"> <br>' + 
+                    '<button>Create Event</button>' + 
+                    '</form></div>',
+                maxWidth: 500
+            });
+            infowindow.open(map, pinn);
+        }
+
+      
+
+        // function addNewPinn(map) {
+        //     var pinn = new google.maps.Marker({
+        //         position: map.getCenter(), 
+        //         map: map
+        //     });
+        // }
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(success);
@@ -121,6 +155,6 @@
 </body>
 <br>
 <footer align="center">
-    Pinndit Copyright 2014
+    Pinnd.It &copy; Copyright 2014
 </footer>
 </html>
