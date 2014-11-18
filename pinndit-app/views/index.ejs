@@ -101,9 +101,11 @@
     	
         console.log(location.toString());
 
+        var pinnImage = '/images/PinndItPin.png';
         var pinn = new google.maps.Marker({
             position: location, 
-            map: map
+            map: map,
+            icon: pinnImage
         });
  		        	
         map.panTo(location);
