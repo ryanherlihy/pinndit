@@ -1,3 +1,15 @@
+**Project 4**
+--
+Your submission was great. It was very detailed and it looks like you guys are on the right track. Keep up the good work on that end.
+
+Some sidenotes:
+
+**Trello:** Your trello activity has been lacking lately.
+
+**Meeting Notes:** Your meeting notes are pretty good. Everyone's tasks are clear.
+
+**Github Activity:** The Github activity has been lacking lately it seems as well. I recommend working on the app and updating Github as often as you can. Be sure that everyone is committing so it's easier to see who is contributing for when it comes time to determining final grades. 
+
 **Project 3**
 --
 I think you all did a pretty good job on this. While I was hoping for possibly a little more detail in the screen-by-screen section, the graphics for each screen were great. 
