@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 // Records all the posts made to the server.
-var posts = [];
+var comments = [];
 var pinnData = [];
 
 // Represents a post:
-function Post(text) {
+function Comment(text) {
   this.text = text;
   this.date = new Date();
 }
@@ -22,7 +22,7 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Pinndit' });
 });
 
-router.post('/post2', function (req, res) {
+router.post('/postpinn', function (req, res) {
 	var eventname = req.body.name;
 	var descname = req.body.desc;
 	var k = req.body.k;
@@ -32,16 +32,16 @@ router.post('/post2', function (req, res) {
 	res.json({ status: 'OK'});
 });
 
-router.post('/post', function (req, res) {
+router.post('/postcomment', function (req, res) {
   var text = req.body.text;
   console.log('received post: ' + text);
-  posts.push(new Post(text));
+  comments.push(new Comment(text));
   res.json({ status: 'OK'});
 });
 
 router.post('/check', function (req, res) {
   var last = parseInt(req.body.last, 10);
-  var rest = posts.slice(last, posts.length);
+  var rest = comments.slice(last, comments.length);
   res.json(rest);
 });
 

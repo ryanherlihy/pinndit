@@ -31,7 +31,7 @@ PinnClient.prototype = {
   post : function (name, desc, k, B) {
     $.ajax({
       type : 'POST',
-      url  : '/post2',
+      url  : '/postpinn',
       data : { 'name' : name, 'desc' : desc, 'k' : k, 'B' : B},
       dataType : 'json'
     }).done(function (data) {
@@ -66,17 +66,15 @@ PinnClient.prototype = {
   //} 
 };
 
-// A ChatClient object for communicating
-// with the chat server.
-function ChatClient(config) {
+function CommentClient(config) {
   for (var prop in config) {
     this[prop] = config[prop];
   }
 }
 
-ChatClient.prototype = {
+CommentClient.prototype = {
   // An cache of posts received from server.
-  posts : [],
+  comments : [],
 
   // Request info from server
   poll : function () {
@@ -93,7 +91,7 @@ ChatClient.prototype = {
   post : function (text) {
     $.ajax({
       type : 'POST',
-      url  : '/post',
+      url  : '/postcomment',
       data : { 'text' : text},
       dataType : 'json'
     }).done(function (data) {
@@ -109,19 +107,19 @@ ChatClient.prototype = {
     $.ajax({
       type : 'POST',
       url  : '/check',
-      data : { last : that.posts.length },
+      data : { last : that.comments.length },
       dataType : 'json'
     }).done(function (data) {
       console.log('Check rcvd: ' + JSON.stringify(data));
 
       // Append the posts to the current posts:
-      that.posts = that.posts.concat(data);
+      that.comments = that.comments.concat(data);
 
       // Rewrite to the view:
       that.view.empty();
-      for (var i = 0; i < that.posts.length; i++) {
+      for (var i = 0; i < that.comments.length; i++) {
         var li   = $('<li>');
-        li.html(that.posts[i].text);
+        li.html(that.comments[i].text);
         that.view.append(li);
       }
     });
@@ -252,9 +250,9 @@ function addNewPinn(location) {
     infowindow.open(map, pinn);
 
     google.maps.event.addListener(infowindow, 'domready', function() {
-        var chatc = new ChatClient({ view : $('ul#chat') });
-        // Setup the post button:
-        chatc.poll();
+        var commentc = new CommentClient({ view : $('ul#chat') });
+
+        commentc.poll();
         var createComment = new PostButton({
             view   : $('#send'),
             input  : $('#submit')
@@ -286,7 +284,7 @@ function addNewPinn(location) {
         createComment.bind('click', function (event) {
         console.log(this);
         var text = this.input.val();
-        chatc.post(text);
+        commentc.post(text);
         $('#chat').append('<li>' + text + '</li>');
         // clear input text:
         this.input.val('');
