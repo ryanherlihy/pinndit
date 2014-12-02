@@ -1,3 +1,4 @@
+//var fs = require('./pinndit-app/node_modules/fs');
 var overlay;
 var map;
 var PinndItPin = {
@@ -97,15 +98,14 @@ function addNewPinn(location) {
     map.panTo(location);
     map.setZoom(15);
 
-
     var infowindow = new google.maps.InfoWindow({
-        content: '<div><p>New Pinn Information</p>' + 
-                'Event Name: <input type="text" name="eventname"> <br>' + 
-                'Event Description:  <input type="text" name="eventdescription"> <br>' + 
-                '<button>Create Event</button>' + 
-                '</form></div>',
-        
-        maxWidth: 500
+        // content: '<div><p>New Pinn Information</p>' + 
+        //         'Event Name: <input type="text" name="eventname"> <br>' + 
+        //         'Event Description:  <input type="text" name="eventdescription"> <br>' + 
+        //         '<button>Create Event</button>' + 
+        //         '</form></div>',
+        content: '<iframe src="file:///team-pinndit/pinndit-app/views/newpinn.html"></iframe>',
+        maxWidth: 1000
     });
     
     infowindow.open(map, pinn);
