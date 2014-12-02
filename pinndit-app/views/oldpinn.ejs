@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>New Pinn</title>
+    <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+    <h1><%= title %></h1>
+
+    <div><%= message %></div><br>
 
     <p>Pinn Information</p>
 
-    Event Name: <input id="event-name" type="text" name="event-name"> <br>
-    Event Description:  <input id="event-description" type="text" name="event-description"> <br>
-    <button name="create-event" id= "create-event" class="create-event">Create Event</button>
+    Event Name: <input type="text" name="event-name" readonly> <br>
+    Event Description:  <input type="text" name="event-description" readonly> <br>
     <br>
 
     Comment: <input id= "submit" type="text" size="15">
