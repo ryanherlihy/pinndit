@@ -174,16 +174,6 @@ function addNewPinn(location) {
     map.panTo(location);
     map.setZoom(15);
 
-    var contentObject = $('<div><p>New Pinn Information</p>' + 
-                        'Event Name: <input type="text" name="eventname"> <br>' + 
-                        'Event Description:  <input type="text" name="eventdescription"> <br>' + 
-                        '<button>Create Event</button>' + 
-                        '</form><br></div>' +
-                        '<div><input id= "submit" type="text" size="50">' +
-                        '<button name= "send" id= "send" class="send" onclick="pinndit:onSend()">Submit</button>' +
-                        '<ul style="list-style: none" id="chat">' +
-                        '</ul></div>');
-
     var contentString = '<div><p>New Pinn Information</p>' + 
                         'Event Name: <input type="text" name="eventname"> <br>' + 
                         'Event Description:  <input type="text" name="eventdescription"> <br>' + 
@@ -202,26 +192,26 @@ function addNewPinn(location) {
     
     infowindow.open(map, pinn);
 
-    setTimeout(function(){
-    console.log("enteredTimeout\n");
-    var chatc = new ChatClient({ view : $('ul#chat') });
-  // Setup the post button:
-    var postb = new PostButton({
-        view  : $('#send'),
-        input : $('#submit')
-    });
+    google.maps.event.addListener(infowindow, 'domready', function() {
+        console.log("enteredTimeout\n");
+        var chatc = new ChatClient({ view : $('ul#chat') });
+        // Setup the post button:
+        var postb = new PostButton({
+           view  : $('#send'),
+            input : $('#submit')
+        });
 
-  // Bind a click event:
-    postb.bind('click', function (event) {
-    console.log(this);
-    var text = this.input.val();
-    chatc.post(text);
-    $('#chat').append('<li>' + text + '</li>');
-    // clear input text:
-    this.input.val('');
-    return false;
+        // Bind a click event:
+        postb.bind('click', function (event) {
+        console.log(this);
+        var text = this.input.val();
+        chatc.post(text);
+        $('#chat').append('<li>' + text + '</li>');
+        // clear input text:
+        this.input.val('');
+        return false;
+        });
     });
-    },5000);
 
     google.maps.event.addListener(infowindow, 'closeclick', function() {
         pinn.setMap(null);
