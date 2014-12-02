@@ -199,26 +199,6 @@ function addNewPinn(location) {
         
         maxWidth: 500
     });
-
-    // infowindow.find("send").on('click', function() {
-    //     console.log("Send Button Works!\n");
-    // });
-
-    // var sendBtn   = contentObject.find('button.send')[0];
-    // google.maps.event.addDomListener(sendBtn, "click", function(event) {
-    //     pinn.setMap(null);
-    //     console.log("Send Button Works!\n");
-    // });
-    // function addComment(){
-    //     console.log("Test!\n");
-    // }
-    // google.maps.event.addListener(infowindow, 'domready', function() {
-    //     console.log("Inside New Listener!");
-    //     var chatc = new ChatClient({ view : document.id("chat") });
-    //     $(window).load(function(){
-    //     console.log('polling');
-    //     chatc.poll();
-    //     });
     
     infowindow.open(map, pinn);
 
