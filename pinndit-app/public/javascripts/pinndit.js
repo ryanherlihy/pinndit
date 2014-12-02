@@ -233,7 +233,7 @@ function addNewPinn(location) {
     map.panTo(location);
     map.setZoom(15);
 
-    var contentString = '<div><p>New Pinn Information</p>' + 
+    var contentString = '<div><p>Pinn Information</p>' + 
                         'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' + 
                         'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' + 
                         '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' + 
@@ -255,7 +255,7 @@ function addNewPinn(location) {
         var chatc = new ChatClient({ view : $('ul#chat') });
         // Setup the post button:
         chatc.poll();
-        var postb = new PostButton({
+        var createComment = new PostButton({
             view   : $('#send'),
             input  : $('#submit')
         });
@@ -265,30 +265,25 @@ function addNewPinn(location) {
             view2 : $('#event-description')
 
         });
-        var postb2 = new PostButton({
+        var createEvent = new PostButton({
             view    : $('#create-event'),
             input   : $('#event-name'),
             input2  : $('#event-description')
         });
 
-        postb2.bind('click', function (event) {
+        createEvent.bind('click', function (event) {
             console.log(this);
             var text = this.input.val();
             $('#event-name').prop('readonly', true);
             var text2 = this.input2.val();
             $('#event-description').prop('readonly', true);
             $('#create-event').remove();
-            console.log(location.k);
-            console.log(location.B);
-            console.log(text);
-            console.log(text2);
-
             pinnc.post(text, text2, location.k, location.B);
             return false;
         });
 
         // Bind a click event:
-        postb.bind('click', function (event) {
+        createComment.bind('click', function (event) {
         console.log(this);
         var text = this.input.val();
         chatc.post(text);
@@ -300,7 +295,12 @@ function addNewPinn(location) {
     });
 
     google.maps.event.addListener(infowindow, 'closeclick', function() {
-        pinn.setMap(null);
+        if($('#event-name').attr('readonly') == 'readonly'){
+            infowindow.close();
+        }
+        else{
+            pinn.setMap(null);
+        }
     });
 }
 
