@@ -272,11 +272,12 @@ function addNewPinn(location) {
         createEvent.bind('click', function (event) {
             console.log(this);
             var text = this.input.val();
-            $('#event-name').prop('readonly', true);
+            //$('#event-name').prop('readonly', true);
             var text2 = this.input2.val();
-            $('#event-description').prop('readonly', true);
-            $('#create-event').remove();
+            //$('#event-description').prop('readonly', true);
+            //$('#create-event').remove();
             pinnc.post(text, text2, location.k, location.B);
+            infowindow.close();
             return false;
         });
 
