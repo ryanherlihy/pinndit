@@ -294,6 +294,10 @@ function addNewPinn(location) {
         });
     });
 
+    google.maps.event.addListener(pinn, 'click', function() {
+        infowindow.open(map, pinn);
+    });
+
     google.maps.event.addListener(infowindow, 'closeclick', function() {
         if($('#event-name').attr('readonly') == 'readonly'){
             infowindow.close();
