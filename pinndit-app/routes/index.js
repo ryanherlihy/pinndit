@@ -38,7 +38,7 @@ function isTimePostedPast_Seconds(seconds){
     var p = pinnData[i];
     if((currentTime - seconds) > p.timePosted){
       pinnData.splice(i, 1);
-	}
+	  }
   }
 }
 
@@ -50,9 +50,25 @@ router.post('/postpinn', function (req, res) {
 	var timePosted = req.body.posted;
 	console.log('recieved post: ' + '(Name: ' + eventname + ') ' + '(Desc: ' + descname + ') ' + '(k: ' + k + ') ' + '(B: ' + B + ')' + '(timePosted: ' + timePosted + ')');
 	pinnData.push(new Pinn(eventname, descname, k, B, timePosted));
-	isTimePostedPast_Seconds(30);
+	isTimePostedPast_Seconds(3000);
 	console.log('Active Number of Pinns: ' + pinnData.length);
 	res.json({ status: 'OK'});
+});
+
+router.post('/removepinn', function (req, res) {
+  var k = req.body.k;
+  var B = req.body.B;
+  console.log('removed post: ' + '(k: ' + k + ') ' + '(B: ' + B + ')');
+  for(var i = pinnData.length - 1; i >= 0; i--){
+    var p = pinnData[i];
+    if(p.k === k){
+      pinnData.splice(i, 1);
+      console.log('removed post: ' + pinnData[i]);
+    }
+  }
+  //isTimePostedPast_Seconds(30);
+  //console.log('Active Number of Pinns: ' + pinnData.length);
+  res.json({ status: 'OK'});
 });
 
 router.post('/postcomment', function (req, res) {

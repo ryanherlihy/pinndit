@@ -69,6 +69,20 @@ PinnClient.prototype = {
     });
   },
 
+  remove : function (k, B) {
+    $.ajax({
+      type : 'POST',
+      url  : '/removepinn',
+      data : { 'k' : k, 'B' : B},
+      dataType : 'json'
+    }).done(function (data) {
+      console.log('Post status: ' + data.status);
+      //that.pinnData = that.pinnData.concat(data);
+      console.log(pinnData);
+    });
+  },
+
+
   // Check for more messages on the server
   // given the last index we have for the
   // current posts.
