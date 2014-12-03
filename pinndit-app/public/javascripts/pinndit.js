@@ -82,8 +82,11 @@ PinnClient.prototype = {
             console.log('Check rcvd pinns: ' + JSON.stringify(data));
 
             // Append the posts to the current posts:
-            //that.pinnData = that.pinnData.concat(data);
+            console.log("ENTERED PINN CHECK\n");
+            that.pinnData = that.pinnData.concat(data);
 
+            that.view.val(that.pinnData[0].eventname);
+            that.view2.val(that.pinnData[0].eventdesc);
             // Rewrite to the view:
             // that.view.empty();
             // for (var i = 0; i < that.posts.length; i++) {
@@ -267,7 +270,15 @@ function addNewPinn(location) {
             view   : $('#send'),
             input  : $('#submit')
         });
+        var eventName = $('#event-name');              //repeated lookups are slow
+        var eventDescription = $('#event-description');
 
+        var pinnc = new PinnClient({
+            view  : eventName,
+            view2 : eventDescription
+
+        });
+        pinnc.check();
         // Bind a click event:
         createComment.bind('click', function (event) {
             console.log(this);
