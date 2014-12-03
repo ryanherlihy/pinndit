@@ -6,7 +6,7 @@ var controlPinn;
 //inactivePinn is undraggable pinn in top right corner when in the middle of creating new events Ariel
 var inActivePinn;
 var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
-    '<div id = "iw"><p>Pinn Information</p>' +
+    '<div id = "iw"><p id="pinntitle">New Pinn Information</p>' +
     'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
     'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
     '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
@@ -259,8 +259,8 @@ function addNewPinn(location) {
 
     var infowindow = new InfoBox({
         content: pinnformString,
-        pixelOffset: new google.maps.Size(-305, -215),
-        closeBoxMargin: "20px 0px 0px 0px",
+        pixelOffset: new google.maps.Size(-380, -150),
+        closeBoxMargin: "0px 0px 155px 0px",
         maxWidth: 500
     });
 
