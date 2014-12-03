@@ -1,5 +1,26 @@
+//var fs = require('./pinndit-app/node_modules/fs');
 var overlay;
 var map;
+// made pinn icon and its div global Ariel
+var pinnDiv = document.createElement('div');
+var controlPinn;
+//inactivePinn is undraggable pinn in top right corner when in the middle of creating new events Ariel
+var inActivePinn;
+ var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
+        '<div id = "iw"><p>Pinn Information</p>' +
+        'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
+        'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
+        '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
+        '<br></div>' +
+        '<div>Comment: <input id= "submit" type="text" size="15">' +
+        '<button name="send" id= "send" class="send">Submit</button>' +
+        '<ul style="list-style: none" id="chat">' +
+        '</ul></div>';
+var pinnInfoString = '<h1> pinn info goes here Derek you fat fuck<h1>';
+
+
+
+//never used?
 var PinndItPin = {
     url: '/images/PinndItPin.png',
     size: new google.maps.Size(100, 100),
@@ -9,7 +30,9 @@ var PinndItPin = {
 
 function PinnClient(config){
     for (var prop in config) {
-    this[prop] = config[prop];
+        if(config.hasOwnProperty(prop)){
+            this[prop] = config[prop];
+        }
   }
 }
 
@@ -37,7 +60,7 @@ PinnClient.prototype = {
     }).done(function (data) {
       console.log('Post status: ' + data.status);
     });
-  },
+  }//,
 
   // Check for more messages on the server
   // given the last index we have for the
@@ -79,7 +102,9 @@ PinnClient.prototype = {
 
 function CommentClient(config) {
   for (var prop in config) {
-    this[prop] = config[prop];
+      if(config.hasOwnProperty(prop)){
+      this[prop] = config[prop];
+  }
   }
 }
 
@@ -139,7 +164,9 @@ CommentClient.prototype = {
 
 function PostButton(config) {
   for (var prop in config) {
-    this[prop] = config[prop];
+      if(config.hasOwnProperty(prop)){
+          this[prop] = config[prop];
+      }
   }
 }
 
@@ -152,11 +179,144 @@ PostButton.prototype = {
   }
 };
 
+function addNewPinn(location) {
+
+    console.log(location.toString());
+
+    var pinnImage = '/images/PinndItPin50x50.png';
+
+    var pinn = new google.maps.Marker({
+        position: location,
+        map: map,
+        icon: pinnImage,
+        created: 0 //NEW ATTRIBUTE should be 1 AFTER it's created
+    });
+
+    map.panTo(location);
+    map.setZoom(15);
+
+
+    var infowindow = new google.maps.InfoWindow({
+        content: pinnformString,
+
+        maxWidth: 500
+    });
+
+    var donepinnwindow = new google.maps.InfoWindow({
+        content: pinnInfoString,
+
+        maxWidth: 500
+      
+    });
+
+
+
+    infowindow.open(map, pinn);
+
+    google.maps.event.addListener(infowindow, 'domready', function() {
+
+       //creatingpinn toggles the visibility of the controlpinn and the inactive pinn Ariel Reches
+        $(controlPinn).trigger("creatingpinn");
+        $(inActivePinn).trigger("creatingpinn");
+        
+
+
+        var commentc = new CommentClient({ view : $('ul#chat') });
+
+        commentc.poll();
+        var createComment = new PostButton({
+            view   : $('#send'),
+            input  : $('#submit')
+        });
+
+        var pinnc = new PinnClient({
+            view  : $('#event-name'),
+            view2 : $('#event-description')
+
+        });
+        var createEvent = new PostButton({
+            view    : $('#create-event'),
+            input   : $('#event-name'),
+            input2  : $('#event-description')
+        });
+
+        createEvent.bind('click', function (event) {
+            console.log(this);
+            var text = this.input.val();
+            //$('#event-name').prop('readonly', true);
+            var text2 = this.input2.val();
+            //$('#event-description').prop('readonly', true);
+            //$('#create-event').remove();
+            pinnc.post(text, text2, location.k, location.B);
+            infowindow.close();
+            pinn.created = 1;
+            return false;
+        });
+
+        // Bind a click event:
+        createComment.bind('click', function (event) {
+            console.log(this);
+            var text = this.input.val();
+            commentc.post(text);
+            $('#chat').append('<li>' + text + '</li>');
+            // clear input text:
+            this.input.val('');
+            return false;
+        });
+    });
+
+    google.maps.event.addListener(pinn, 'click', function() {
+        if(this.created == 1)
+          donepinnwindow.open(map, pinn);
+    });
+
+    google.maps.event.addListener(pinn, 'dblclick', function(){
+        if(this.created == 1){
+          this.setMap(null);
+        
+        $(controlPinn).trigger("creatingpinn");
+        $(inActivePinn).trigger("creatingpinn");
+      }
+
+    });
+
+    google.maps.event.addListener(infowindow, 'closeclick', function() {
+       //creatingpinn toggles the visibility of the controlpinn and the inactive pinn
+       $(controlPinn).trigger("creatingpinn");
+       $(inActivePinn).trigger("creatingpinn");
+
+
+        if($('#event-name').attr('readonly') === 'readonly'){
+            infowindow.close();
+        }
+        else{
+            pinn.setMap(null);
+        }
+    });
+}
+
+// INACTIVE PINN IN TOP RIGHT CORNER WHEN CREATING NEW EVENT  Ariel Recges
+function AddInactivePinn(controlDiv, map){
+  inActivePinn = document.createElement('div');
+  controlDiv.style.padding = '15px';
+
+  inActivePinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'  style='opacity: .4' >";
+  inActivePinn.style.display = 'none';
+  controlDiv.appendChild(inActivePinn);
+  $(inActivePinn).on("creatingpinn", function(){
+      $(this).toggle();
+    });
+
+
+
+}
+
 function AddControlPinn(controlDiv, map) {
 
     controlDiv.style.padding = '15px';
+    
 
-    var controlPinn = document.createElement('div');
+    controlPinn = document.createElement('div');
 
     controlPinn.style.cursor = 'pointer';
     controlPinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'>";
@@ -172,6 +332,11 @@ function AddControlPinn(controlDiv, map) {
 			addNewPinn(ll);
 		}
 		});
+
+    $(controlPinn).on("creatingpinn", function(){
+      $(this).toggle();
+
+    });
 }
 
 function success(position) { 
@@ -197,9 +362,12 @@ function success(position) {
     overlay.setMap(map);
        
        
-    var pinnDiv = document.createElement('div');
-        
-    var addPinn = new AddControlPinn(pinnDiv, map);
+
+    //unused?
+     AddControlPinn(pinnDiv, map);
+     AddInactivePinn(pinnDiv, map);
+
+
     //addNewPinn(coords);
 
     pinnDiv.index = 1;
@@ -225,96 +393,6 @@ function success(position) {
             infowindow.open(map,marker);
         });
         */      
-}
-
-function addNewPinn(location) {
-
-    console.log(location.toString());
-
-    var pinnImage = '/images/PinndItPin50x50.png';
-
-    var pinn = new google.maps.Marker({
-        position: location, 
-        map: map,
-        icon: pinnImage
-    });
-		        	
-    map.panTo(location);
-    map.setZoom(15);
-
-    var contentString = '<div><p>Pinn Information</p>' + 
-                        'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' + 
-                        'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' + 
-                        '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' + 
-                        '<br></div>' +
-                        '<div>Comment: <input id= "submit" type="text" size="15">' +
-                        '<button name="send" id= "send" class="send">Submit</button>' +
-                        '<ul style="list-style: none" id="chat">' +
-                        '</ul></div>';
-
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString,
-        
-        maxWidth: 500
-    });
-    
-    infowindow.open(map, pinn);
-
-    google.maps.event.addListener(infowindow, 'domready', function() {
-        var commentc = new CommentClient({ view : $('ul#chat') });
-
-        commentc.poll();
-        var createComment = new PostButton({
-            view   : $('#send'),
-            input  : $('#submit')
-        });
-
-        var pinnc = new PinnClient({    
-            view  : $('#event-name'),
-            view2 : $('#event-description')
-
-        });
-        var createEvent = new PostButton({
-            view    : $('#create-event'),
-            input   : $('#event-name'),
-            input2  : $('#event-description')
-        });
-
-        createEvent.bind('click', function (event) {
-            console.log(this);
-            var text = this.input.val();
-            $('#event-name').prop('readonly', true);
-            var text2 = this.input2.val();
-            $('#event-description').prop('readonly', true);
-            $('#create-event').remove();
-            pinnc.post(text, text2, location.k, location.B);
-            return false;
-        });
-
-        // Bind a click event:
-        createComment.bind('click', function (event) {
-        console.log(this);
-        var text = this.input.val();
-        commentc.post(text);
-        $('#chat').append('<li>' + text + '</li>');
-        // clear input text:
-        this.input.val('');
-        return false;
-        });
-    });
-
-    google.maps.event.addListener(pinn, 'click', function() {
-        infowindow.open(map, pinn);
-    });
-
-    google.maps.event.addListener(infowindow, 'closeclick', function() {
-        if($('#event-name').attr('readonly') == 'readonly'){
-            infowindow.close();
-        }
-        else{
-            pinn.setMap(null);
-        }
-    });
 }
 
 if (navigator.geolocation) {
