@@ -267,12 +267,13 @@ function addNewPinn(location) {
     });
 
     google.maps.event.addListener(pinn, 'click', function() {
-        if(this.created == 1)
-          donepinnwindow.open(map, pinn);
+        if(this.created === 1) {
+            donepinnwindow.open(map, pinn);
+        }
     });
 
     google.maps.event.addListener(pinn, 'dblclick', function(){
-        if(this.created == 1){
+        if(this.created === 1){
           this.setMap(null);
         
         $(controlPinn).trigger("creatingpinn");
