@@ -60,8 +60,6 @@ router.post('/postpinn', function (req, res) {
 	var timePosted = req.body.posted;
 	console.log('recieved post: ' + '(Name: ' + eventname + ') ' + '(Desc: ' + descname + ') ' + '(k: ' + k + ') ' + '(B: ' + B + ')' + '(timePosted: ' + timePosted + ')');
 	pinnData.push(new Pinn(eventname, descname, k, B, timePosted));
-	isTimePostedPast_Seconds(3000);
-	console.log('Active Number of Pinns: ' + pinnData.length);
 	res.json({ status: 'OK'});
 });
 
@@ -95,6 +93,8 @@ router.post('/checkcomments', function (req, res) {
 });
 
 router.post('/checkpinns', function (req, res) {
+  isTimePostedPast_Seconds(30);
+  console.log('Active Number of Pinns: ' + pinnData.length);
   var last = parseInt(req.body.last, 10);
   var rest = pinnData.slice(last, pinnData.length);
   res.json(rest);
