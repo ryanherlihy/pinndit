@@ -1,4 +1,3 @@
-
 var overlay;
 var map;
 // made pinn icon and its div global Ariel
@@ -7,14 +6,12 @@ var controlPinn;
 //inactivePinn is undraggable pinn in top right corner when in the middle of creating new events Ariel
 var inActivePinn;
 var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
-    '<div id = "iw"><p id="pinntitle"> New Pinn Information</p>' +
-    '<input id = "event-name" type="text" name="event-name"> <br>' +
-    '<input id="event-description" type="text" name="event-description"> <br>' +
+    '<div id = "iw"><p>Pinn Information</p>' +
+    'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
+    'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
     '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
     '<br></div>';
-
-var pinnInfoString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
-    '<div id ="iw-event"><p id="pinntitle">Pinn Information</p>' +
+var pinnInfoString = '<div><p>Pinn Information</p>' +
     'Event Name: <input id="event-name" type="text" name="event-name" readonly> <br>' +
     'Event Description:  <input id="event-description" type="text" name="event-description" readonly> <br>' +
     '</div>' +
@@ -22,6 +19,7 @@ var pinnInfoString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindo
     '<button name="send" id= "send" class="send">Submit</button>' +
     '<ul style="list-style: none" id="chat">' +
     '</ul></div>';
+var openPin = 'undefined';
 
 //never used?
 var PinndItPin = {
@@ -93,7 +91,6 @@ PinnClient.prototype = {
                 }
             }
             if(type === 'refresh'){
-                console.log("ENTERED REFRESH\n");
                 for(var i =0; i<that.pinnData.length;i++){
                     var LatLng = new google.maps.LatLng(that.pinnData[i].eventk, that.pinnData[i].eventB);
                     addOldPinn(LatLng);
@@ -116,11 +113,11 @@ CommentClient.prototype = {
     comments : [],
 
     // Post text to the server.
-    post : function (text) {
+    post : function (text, k, B) {
         $.ajax({
             type : 'POST',
             url  : '/postcomment',
-            data : { 'text' : text},
+            data : { 'text' : text, 'k' : k, 'B' : B},
             dataType : 'json'
         }).done(function (data) {
             console.log('Post status: ' + data.status);
@@ -130,7 +127,7 @@ CommentClient.prototype = {
     // Check for more messages on the server
     // given the last index we have for the
     // current posts.
-    check : function () {
+    check : function (pinn) {
         var that = this;
         $.ajax({
             type : 'POST',
@@ -147,13 +144,10 @@ CommentClient.prototype = {
             that.view.empty();
             var li   = $('<li>');//lookups are slow, pulled this out of the loop
             for (var i = 0; i < that.comments.length; i++) {
-
-                
                 if(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB){
                     li.html(that.comments[i].text);
                     that.view.append(li);
                 }
-
             }
         });
     }
@@ -196,14 +190,25 @@ function addOldPinn(location){
     google.maps.event.addListener(pinn, 'click', function() {
         if(this.created === 1) {
             donepinnwindow.open(map, pinn);
+            if(openPin !== 'undefined' && openPin !== this){
+                google.maps.event.trigger(openPin, 'rightclick'); 
+            }
+           openPin = pinn;
+           console.log("OPEN PINN:" + openPin.position.toString());
+          // console.log("POSITION OF OPENPIN" + openPinn.position.lat());  
         }
+    });
+
+    google.maps.event.addListener(pinn, 'rightclick', function(){
+       console.log("my event got trigged nig");
+        donepinnwindow.close();
     });
 
     google.maps.event.addListener(donepinnwindow, 'domready', function() {
         //pinnc.poll();
         var commentc = new CommentClient({ view : $('ul#chat') });
 
-        commentc.check();
+        commentc.check(pinn);
         var createComment = new PostButton({
             view   : $('#send'),
             input  : $('#submit')
@@ -221,7 +226,7 @@ function addOldPinn(location){
         createComment.bind('click', function (event) {
             console.log(this);
             var text = this.input.val();
-            commentc.post(text);
+            commentc.post(text, location.lat(), location.lng());
             $('#chat').append('<li>' + text + '</li>');
             // clear input text:
             this.input.val('');
@@ -231,14 +236,9 @@ function addOldPinn(location){
 
     google.maps.event.addListener(donepinnwindow, 'closeclick', function(){
         donepinnwindow.close();
+        openPin = 'undefined';
     });
 }
-
-// $(function() {
-//     $("#infobox").load("/views/newpinn.ejs");
-// });
-
-//var pinnformString = document.getElementById("infobox").innerHTML;
 
 function addNewPinn(location) {
 
@@ -259,9 +259,8 @@ function addNewPinn(location) {
 
     var infowindow = new InfoBox({
         content: pinnformString,
-        pixelOffset: new google.maps.Size(-380, -100),
-        closeBoxMargin: "10px 155px 0px 0px",
-        
+        pixelOffset: new google.maps.Size(-305, -215),
+        closeBoxMargin: "20px 0px 0px 0px",
         maxWidth: 500
     });
 
@@ -340,7 +339,7 @@ function addNewPinn(location) {
         //pinnc.poll();
         var commentc = new CommentClient({ view : $('ul#chat') });
 
-        commentc.check();
+        commentc.check(pinn);
         var createComment = new PostButton({
             view   : $('#send'),
             input  : $('#submit')
@@ -358,7 +357,7 @@ function addNewPinn(location) {
         createComment.bind('click', function (event) {
             console.log(this);
             var text = this.input.val();
-            commentc.post(text);
+            commentc.post(text, location.lat(), location.lng());
             $('#chat').append('<li>' + text + '</li>');
             // clear input text:
             this.input.val('');
@@ -476,7 +475,6 @@ function success(position) {
      content: '<div id="content"><p>Computer Science BBQ</p></div>',
      maxWidth: 500
      });
-
      google.maps.event.addListener(marker, 'click', function() {
      infowindow.open(map,marker);
      });
@@ -488,4 +486,3 @@ if (navigator.geolocation) {
 } else {
     error('Geo Location is not supported');
 }
-
