@@ -11,11 +11,7 @@ var inActivePinn;
         'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
         'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
         '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
-        '<br></div>' +
-        '<div>Comment: <input id= "submit" type="text" size="15">' +
-        '<button name="send" id= "send" class="send">Submit</button>' +
-        '<ul style="list-style: none" id="chat">' +
-        '</ul></div>';
+        '<br></div>';
 var pinnInfoString = '<div><p>Pinn Information</p>' + 
                         'Event Name: <input id="event-name" type="text" name="event-name" readonly> <br>' + 
                         'Event Description:  <input id="event-description" type="text" name="event-description" readonly> <br>' +  
@@ -45,17 +41,6 @@ function PinnClient(config){
 
 PinnClient.prototype = {
    pinnData : [],
-
-  // Request info from server
-  poll : function () {
-    var that = this;
-    this._stop = that.check();
-  },
-
-  // Stop requesting info
-  pollStop : function () {
-    clearInterval(this._stop);
-  },
 
   // Post text to the server.
   post : function (name, desc, k, B, posted) {
@@ -121,17 +106,6 @@ function CommentClient(config) {
 CommentClient.prototype = {
   // An cache of posts received from server.
   comments : [],
-
-  // Request info from server
-  poll : function () {
-    var that = this;
-    this._stop = that.check();
-  },
-
-  // Stop requesting info
-  pollStop : function () {
-    clearInterval(this._stop);
-  },
 
   // Post text to the server.
   post : function (text) {
@@ -241,16 +215,6 @@ function addNewPinn(location) {
         $(controlPinn).trigger("creatingpinn");
         $(inActivePinn).trigger("creatingpinn");
         
-
-
-        var commentc = new CommentClient({ view : $('ul#chat') });
-
-        commentc.poll();
-        var createComment = new PostButton({
-            view   : $('#send'),
-            input  : $('#submit')
-        });
-
         var pinnc = new PinnClient({
             view  : $('#event-name'),
             view2 : $('#event-description')
@@ -274,17 +238,6 @@ function addNewPinn(location) {
             pinn.created = 1;
             return false;
         });
-
-        // Bind a click event:
-        createComment.bind('click', function (event) {
-            console.log(this);
-            var text = this.input.val();
-            commentc.post(text);
-            $('#chat').append('<li>' + text + '</li>');
-            // clear input text:
-            this.input.val('');
-            return false;
-        });
     });
 
     google.maps.event.addListener(pinn, 'click', function() {
@@ -305,6 +258,24 @@ function addNewPinn(location) {
 
     google.maps.event.addListener(donepinnwindow, 'domready', function() {
         //pinnc.poll();
+        var commentc = new CommentClient({ view : $('ul#chat') });
+
+        commentc.check();
+        var createComment = new PostButton({
+            view   : $('#send'),
+            input  : $('#submit')
+        });
+
+        // Bind a click event:
+        createComment.bind('click', function (event) {
+            console.log(this);
+            var text = this.input.val();
+            commentc.post(text);
+            $('#chat').append('<li>' + text + '</li>');
+            // clear input text:
+            this.input.val('');
+            return false;
+        });
     });
 
     google.maps.event.addListener(donepinnwindow, 'closeclick', function(){
