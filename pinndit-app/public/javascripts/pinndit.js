@@ -22,12 +22,12 @@ var pinnInfoString = '<div><p>Pinn Information</p>' +
 var openPin = 'undefined';
 
 //never used?
-var PinndItPin = {
-    url: '/images/PinndItPin.png',
-    size: new google.maps.Size(100, 100),
-    origin: new google.maps.Point(0,0),
-    anchor: new google.maps.Point(0, 32)
-};
+//var PinndItPin = {
+//    url: '/images/PinndItPin.png',
+//    size: new google.maps.Size(100, 100),
+//    origin: new google.maps.Point(0,0),
+//    anchor: new google.maps.Point(0, 32)
+//};
 
 function PinnClient(config){
     for (var prop in config) {
@@ -91,8 +91,8 @@ PinnClient.prototype = {
                 }
             }
             if(type === 'refresh'){
-                for(var i =0; i<that.pinnData.length;i++){
-                    var LatLng = new google.maps.LatLng(that.pinnData[i].eventk, that.pinnData[i].eventB);
+                for(var j =0; i<that.pinnData.length;j++){
+                    var LatLng = new google.maps.LatLng(that.pinnData[j].eventk, that.pinnData[j].eventB);
                     addOldPinn(LatLng);
                 }
             }
@@ -107,68 +107,6 @@ function CommentClient(config) {
         }
     }
 }
-
-CommentClient.prototype = {
-    // An cache of posts received from server.
-    comments : [],
-
-    // Post text to the server.
-    post : function (text, k, B) {
-        $.ajax({
-            type : 'POST',
-            url  : '/postcomment',
-            data : { 'text' : text, 'k' : k, 'B' : B},
-            dataType : 'json'
-        }).done(function (data) {
-            console.log('Post status: ' + data.status);
-        });
-    },
-
-    // Check for more messages on the server
-    // given the last index we have for the
-    // current posts.
-    check : function (pinn) {
-        var that = this;
-        $.ajax({
-            type : 'POST',
-            url  : '/checkcomments',
-            data : { last : that.comments.length },
-            dataType : 'json'
-        }).done(function (data) {
-            console.log('Check rcvd comments: ' + JSON.stringify(data));
-
-            // Append the posts to the current posts:
-            that.comments = that.comments.concat(data);
-
-            // Rewrite to the view:
-            that.view.empty();
-            var li   = $('<li>');//lookups are slow, pulled this out of the loop
-            for (var i = 0; i < that.comments.length; i++) {
-                if(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB){
-                    li.html(that.comments[i].text);
-                    that.view.append(li);
-                }
-            }
-        });
-    }
-};
-
-function PostButton(config) {
-    for (var prop in config) {
-        if(config.hasOwnProperty(prop)){
-            this[prop] = config[prop];
-        }
-    }
-}
-
-PostButton.prototype = {
-    bind : function (type, cb) {
-        var that = this;
-        this.view.bind(type, function (event) {
-            cb.call(that, event);
-        });
-    }
-};
 
 function addOldPinn(location){
     console.log(location.toString());
@@ -239,6 +177,69 @@ function addOldPinn(location){
         openPin = 'undefined';
     });
 }
+
+CommentClient.prototype = {
+    // An cache of posts received from server.
+    comments : [],
+
+    // Post text to the server.
+    post : function (text, k, B) {
+        $.ajax({
+            type : 'POST',
+            url  : '/postcomment',
+            data : { 'text' : text, 'k' : k, 'B' : B},
+            dataType : 'json'
+        }).done(function (data) {
+            console.log('Post status: ' + data.status);
+        });
+    },
+
+    // Check for more messages on the server
+    // given the last index we have for the
+    // current posts.
+    check : function (pinn) {
+        var that = this;
+        $.ajax({
+            type : 'POST',
+            url  : '/checkcomments',
+            data : { last : that.comments.length },
+            dataType : 'json'
+        }).done(function (data) {
+            console.log('Check rcvd comments: ' + JSON.stringify(data));
+
+            // Append the posts to the current posts:
+            that.comments = that.comments.concat(data);
+
+            // Rewrite to the view:
+            that.view.empty();
+            var li   = $('<li>');//lookups are slow, pulled this out of the loop
+            for (var i = 0; i < that.comments.length; i++) {
+                if(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB){
+                    li.html(that.comments[i].text);
+                    that.view.append(li);
+                }
+            }
+        });
+    }
+};
+
+function PostButton(config) {
+    for (var prop in config) {
+        if(config.hasOwnProperty(prop)){
+            this[prop] = config[prop];
+        }
+    }
+}
+
+PostButton.prototype = {
+    bind : function (type, cb) {
+        var that = this;
+        this.view.bind(type, function (event) {
+            cb.call(that, event);
+        });
+    }
+};
+
 
 function addNewPinn(location) {
 
