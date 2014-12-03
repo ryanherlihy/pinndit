@@ -1,6 +1,23 @@
 //var fs = require('./pinndit-app/node_modules/fs');
 var overlay;
 var map;
+// made pinn icon and its div global Ariel
+var pinnDiv = document.createElement('div');
+var controlPinn;
+//inactivePinn is undraggable pinn in top right corner when in the middle of creating new events Ariel
+var inActivePinn;
+ var pinnformString = '<div><p>Pinn Information</p>' +
+        'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
+        'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
+        '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
+        '<br></div>' +
+        '<div>Comment: <input id= "submit" type="text" size="15">' +
+        '<button name="send" id= "send" class="send">Submit</button>' +
+        '<ul style="list-style: none" id="chat">' +
+        '</ul></div>';
+var pinnInfoString = '<h1> pinn info goes here Derek you fat fuck<h1>';
+
+
 
 //never used?
 var PinndItPin = {
@@ -159,32 +176,39 @@ function addNewPinn(location) {
     var pinn = new google.maps.Marker({
         position: location,
         map: map,
-        icon: pinnImage
+        icon: pinnImage,
+        created: 0 //NEW ATTRIBUTE should be 1 AFTER it's created
     });
 
     map.panTo(location);
     map.setZoom(15);
 
-    var contentString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css" />' +
-        '<div id = "iw"><p>Pinn Information</p>' +
-        'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
-        'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
-        '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
-        '<br></div>' +
-        '<div>Comment: <input id= "submit" type="text" size="15">' +
-        '<button name="send" id= "send" class="send">Submit</button>' +
-        '<ul style="list-style: none" id="chat">' +
-        '</ul></div>';
 
     var infowindow = new google.maps.InfoWindow({
-        content: contentString,
+        content: pinnformString,
 
         maxWidth: 500
     });
 
+    var donepinnwindow = new google.maps.InfoWindow({
+        content: pinnInfoString,
+
+        maxWidth: 500
+      
+    });
+
+
+
     infowindow.open(map, pinn);
 
     google.maps.event.addListener(infowindow, 'domready', function() {
+
+       //creatingpinn toggles the visibility of the controlpinn and the inactive pinn Ariel Reches
+        $(controlPinn).trigger("creatingpinn");
+        $(inActivePinn).trigger("creatingpinn");
+        
+
+
         var commentc = new CommentClient({ view : $('ul#chat') });
 
         commentc.poll();
@@ -213,6 +237,7 @@ function addNewPinn(location) {
             //$('#create-event').remove();
             pinnc.post(text, text2, location.k, location.B);
             infowindow.close();
+            pinn.created = 1;
             return false;
         });
 
@@ -229,10 +254,26 @@ function addNewPinn(location) {
     });
 
     google.maps.event.addListener(pinn, 'click', function() {
-        infowindow.open(map, pinn);
+        if(this.created == 1)
+          donepinnwindow.open(map, pinn);
+    });
+
+    google.maps.event.addListener(pinn, 'dblclick', function(){
+        if(this.created == 1){
+          this.setMap(null);
+        
+        $(controlPinn).trigger("creatingpinn");
+        $(inActivePinn).trigger("creatingpinn");
+      }
+
     });
 
     google.maps.event.addListener(infowindow, 'closeclick', function() {
+       //creatingpinn toggles the visibility of the controlpinn and the inactive pinn
+       $(controlPinn).trigger("creatingpinn");
+       $(inActivePinn).trigger("creatingpinn");
+
+
         if($('#event-name').attr('readonly') === 'readonly'){
             infowindow.close();
         }
@@ -242,11 +283,28 @@ function addNewPinn(location) {
     });
 }
 
+// INACTIVE PINN IN TOP RIGHT CORNER WHEN CREATING NEW EVENT  Ariel Recges
+function AddInactivePinn(controlDiv, map){
+  inActivePinn = document.createElement('div');
+  controlDiv.style.padding = '15px';
+
+  inActivePinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'  style='opacity: .4' >";
+  inActivePinn.style.display = 'none';
+  controlDiv.appendChild(inActivePinn);
+  $(inActivePinn).on("creatingpinn", function(){
+      $(this).toggle();
+    });
+
+
+
+}
+
 function AddControlPinn(controlDiv, map) {
 
     controlDiv.style.padding = '15px';
+    
 
-    var controlPinn = document.createElement('div');
+    controlPinn = document.createElement('div');
 
     controlPinn.style.cursor = 'pointer';
     controlPinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'>";
@@ -262,6 +320,11 @@ function AddControlPinn(controlDiv, map) {
 			addNewPinn(ll);
 		}
 		});
+
+    $(controlPinn).on("creatingpinn", function(){
+      $(this).toggle();
+
+    });
 }
 
 function success(position) { 
@@ -287,10 +350,11 @@ function success(position) {
     overlay.setMap(map);
        
        
-    var pinnDiv = document.createElement('div');
 
     //unused?
-    var addPinn = new AddControlPinn(pinnDiv, map);
+     AddControlPinn(pinnDiv, map);
+     AddInactivePinn(pinnDiv, map);
+
 
     //addNewPinn(coords);
 
@@ -319,41 +383,6 @@ function success(position) {
         */      
 }
 
-// <<<<<<< HEAD
-// function addNewPinn(location) {
-	
-//     console.log(location.toString());
-
-//     var pinnImage = '/images/PinndItPin50x50.png';
-
-//     var pinn = new google.maps.Marker({
-//         position: location, 
-//         map: map,
-//         icon: pinnImage
-//     });
-		        	
-//     map.panTo(location);
-//     map.setZoom(15);
-
-//     var infowindow = new google.maps.InfoWindow({
-//         // content: '<div><p>New Pinn Information</p>' + 
-//         //         'Event Name: <input type="text" name="eventname"> <br>' + 
-//         //         'Event Description:  <input type="text" name="eventdescription"> <br>' + 
-//         //         '<button>Create Event</button>' + 
-//         //         '</form></div>',
-//         content: '<iframe src="file:///team-pinndit/pinndit-app/views/newpinn.html"></iframe>',
-//         maxWidth: 1000
-//     });
-    
-//     infowindow.open(map, pinn);
-
-//     google.maps.event.addListener(infowindow, 'closeclick', function() {
-//         pinn.setMap(null);
-//     });
-// }
-
-// =======
-// >>>>>>> 757b6f49bf7c7797b6479da0549d5234831479c6
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success);
 } else {
