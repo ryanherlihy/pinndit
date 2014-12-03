@@ -1,10 +1,21 @@
 var overlay;
 var map;
-// made pinn icon and its div global
+// made pinn icon and its div global Ariel
 var pinnDiv = document.createElement('div');
 var controlPinn;
 //inactivePinn is undraggable pinn in top right corner when in the middle of creating new events Ariel
 var inActivePinn;
+ var pinnformString = '<div><p>Pinn Information</p>' +
+        'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
+        'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
+        '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
+        '<br></div>' +
+        '<div>Comment: <input id= "submit" type="text" size="15">' +
+        '<button name="send" id= "send" class="send">Submit</button>' +
+        '<ul style="list-style: none" id="chat">' +
+        '</ul></div>';
+var pinnInfoString = '<h1> this is a template<h1>';
+
 
 
 //never used?
@@ -170,21 +181,21 @@ function addNewPinn(location) {
     map.panTo(location);
     map.setZoom(15);
 
-    var contentString = '<div><p>Pinn Information</p>' +
-        'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
-        'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
-        '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
-        '<br></div>' +
-        '<div>Comment: <input id= "submit" type="text" size="15">' +
-        '<button name="send" id= "send" class="send">Submit</button>' +
-        '<ul style="list-style: none" id="chat">' +
-        '</ul></div>';
-
+   
     var infowindow = new google.maps.InfoWindow({
-        content: contentString,
+        content: pinnformString,
 
         maxWidth: 500
     });
+
+    var donepinnwindow = new google.maps.InfoWindow({
+        content: pinnInfoString,
+
+        maxWidth: 500
+      
+    });
+
+
 
     infowindow.open(map, pinn);
 
@@ -240,7 +251,7 @@ function addNewPinn(location) {
     });
 
     google.maps.event.addListener(pinn, 'click', function() {
-        infowindow.open(map, pinn);
+        donepinnwindow.open(map, pinn);
     });
 
     google.maps.event.addListener(infowindow, 'closeclick', function() {
