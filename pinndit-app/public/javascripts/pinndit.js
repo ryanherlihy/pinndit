@@ -1,5 +1,11 @@
 var overlay;
 var map;
+ made pinn icon and its div global
+var pinnDiv = document.createElement('div');
+var controlPinn;
+//inactivePinn is undraggable pinn in top right corner when in the middle of creating new events Ariel
+var inActivePinn;
+
 
 //never used?
 var PinndItPin = {
@@ -183,6 +189,13 @@ function addNewPinn(location) {
     infowindow.open(map, pinn);
 
     google.maps.event.addListener(infowindow, 'domready', function() {
+
+       //creatingpinn toggles the visibility of the controlpinn and the inactive pinn Ariel Reches
+        $(controlPinn).trigger("creatingpinn");
+        $(inActivePinn).trigger("creatingpinn");
+        
+
+
         var commentc = new CommentClient({ view : $('ul#chat') });
 
         commentc.poll();
@@ -231,6 +244,11 @@ function addNewPinn(location) {
     });
 
     google.maps.event.addListener(infowindow, 'closeclick', function() {
+       //creatingpinn toggles the visibility of the controlpinn and the inactive pinn
+       $(controlPinn).trigger("creatingpinn");
+       $(inActivePinn).trigger("creatingpinn");
+
+
         if($('#event-name').attr('readonly') === 'readonly'){
             infowindow.close();
         }
@@ -240,11 +258,28 @@ function addNewPinn(location) {
     });
 }
 
+// INACTIVE PINN IN TOP RIGHT CORNER WHEN CREATING NEW EVENT  Ariel Recges
+function AddInactivePinn(controlDiv, map){
+  inActivePinn = document.createElement('div');
+  controlDiv.style.padding = '15px';
+
+  inActivePinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'  style='opacity: .4' >";
+  inActivePinn.style.display = 'none';
+  controlDiv.appendChild(inActivePinn);
+  $(inActivePinn).on("creatingpinn", function(){
+      $(this).toggle();
+    });
+
+
+
+}
+
 function AddControlPinn(controlDiv, map) {
 
     controlDiv.style.padding = '15px';
+    
 
-    var controlPinn = document.createElement('div');
+    controlPinn = document.createElement('div');
 
     controlPinn.style.cursor = 'pointer';
     controlPinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'>";
@@ -260,6 +295,11 @@ function AddControlPinn(controlDiv, map) {
 			addNewPinn(ll);
 		}
 		});
+
+    $(controlPinn).on("creatingpinn", function(){
+      $(this).toggle();
+
+    });
 }
 
 function success(position) { 
@@ -285,10 +325,11 @@ function success(position) {
     overlay.setMap(map);
        
        
-    var pinnDiv = document.createElement('div');
 
     //unused?
-    var addPinn = new AddControlPinn(pinnDiv, map);
+     AddControlPinn(pinnDiv, map);
+     AddInactivePinn(pinnDiv, map);
+
 
     //addNewPinn(coords);
 
