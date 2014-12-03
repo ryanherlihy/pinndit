@@ -31,15 +31,14 @@ function remove(arr, item) {
       }
   }
 
-function isTimePostedPastThirtySeconds(){
+function isTimePostedPast_Seconds(seconds){
   var currentTime = parseInt(new Date() / 1000,10);
   for(var i = pinnData.length - 1; i >= 0; i--){
     var p = pinnData[i];
-    if((currentTime - 30) > p.timePosted){  //return true because it's past 30 seconds since the post
+    if((currentTime - seconds) > p.timePosted){
       pinnData.splice(i, 1);
 	}
   }
-  return true;
 }
 
 router.post('/postpinn', function (req, res) {
@@ -50,19 +49,13 @@ router.post('/postpinn', function (req, res) {
 	var timePosted = req.body.posted;
 	console.log('recieved post: ' + '(Name: ' + eventname + ') ' + '(Desc: ' + descname + ') ' + '(k: ' + k + ') ' + '(B: ' + B + ')' + '(timePosted: ' + timePosted + ')');
 	pinnData.push(new Pinn(eventname, descname, k, B, timePosted));
-	isTimePostedPastThirtySeconds();
-	console.log('Expired Pinns: ' + pinnData);
+	isTimePostedPast_Seconds(30);
+	console.log('Active Number of Pinns: ' + pinnData.length);
 	res.json({ status: 'OK'});
 });
 
 router.post('/postcomment', function (req, res) {
   var text = req.body.text;
-  var epoch  = new Date(1970, 1, 1);
-  var start = new Date();
-  var elapsed = start.getTime() - epoch.getTime();
-  var secondsSinceEpoch = parseInt(elapsed / 1000,10); //Seconds since epoch
-  var tenSecondsAfter = secondsSinceEpoch + 10
-
   console.log('received post: ' + text);
   comments.push(new Comment(text));
   res.json({ status: 'OK'});

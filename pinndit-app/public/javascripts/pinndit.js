@@ -89,17 +89,6 @@ PinnClient.prototype = {
   //} 
 };
 
-// exports.isTimePostedPastTenSeconds = function(timePosted){
-//   var len = pinnData.length;
-//   for (var i = 0; i < len; i++){
-//     var p = pinnData[i];
-//     if((timePosted - 10) > p.timePosted){
-//       return true; //return true because it's past 10 seconds since the post
-//     }
-//   }
-//   return false;
-// }
-
 function CommentClient(config) {
   for (var prop in config) {
       if(config.hasOwnProperty(prop)){
