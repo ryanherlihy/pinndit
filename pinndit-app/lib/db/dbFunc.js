@@ -1,3 +1,7 @@
+/*
+ Functions to access the database (see team-pinndit/database/setup to setup your db)
+ */
+
 var pg = require('pg');
 var conString = 'postgres://'+process.env.USER+':pass@localhost/pinndit';
 
@@ -85,6 +89,7 @@ function getComments(pinnID, callback){
     pg.end();
 }
 
+//given sessionId returns pinns dropped
 function getMyPinns(sessionID, callback){
     var pinnArr = [sessionID];
     var query = "SELECT * FROM Pinns P WHERE P.SessionID = $1 AND P.Active=1;";
@@ -99,6 +104,7 @@ function getMyPinns(sessionID, callback){
     pg.end();
 }
 
+//given area returns list of pinns
 function getVisiblePinns(minLat, maxLat, minLong, maxLong, callback){
     var pinnArr = [minLat, maxLat, minLong, maxLong]
     var query = "SELECT * FROM Pinns P WHERE P.Latitude > $1 AND P.Latitude < $2 AND P.Longitude > $3 AND P.Longitude < $4 AND P.Active = 1";
@@ -126,8 +132,9 @@ function upvotePinn(pinnID, callback){
     });
     pg.end();
 }
+
 function downvotePinn(pinnID, callback){
-    var pinnArr = [sessionID];
+    var pinnArr = [pinnID];
     var query = "UPDATE Pinns P SET Down = Down + 1 WHERE P.PinnID = $1 AND P.Active=1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
@@ -139,6 +146,7 @@ function downvotePinn(pinnID, callback){
     });
     pg.end();
 }
+
 function upvoteComment(commentID, callback){
     var commArr = [commentID];
     var query = "UPDATE Comments C SET Up = Up + 1 WHERE CommentID = $1";
@@ -152,6 +160,7 @@ function upvoteComment(commentID, callback){
     });
     pg.end();
 }
+
 function downvoteComment(commentID, callback){
     var commArr = [commentID];
     var query = "UPDATE Comments C SET Down = Down + 1 WHERE C.CommentID = $1";
@@ -166,6 +175,7 @@ function downvoteComment(commentID, callback){
     pg.end();
 }
 
+//use to edit event names and/or descriptions
 function editPinn(pinn, callback){
     var err = null;
     if(pinn.PinnID === null){err = "null PinnID"}
@@ -188,7 +198,6 @@ function editPinn(pinn, callback){
         pinnArr.push(pinn.Description);
     }
     query += "WHERE P.PinnID = $1 AND P.SessionID = $2 AND P.Active=1;";
-
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){

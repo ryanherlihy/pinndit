@@ -192,16 +192,16 @@ function addOldPinn(location){
         if(this.created === 1) {
             donepinnwindow.open(map, pinn);
             if(openPin !== 'undefined' && openPin !== this){
-                google.maps.event.trigger(openPin, 'rightclick'); 
+                google.maps.event.trigger(openPin, 'rightclick');
             }
-           openPin = pinn;
-           console.log("OPEN PINN:" + openPin.position.toString());
-          // console.log("POSITION OF OPENPIN" + openPinn.position.lat());  
+            openPin = pinn;
+            console.log("OPEN PINN:" + openPin.position.toString());
+            // console.log("POSITION OF OPENPIN" + openPinn.position.lat());
         }
     });
 
     google.maps.event.addListener(pinn, 'rightclick', function(){
-       console.log("my event got trigged nig");
+        console.log("my event got trigged nig");
         donepinnwindow.close();
     });
 
@@ -489,3 +489,21 @@ if (navigator.geolocation) {
     error('Geo Location is not supported');
 }
 
+function timeStamp() {
+    var now = new Date();
+
+// Create an array with the current month, day and time
+    var date = [ now.getMonth() + 1, now.getDate(), now.getFullYear() ];
+
+// Create an array with the current hour, minute and second
+    var time = [ now.getHours(), now.getMinutes(), now.getSeconds() ];
+
+// If seconds and minutes are less than 10, add a zero
+    for ( var i = 1; i < 3; i++ ) {
+        if ( time[i] < 10 ) {
+            time[i] = "0" + time[i];
+        }
+    }
+// Return the formatted string
+    return date.join("/") + " " + time.join(":");
+}
