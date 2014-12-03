@@ -1,6 +1,6 @@
 var overlay;
 var map;
- made pinn icon and its div global
+// made pinn icon and its div global
 var pinnDiv = document.createElement('div');
 var controlPinn;
 //inactivePinn is undraggable pinn in top right corner when in the middle of creating new events Ariel
