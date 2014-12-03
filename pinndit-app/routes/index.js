@@ -29,6 +29,7 @@ function remove(arr, item) {
               arr.splice(i, 1);
           }
       }
+		// setTimeout(function(){isTimePostedPast_Seconds(30);}, 3000);
   }
 
 function isTimePostedPast_Seconds(seconds){
