@@ -62,9 +62,16 @@ router.post('/postcomment', function (req, res) {
   res.json({ status: 'OK'});
 });
 
-router.post('/check', function (req, res) {
+router.post('/checkcomments', function (req, res) {
   var last = parseInt(req.body.last, 10);
   var rest = comments.slice(last, comments.length);
+  res.json(rest);
+});
+
+router.post('/checkpinns', function (req, res) {
+  console.log("ENTERED CHECKPINNS\n");
+  var last = parseInt(req.body.last, 10);
+  var rest = pinnData.slice(last, pinnData.length);
   res.json(rest);
 });
 
