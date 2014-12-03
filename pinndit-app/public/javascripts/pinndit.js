@@ -71,7 +71,7 @@ PinnClient.prototype = {
     // Check for more messages on the server
     // given the last index we have for the
     // current posts.
-    check : function () {
+    check : function (type, pinn) {
         var that = this;
         $.ajax({
             type : 'POST',
@@ -85,15 +85,17 @@ PinnClient.prototype = {
             console.log("ENTERED PINN CHECK\n");
             that.pinnData = that.pinnData.concat(data);
 
-            that.view.val(that.pinnData[0].eventname);
-            that.view2.val(that.pinnData[0].eventdesc);
-            // Rewrite to the view:
-            // that.view.empty();
-            // for (var i = 0; i < that.posts.length; i++) {
-            //   var li   = $('<li>');
-            //   li.html(that.posts[i].text);
-            //   that.view.append(li);
-            // }
+            if(type === 'done'){
+                for(var i =0; i<that.pinnData.length;i++){
+                    if(pinn.k === that.pinnData[i].k && pinn.B === that.pinnData[i].B){
+                        that.view.val(that.pinnData[i].eventname);
+                        that.view2.val(that.pinnData[i].eventdesc);
+                    }
+                }
+            }
+            if(type === 'refresh'){
+
+            }
         });
     }
 };
@@ -278,7 +280,7 @@ function addNewPinn(location) {
             view2 : eventDescription
 
         });
-        pinnc.check();
+        pinnc.check('done', pinn);
         // Bind a click event:
         createComment.bind('click', function (event) {
             console.log(this);
