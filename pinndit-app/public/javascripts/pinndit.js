@@ -146,8 +146,13 @@ CommentClient.prototype = {
             that.view.empty();
             var li   = $('<li>');//lookups are slow, pulled this out of the loop
             for (var i = 0; i < that.comments.length; i++) {
-                li.html(that.comments[i].text);
-                that.view.append(li);
+
+                
+                if(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB){
+                    li.html(that.comments[i].text);
+                    that.view.append(li);
+                }
+
             }
         });
     }
