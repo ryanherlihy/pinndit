@@ -60,7 +60,7 @@ PinnClient.prototype = {
             dataType : 'json'
         }).done(function (data) {
             console.log('Post status: ' + data.status);
-            //that.pinnData = that.pinnData.concat(data);
+            that.pinnData = that.pinnData.concat(data);
             console.log(pinnData);
         });
     },

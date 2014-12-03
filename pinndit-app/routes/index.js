@@ -23,15 +23,6 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Pinndit' });
 });
 
-function remove(arr, item) {
-  for(var i = arr.length; i--;) {
-          if(arr[i] === item) {
-              arr.splice(i, 1);
-          }
-      }
-		// setTimeout(function(){isTimePostedPast_Seconds(30);}, 3000);
-  }
-
 function isTimePostedPast_Seconds(seconds){
   var currentTime = parseInt(new Date() / 1000,10);
   for(var i = pinnData.length - 1; i >= 0; i--){
@@ -41,6 +32,23 @@ function isTimePostedPast_Seconds(seconds){
 	  }
   }
 }
+
+//Will work once up/down is implemented
+
+// function timeRemaining(initialTimeSeconds, updownScoreTimeSeconds){
+//   var currentTime = parseInt(new Date() / 1000,10);
+//   for(var i = pinnData.length - 1; i>= 0; i--){
+//     var p = pinnData[i];
+//     var score = p.ups - p.downs;
+//     if(score < -4){
+//       pinnData.splice(i, 1);
+//     }
+//     else if((currentTime - initialTimeSeconds) > (p.timePosted + score*updownScoreTimeSeconds)){
+//       pinnData.splice(i, 1);
+//     }
+//   }
+// }
+// timeRemaining(18000,1800) // 18000 = 5 hours, 1800 = 30 minutes
 
 router.post('/postpinn', function (req, res) {
 	var eventname = req.body.name;
@@ -66,8 +74,6 @@ router.post('/removepinn', function (req, res) {
       console.log('removed post: ' + pinnData[i]);
     }
   }
-  //isTimePostedPast_Seconds(30);
-  //console.log('Active Number of Pinns: ' + pinnData.length);
   res.json({ status: 'OK'});
 });
 
