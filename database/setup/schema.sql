@@ -1,4 +1,5 @@
 CREATE TABLE "Comments" (
+	"CommentID" integer PRIMARY KEY,
     "PinnID" integer NOT NULL,
     "Comment" text,
     "Up" integer DEFAULT 0 NOT NULL,
@@ -13,7 +14,7 @@ CREATE TABLE "Pinns" (
 	"Active" integer DEFAULT 1 NOT NULL,
     "Latitude" real NOT NULL,
     "Longitude" real NOT NULL,
-    "Event Name" text,
+    "EventName" text,
 	"Description" text,
     "SessionID" integer,
     "Up" integer DEFAULT 0 NOT NULL,
