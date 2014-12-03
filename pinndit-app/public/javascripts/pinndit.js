@@ -21,8 +21,6 @@ var pinnInfoString = '<div><p>Pinn Information</p>' +
     '<ul style="list-style: none" id="chat">' +
     '</ul></div>';
 
-
-
 //never used?
 var PinndItPin = {
     url: '/images/PinndItPin.png',
@@ -82,19 +80,22 @@ PinnClient.prototype = {
             console.log('Check rcvd pinns: ' + JSON.stringify(data));
 
             // Append the posts to the current posts:
-            console.log("ENTERED PINN CHECK\n");
             that.pinnData = that.pinnData.concat(data);
 
             if(type === 'done'){
                 for(var i =0; i<that.pinnData.length;i++){
-                    if(pinn.k === that.pinnData[i].k && pinn.B === that.pinnData[i].B){
+                    if(pinn.position.lat() == that.pinnData[i].eventk && pinn.position.lng() == that.pinnData[i].eventB){
                         that.view.val(that.pinnData[i].eventname);
                         that.view2.val(that.pinnData[i].eventdesc);
                     }
                 }
             }
             if(type === 'refresh'){
-
+                console.log("ENTERED REFRESH\n");
+                for(var i =0; i<that.pinnData.length;i++){
+                    var LatLng = new google.maps.LatLng(that.pinnData[i].eventk, that.pinnData[i].eventB);
+                    addOldPinn(LatLng);
+                }
             }
         });
     }
@@ -168,6 +169,64 @@ PostButton.prototype = {
     }
 };
 
+function addOldPinn(location){
+    console.log(location.toString());
+
+    var pinnImage = '/images/PinndItPin50x50.png';
+
+    var pinn = new google.maps.Marker({
+        position: location,
+        map: map,
+        icon: pinnImage,
+        created: 1 //NEW ATTRIBUTE should be 1 AFTER it's created
+    });
+
+    var donepinnwindow = new InfoBox({
+        content: pinnInfoString,
+        maxWidth: 500
+    });
+
+    google.maps.event.addListener(pinn, 'click', function() {
+        if(this.created === 1) {
+            donepinnwindow.open(map, pinn);
+        }
+    });
+
+    google.maps.event.addListener(donepinnwindow, 'domready', function() {
+        //pinnc.poll();
+        var commentc = new CommentClient({ view : $('ul#chat') });
+
+        commentc.check();
+        var createComment = new PostButton({
+            view   : $('#send'),
+            input  : $('#submit')
+        });
+        var eventName = $('#event-name');              //repeated lookups are slow
+        var eventDescription = $('#event-description');
+
+        var pinnc = new PinnClient({
+            view  : eventName,
+            view2 : eventDescription
+
+        });
+        pinnc.check('done', pinn);
+        // Bind a click event:
+        createComment.bind('click', function (event) {
+            console.log(this);
+            var text = this.input.val();
+            commentc.post(text);
+            $('#chat').append('<li>' + text + '</li>');
+            // clear input text:
+            this.input.val('');
+            return false;
+        });
+    });
+
+    google.maps.event.addListener(donepinnwindow, 'closeclick', function(){
+        donepinnwindow.close();
+    });
+}
+
 function addNewPinn(location) {
 
     console.log(location.toString());
@@ -240,7 +299,7 @@ function addNewPinn(location) {
             var text2 = this.input2.val();
             //$('#event-description').prop('readonly', true);
             //$('#create-event').remove();
-            pinnc.post(text, text2, location.k, location.B);
+            pinnc.post(text, text2, location.lat(), location.lng());
             infowindow.close();
             pinn.created = 1;
             return false;
@@ -375,8 +434,12 @@ function success(position) {
 
 
     //unused?
+
     AddControlPinn(pinnDiv, map);
     AddInactivePinn(pinnDiv, map);
+
+    var pinnc = new PinnClient({});
+    pinnc.check('refresh', null);
 
 
     //addNewPinn(coords);
