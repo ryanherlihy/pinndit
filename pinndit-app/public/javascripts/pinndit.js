@@ -8,10 +8,11 @@ var controlPinn;
 var inActivePinn;
 var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
     '<div id = "iw"><p>Pinn Information</p>' +
-    'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
-    'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
+    '<input id = "event-name" type="text" name="event-name"> <br>' +
+    '<input id="event-description" type="text" name="event-description"> <br>' +
     '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
     '<br></div>';
+
 var pinnInfoString = '<div><p>Pinn Information</p>' +
     'Event Name: <input id="event-name" type="text" name="event-name" readonly> <br>' +
     'Event Description:  <input id="event-description" type="text" name="event-description" readonly> <br>' +
@@ -91,6 +92,7 @@ PinnClient.prototype = {
                 }
             }
             if(type === 'refresh'){
+                console.log("ENTERED REFRESH\n");
                 for(var i =0; i<that.pinnData.length;i++){
                     var LatLng = new google.maps.LatLng(that.pinnData[i].eventk, that.pinnData[i].eventB);
                     addOldPinn(LatLng);
@@ -113,11 +115,11 @@ CommentClient.prototype = {
     comments : [],
 
     // Post text to the server.
-    post : function (text, k, B) {
+    post : function (text) {
         $.ajax({
             type : 'POST',
             url  : '/postcomment',
-            data : { 'text' : text, 'k' : k, 'B' : B},
+            data : { 'text' : text},
             dataType : 'json'
         }).done(function (data) {
             console.log('Post status: ' + data.status);
@@ -127,7 +129,7 @@ CommentClient.prototype = {
     // Check for more messages on the server
     // given the last index we have for the
     // current posts.
-    check : function (pinn) {
+    check : function () {
         var that = this;
         $.ajax({
             type : 'POST',
@@ -144,12 +146,8 @@ CommentClient.prototype = {
             that.view.empty();
             var li   = $('<li>');//lookups are slow, pulled this out of the loop
             for (var i = 0; i < that.comments.length; i++) {
-                console.log(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB);
-                if(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB){
-                    console.log("ENTERED COMMENT CHECK IF\n");
-                    li.html(that.comments[i].text);
-                    that.view.append(li);
-                }
+                li.html(that.comments[i].text);
+                that.view.append(li);
             }
         });
     }
@@ -199,7 +197,7 @@ function addOldPinn(location){
         //pinnc.poll();
         var commentc = new CommentClient({ view : $('ul#chat') });
 
-        commentc.check(pinn);
+        commentc.check();
         var createComment = new PostButton({
             view   : $('#send'),
             input  : $('#submit')
@@ -217,7 +215,7 @@ function addOldPinn(location){
         createComment.bind('click', function (event) {
             console.log(this);
             var text = this.input.val();
-            commentc.post(text, location.lat(), location.lng());
+            commentc.post(text);
             $('#chat').append('<li>' + text + '</li>');
             // clear input text:
             this.input.val('');
@@ -229,6 +227,12 @@ function addOldPinn(location){
         donepinnwindow.close();
     });
 }
+
+// $(function() {
+//     $("#infobox").load("/views/newpinn.ejs");
+// });
+
+//var pinnformString = document.getElementById("infobox").innerHTML;
 
 function addNewPinn(location) {
 
@@ -251,6 +255,7 @@ function addNewPinn(location) {
         content: pinnformString,
         pixelOffset: new google.maps.Size(-305, -215),
         closeBoxMargin: "20px 0px 0px 0px",
+        
         maxWidth: 500
     });
 
@@ -329,7 +334,7 @@ function addNewPinn(location) {
         //pinnc.poll();
         var commentc = new CommentClient({ view : $('ul#chat') });
 
-        commentc.check(pinn);
+        commentc.check();
         var createComment = new PostButton({
             view   : $('#send'),
             input  : $('#submit')
@@ -347,7 +352,7 @@ function addNewPinn(location) {
         createComment.bind('click', function (event) {
             console.log(this);
             var text = this.input.val();
-            commentc.post(text, location.lat(), location.lng());
+            commentc.post(text);
             $('#chat').append('<li>' + text + '</li>');
             // clear input text:
             this.input.val('');
