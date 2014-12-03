@@ -6,20 +6,20 @@ var pinnDiv = document.createElement('div');
 var controlPinn;
 //inactivePinn is undraggable pinn in top right corner when in the middle of creating new events Ariel
 var inActivePinn;
- var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
-        '<div id = "iw"><p>Pinn Information</p>' +
-        'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
-        'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
-        '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
-        '<br></div>';
-var pinnInfoString = '<div><p>Pinn Information</p>' + 
-                        'Event Name: <input id="event-name" type="text" name="event-name" readonly> <br>' + 
-                        'Event Description:  <input id="event-description" type="text" name="event-description" readonly> <br>' +  
-                        '</div>' +
-                        '<div>Comment: <input id= "submit" type="text" size="15">' +
-                        '<button name="send" id= "send" class="send">Submit</button>' +
-                        '<ul style="list-style: none" id="chat">' +
-                        '</ul></div>';
+var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
+    '<div id = "iw"><p>Pinn Information</p>' +
+    'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
+    'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
+    '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
+    '<br></div>';
+var pinnInfoString = '<div><p>Pinn Information</p>' +
+    'Event Name: <input id="event-name" type="text" name="event-name" readonly> <br>' +
+    'Event Description:  <input id="event-description" type="text" name="event-description" readonly> <br>' +
+    '</div>' +
+    '<div>Comment: <input id= "submit" type="text" size="15">' +
+    '<button name="send" id= "send" class="send">Submit</button>' +
+    '<ul style="list-style: none" id="chat">' +
+    '</ul></div>';
 
 
 
@@ -36,131 +36,131 @@ function PinnClient(config){
         if(config.hasOwnProperty(prop)){
             this[prop] = config[prop];
         }
-  }
+    }
 }
 
 PinnClient.prototype = {
-   pinnData : [],
+    pinnData : [],
 
-  // Post text to the server.
-  post : function (name, desc, k, B, posted) {
-    $.ajax({
-      type : 'POST',
-      url  : '/postpinn',
-      data : { 'name' : name, 'desc' : desc, 'k' : k, 'B' : B, 'posted' : parseInt(new Date() / 1000,10)},
-      dataType : 'json'
-    }).done(function (data) {
-      console.log('Post status: ' + data.status);
-    });
-  },
+    // Post text to the server.
+    post : function (name, desc, k, B, posted) {
+        $.ajax({
+            type : 'POST',
+            url  : '/postpinn',
+            data : { 'name' : name, 'desc' : desc, 'k' : k, 'B' : B, 'posted' : parseInt(new Date() / 1000,10)},
+            dataType : 'json'
+        }).done(function (data) {
+            console.log('Post status: ' + data.status);
+        });
+    },
 
-  remove : function (k, B) {
-    $.ajax({
-      type : 'POST',
-      url  : '/removepinn',
-      data : { 'k' : k, 'B' : B},
-      dataType : 'json'
-    }).done(function (data) {
-      console.log('Post status: ' + data.status);
-      //that.pinnData = that.pinnData.concat(data);
-      console.log(pinnData);
-    });
-  },
+    remove : function (k, B) {
+        $.ajax({
+            type : 'POST',
+            url  : '/removepinn',
+            data : { 'k' : k, 'B' : B},
+            dataType : 'json'
+        }).done(function (data) {
+            console.log('Post status: ' + data.status);
+            //that.pinnData = that.pinnData.concat(data);
+            console.log(pinnData);
+        });
+    },
 
 
-  // Check for more messages on the server
-  // given the last index we have for the
-  // current posts.
-  check : function () {
-    var that = this;    
-    $.ajax({
-      type : 'POST',
-      url  : '/checkpinns',
-      data : { last : that.pinnData.length },
-      dataType : 'json'
-    }).done(function (data) {
-      console.log('Check rcvd pinns: ' + JSON.stringify(data));
+    // Check for more messages on the server
+    // given the last index we have for the
+    // current posts.
+    check : function () {
+        var that = this;
+        $.ajax({
+            type : 'POST',
+            url  : '/checkpinns',
+            data : { last : that.pinnData.length },
+            dataType : 'json'
+        }).done(function (data) {
+            console.log('Check rcvd pinns: ' + JSON.stringify(data));
 
-      // Append the posts to the current posts:
-      //that.pinnData = that.pinnData.concat(data);
+            // Append the posts to the current posts:
+            //that.pinnData = that.pinnData.concat(data);
 
-      // Rewrite to the view:
-      // that.view.empty();
-      // for (var i = 0; i < that.posts.length; i++) {
-      //   var li   = $('<li>');
-      //   li.html(that.posts[i].text);
-      //   that.view.append(li);
-      // }
-    });
-  } 
+            // Rewrite to the view:
+            // that.view.empty();
+            // for (var i = 0; i < that.posts.length; i++) {
+            //   var li   = $('<li>');
+            //   li.html(that.posts[i].text);
+            //   that.view.append(li);
+            // }
+        });
+    }
 };
 
 function CommentClient(config) {
-  for (var prop in config) {
-      if(config.hasOwnProperty(prop)){
-      this[prop] = config[prop];
-  }
-  }
+    for (var prop in config) {
+        if(config.hasOwnProperty(prop)){
+            this[prop] = config[prop];
+        }
+    }
 }
 
 CommentClient.prototype = {
-  // An cache of posts received from server.
-  comments : [],
+    // An cache of posts received from server.
+    comments : [],
 
-  // Post text to the server.
-  post : function (text) {
-    $.ajax({
-      type : 'POST',
-      url  : '/postcomment',
-      data : { 'text' : text},
-      dataType : 'json'
-    }).done(function (data) {
-      console.log('Post status: ' + data.status);
-    });
-  },
+    // Post text to the server.
+    post : function (text) {
+        $.ajax({
+            type : 'POST',
+            url  : '/postcomment',
+            data : { 'text' : text},
+            dataType : 'json'
+        }).done(function (data) {
+            console.log('Post status: ' + data.status);
+        });
+    },
 
-  // Check for more messages on the server
-  // given the last index we have for the
-  // current posts.
-  check : function () {
-    var that = this;    
-    $.ajax({
-      type : 'POST',
-      url  : '/checkcomments',
-      data : { last : that.comments.length },
-      dataType : 'json'
-    }).done(function (data) {
-      console.log('Check rcvd comments: ' + JSON.stringify(data));
+    // Check for more messages on the server
+    // given the last index we have for the
+    // current posts.
+    check : function () {
+        var that = this;
+        $.ajax({
+            type : 'POST',
+            url  : '/checkcomments',
+            data : { last : that.comments.length },
+            dataType : 'json'
+        }).done(function (data) {
+            console.log('Check rcvd comments: ' + JSON.stringify(data));
 
-      // Append the posts to the current posts:
-      that.comments = that.comments.concat(data);
+            // Append the posts to the current posts:
+            that.comments = that.comments.concat(data);
 
-      // Rewrite to the view:
-      that.view.empty();
-      for (var i = 0; i < that.comments.length; i++) {
-        var li   = $('<li>');
-        li.html(that.comments[i].text);
-        that.view.append(li);
-      }
-    });
-  } 
+            // Rewrite to the view:
+            that.view.empty();
+            var li   = $('<li>');//lookups are slow, pulled this out of the loop
+            for (var i = 0; i < that.comments.length; i++) {
+                li.html(that.comments[i].text);
+                that.view.append(li);
+            }
+        });
+    }
 };
 
 function PostButton(config) {
-  for (var prop in config) {
-      if(config.hasOwnProperty(prop)){
-          this[prop] = config[prop];
-      }
-  }
+    for (var prop in config) {
+        if(config.hasOwnProperty(prop)){
+            this[prop] = config[prop];
+        }
+    }
 }
 
 PostButton.prototype = {
-  bind : function (type, cb) {
-    var that = this;
-    this.view.bind(type, function (event) {
-      cb.call(that, event);
-    });
-  }
+    bind : function (type, cb) {
+        var that = this;
+        this.view.bind(type, function (event) {
+            cb.call(that, event);
+        });
+    }
 };
 
 function addNewPinn(location) {
@@ -181,15 +181,15 @@ function addNewPinn(location) {
 
 
     var infowindow = new InfoBox({
-      content: pinnformString,
-      pixelOffset: new google.maps.Size(-315, -215),
-      closeBoxMargin: "20px 0px 0px 0px",
-      maxWidth: 500
+        content: pinnformString,
+        pixelOffset: new google.maps.Size(-315, -215),
+        closeBoxMargin: "20px 0px 0px 0px",
+        maxWidth: 500
     });
 
     var donepinnwindow = new InfoBox({
-      content: pinnInfoString,
-      maxWidth: 500
+        content: pinnInfoString,
+        maxWidth: 500
     });
 
     // var infowindow = new google.maps.InfoWindow({
@@ -202,7 +202,7 @@ function addNewPinn(location) {
     //     content: pinnInfoString,
 
     //     maxWidth: 500
-      
+
     // });
 
 
@@ -211,19 +211,21 @@ function addNewPinn(location) {
 
     google.maps.event.addListener(infowindow, 'domready', function() {
 
-       //creatingpinn toggles the visibility of the controlpinn and the inactive pinn Ariel Reches
+        //creatingpinn toggles the visibility of the controlpinn and the inactive pinn Ariel Reches
         $(controlPinn).trigger("creatingpinn");
         $(inActivePinn).trigger("creatingpinn");
-        
+
+        var eventName = $('#event-name');              //repeated lookups are slow
+        var eventDescription = $('#event-description');
         var pinnc = new PinnClient({
-            view  : $('#event-name'),
-            view2 : $('#event-description')
+            view  : eventName,
+            view2 : eventDescription
 
         });
         var createEvent = new PostButton({
             view    : $('#create-event'),
-            input   : $('#event-name'),
-            input2  : $('#event-description')
+            input   : eventName,
+            input2  : eventDescription
         });
 
         createEvent.bind('click', function (event) {
@@ -248,11 +250,11 @@ function addNewPinn(location) {
 
     google.maps.event.addListener(pinn, 'dblclick', function(){
         if(this.created === 1){
-          this.setMap(null);
-        
-        $(controlPinn).trigger("creatingpinn");
-        $(inActivePinn).trigger("creatingpinn");
-      }
+            this.setMap(null);
+
+            $(controlPinn).trigger("creatingpinn");
+            $(inActivePinn).trigger("creatingpinn");
+        }
 
     });
 
@@ -283,23 +285,23 @@ function addNewPinn(location) {
     });
 
     google.maps.event.addListener(infowindow, 'closeclick', function() {
-       //creatingpinn toggles the visibility of the controlpinn and the inactive pinn
-       $(controlPinn).trigger("creatingpinn");
-       $(inActivePinn).trigger("creatingpinn");
+        //creatingpinn toggles the visibility of the controlpinn and the inactive pinn
+        $(controlPinn).trigger("creatingpinn");
+        $(inActivePinn).trigger("creatingpinn");
         pinn.setMap(null);
     });
 }
 
 // INACTIVE PINN IN TOP RIGHT CORNER WHEN CREATING NEW EVENT  Ariel Recges
 function AddInactivePinn(controlDiv, map){
-  inActivePinn = document.createElement('div');
-  controlDiv.style.padding = '15px';
+    inActivePinn = document.createElement('div');
+    controlDiv.style.padding = '15px';
 
-  inActivePinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'  style='opacity: .4' >";
-  inActivePinn.style.display = 'none';
-  controlDiv.appendChild(inActivePinn);
-  $(inActivePinn).on("creatingpinn", function(){
-      $(this).toggle();
+    inActivePinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'  style='opacity: .4' >";
+    inActivePinn.style.display = 'none';
+    controlDiv.appendChild(inActivePinn);
+    $(inActivePinn).on("creatingpinn", function(){
+        $(this).toggle();
     });
 
 
@@ -309,32 +311,33 @@ function AddInactivePinn(controlDiv, map){
 function AddControlPinn(controlDiv, map) {
 
     controlDiv.style.padding = '15px';
-    
+
 
     controlPinn = document.createElement('div');
 
     controlPinn.style.cursor = 'pointer';
     controlPinn.innerHTML = "<img src='/images/PinndItPin.png' width='50' height='50'>";
     controlDiv.appendChild(controlPinn);
-    $(controlPinn).draggable({helper: 'clone',
+    var contPinn = $(controlPinn);      //repeated lookups are slow
+    contPinn.draggable({helper: 'clone',
         stop: function(e, ui) {
-        	var mOffset = $(map.getDiv()).offset();
-        	var point = new google.maps.Point(
-        		ui.offset.left-mOffset.left+(ui.helper.width()/2),
-        		ui.offset.top-mOffset.top+(ui.helper.height())
-			);
-			var ll = overlay.getProjection().fromContainerPixelToLatLng(point);
-			addNewPinn(ll);
-		}
-		});
+            var mOffset = $(map.getDiv()).offset();
+            var point = new google.maps.Point(
+                    ui.offset.left-mOffset.left+(ui.helper.width()/2),
+                    ui.offset.top-mOffset.top+(ui.helper.height())
+            );
+            var ll = overlay.getProjection().fromContainerPixelToLatLng(point);
+            addNewPinn(ll);
+        }
+    });
 
-    $(controlPinn).on("creatingpinn", function(){
-      $(this).toggle();
+    contPinn.on("creatingpinn", function(){
+        $(this).toggle();
 
     });
 }
 
-function success(position) { 
+function success(position) {
 
     var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -347,7 +350,7 @@ function success(position) {
         },
         streetViewControl: false,
         panControl: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP       
+        mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
     map = new google.maps.Map(document.getElementById("map-canvas"), options);
@@ -355,39 +358,39 @@ function success(position) {
     overlay.draw = function(){};
     overlay.onAdd = function(){};
     overlay.setMap(map);
-       
-       
+
+
 
     //unused?
-     AddControlPinn(pinnDiv, map);
-     AddInactivePinn(pinnDiv, map);
+    AddControlPinn(pinnDiv, map);
+    AddInactivePinn(pinnDiv, map);
 
 
     //addNewPinn(coords);
 
     pinnDiv.index = 1;
-       
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(pinnDiv);   
+
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(pinnDiv);
 
     /* var marker = new google.maps.Marker({
-            position: coords,
-            map: map,
-            //icon : PinndItPin,
-            draggable: true,
-            animation: google.maps.Animation.DROP,
-            title:"tittie sprinkles!" //<--agreed
-        });
-        */
-        /*
-        var infowindow = new google.maps.InfoWindow({
-            content: '<div id="content"><p>Computer Science BBQ</p></div>',
-            maxWidth: 500
-        });
-       
-        google.maps.event.addListener(marker, 'click', function() {
-            infowindow.open(map,marker);
-        });
-        */      
+     position: coords,
+     map: map,
+     //icon : PinndItPin,
+     draggable: true,
+     animation: google.maps.Animation.DROP,
+     title:"tittie sprinkles!" //<--agreed
+     });
+     */
+    /*
+     var infowindow = new google.maps.InfoWindow({
+     content: '<div id="content"><p>Computer Science BBQ</p></div>',
+     maxWidth: 500
+     });
+
+     google.maps.event.addListener(marker, 'click', function() {
+     infowindow.open(map,marker);
+     });
+     */
 }
 
 if (navigator.geolocation) {
