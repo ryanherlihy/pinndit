@@ -165,7 +165,8 @@ function addNewPinn(location) {
     map.panTo(location);
     map.setZoom(15);
 
-    var contentString = '<div><p>Pinn Information</p>' +
+    var contentString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css" />' +
+        '<div id = "iw"><p>Pinn Information</p>' +
         'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
         'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
         '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
@@ -318,41 +319,41 @@ function success(position) {
         */      
 }
 
-<<<<<<< HEAD
-function addNewPinn(location) {
+// <<<<<<< HEAD
+// function addNewPinn(location) {
 	
-    console.log(location.toString());
+//     console.log(location.toString());
 
-    var pinnImage = '/images/PinndItPin50x50.png';
+//     var pinnImage = '/images/PinndItPin50x50.png';
 
-    var pinn = new google.maps.Marker({
-        position: location, 
-        map: map,
-        icon: pinnImage
-    });
+//     var pinn = new google.maps.Marker({
+//         position: location, 
+//         map: map,
+//         icon: pinnImage
+//     });
 		        	
-    map.panTo(location);
-    map.setZoom(15);
+//     map.panTo(location);
+//     map.setZoom(15);
 
-    var infowindow = new google.maps.InfoWindow({
-        // content: '<div><p>New Pinn Information</p>' + 
-        //         'Event Name: <input type="text" name="eventname"> <br>' + 
-        //         'Event Description:  <input type="text" name="eventdescription"> <br>' + 
-        //         '<button>Create Event</button>' + 
-        //         '</form></div>',
-        content: '<iframe src="file:///team-pinndit/pinndit-app/views/newpinn.html"></iframe>',
-        maxWidth: 1000
-    });
+//     var infowindow = new google.maps.InfoWindow({
+//         // content: '<div><p>New Pinn Information</p>' + 
+//         //         'Event Name: <input type="text" name="eventname"> <br>' + 
+//         //         'Event Description:  <input type="text" name="eventdescription"> <br>' + 
+//         //         '<button>Create Event</button>' + 
+//         //         '</form></div>',
+//         content: '<iframe src="file:///team-pinndit/pinndit-app/views/newpinn.html"></iframe>',
+//         maxWidth: 1000
+//     });
     
-    infowindow.open(map, pinn);
+//     infowindow.open(map, pinn);
 
-    google.maps.event.addListener(infowindow, 'closeclick', function() {
-        pinn.setMap(null);
-    });
-}
+//     google.maps.event.addListener(infowindow, 'closeclick', function() {
+//         pinn.setMap(null);
+//     });
+// }
 
-=======
->>>>>>> 757b6f49bf7c7797b6479da0549d5234831479c6
+// =======
+// >>>>>>> 757b6f49bf7c7797b6479da0549d5234831479c6
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success);
 } else {
