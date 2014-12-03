@@ -14,7 +14,7 @@ var inActivePinn;
         '<button name="send" id= "send" class="send">Submit</button>' +
         '<ul style="list-style: none" id="chat">' +
         '</ul></div>';
-var pinnInfoString = '<h1> this is a template<h1>';
+var pinnInfoString = '<h1> pinn info goes here Derek you fat fuck<h1>';
 
 
 
@@ -175,7 +175,8 @@ function addNewPinn(location) {
     var pinn = new google.maps.Marker({
         position: location,
         map: map,
-        icon: pinnImage
+        icon: pinnImage,
+        created: 0 //NEW ATTRIBUTE should be 1 AFTER it's created
     });
 
     map.panTo(location);
@@ -235,6 +236,7 @@ function addNewPinn(location) {
             //$('#create-event').remove();
             pinnc.post(text, text2, location.k, location.B);
             infowindow.close();
+            pinn.created = 1;
             return false;
         });
 
@@ -251,7 +253,18 @@ function addNewPinn(location) {
     });
 
     google.maps.event.addListener(pinn, 'click', function() {
-        donepinnwindow.open(map, pinn);
+        if(this.created == 1)
+          donepinnwindow.open(map, pinn);
+    });
+
+    google.maps.event.addListener(pinn, 'dblclick', function(){
+        if(this.created == 1){
+          this.setMap(null);
+        
+        $(controlPinn).trigger("creatingpinn");
+        $(inActivePinn).trigger("creatingpinn");
+      }
+
     });
 
     google.maps.event.addListener(infowindow, 'closeclick', function() {
