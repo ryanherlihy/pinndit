@@ -1,4 +1,4 @@
-//var fs = require('./pinndit-app/node_modules/fs');
+
 var overlay;
 var map;
 // made pinn icon and its div global Ariel
@@ -185,18 +185,30 @@ function addNewPinn(location) {
     map.setZoom(15);
 
 
-    var infowindow = new google.maps.InfoWindow({
-        content: pinnformString,
-
-        maxWidth: 500
+    var infowindow = new InfoBox({
+      content: pinnformString,
+      pixelOffset: new google.maps.Size(-315, -215),
+      closeBoxMargin: "20px 0px 0px 0px",
+      maxWidth: 500
     });
 
-    var donepinnwindow = new google.maps.InfoWindow({
-        content: pinnInfoString,
+    var donepinnwindow = new InfoBox({
+      content: pinnInfoString,
+      maxWidth: 500
+    });
 
-        maxWidth: 500
+    // var infowindow = new google.maps.InfoWindow({
+    //     content: pinnformString,
+
+    //     maxWidth: 500
+    // });
+
+    // var donepinnwindow = new google.maps.InfoWindow({
+    //     content: pinnInfoString,
+
+    //     maxWidth: 500
       
-    });
+    // });
 
 
 
