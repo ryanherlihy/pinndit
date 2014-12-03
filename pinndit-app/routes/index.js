@@ -6,9 +6,11 @@ var comments = [];
 var pinnData = [];
 
 // Represents a post:
-function Comment(text) {
+function Comment(text, eventk, eventB) {
   this.text = text;
   this.date = new Date();
+  this.eventk = eventk;
+  this.eventB = eventB;
 }
 
 function Pinn(eventname, eventdesc, eventk, eventB, timePosted){
@@ -79,8 +81,10 @@ router.post('/removepinn', function (req, res) {
 
 router.post('/postcomment', function (req, res) {
   var text = req.body.text;
-  console.log('received post: ' + text);
-  comments.push(new Comment(text));
+  var k = req.body.k;
+  var B = req.body.B;
+  console.log('received post: ' + text + '(k: ' + k + ') ' + '(B: ' + B + ')');
+  comments.push(new Comment(text, k, B));
   res.json({ status: 'OK'});
 });
 
@@ -91,7 +95,6 @@ router.post('/checkcomments', function (req, res) {
 });
 
 router.post('/checkpinns', function (req, res) {
-  console.log("ENTERED CHECKPINNS\n");
   var last = parseInt(req.body.last, 10);
   var rest = pinnData.slice(last, pinnData.length);
   res.json(rest);

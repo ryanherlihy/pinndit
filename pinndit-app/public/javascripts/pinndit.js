@@ -91,7 +91,6 @@ PinnClient.prototype = {
                 }
             }
             if(type === 'refresh'){
-                console.log("ENTERED REFRESH\n");
                 for(var i =0; i<that.pinnData.length;i++){
                     var LatLng = new google.maps.LatLng(that.pinnData[i].eventk, that.pinnData[i].eventB);
                     addOldPinn(LatLng);
@@ -114,11 +113,11 @@ CommentClient.prototype = {
     comments : [],
 
     // Post text to the server.
-    post : function (text) {
+    post : function (text, k, B) {
         $.ajax({
             type : 'POST',
             url  : '/postcomment',
-            data : { 'text' : text},
+            data : { 'text' : text, 'k' : k, 'B' : B},
             dataType : 'json'
         }).done(function (data) {
             console.log('Post status: ' + data.status);
@@ -128,7 +127,7 @@ CommentClient.prototype = {
     // Check for more messages on the server
     // given the last index we have for the
     // current posts.
-    check : function () {
+    check : function (pinn) {
         var that = this;
         $.ajax({
             type : 'POST',
@@ -145,8 +144,12 @@ CommentClient.prototype = {
             that.view.empty();
             var li   = $('<li>');//lookups are slow, pulled this out of the loop
             for (var i = 0; i < that.comments.length; i++) {
-                li.html(that.comments[i].text);
-                that.view.append(li);
+                console.log(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB);
+                if(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB){
+                    console.log("ENTERED COMMENT CHECK IF\n");
+                    li.html(that.comments[i].text);
+                    that.view.append(li);
+                }
             }
         });
     }
@@ -196,7 +199,7 @@ function addOldPinn(location){
         //pinnc.poll();
         var commentc = new CommentClient({ view : $('ul#chat') });
 
-        commentc.check();
+        commentc.check(pinn);
         var createComment = new PostButton({
             view   : $('#send'),
             input  : $('#submit')
@@ -214,7 +217,7 @@ function addOldPinn(location){
         createComment.bind('click', function (event) {
             console.log(this);
             var text = this.input.val();
-            commentc.post(text);
+            commentc.post(text, location.lat(), location.lng());
             $('#chat').append('<li>' + text + '</li>');
             // clear input text:
             this.input.val('');
@@ -326,7 +329,7 @@ function addNewPinn(location) {
         //pinnc.poll();
         var commentc = new CommentClient({ view : $('ul#chat') });
 
-        commentc.check();
+        commentc.check(pinn);
         var createComment = new PostButton({
             view   : $('#send'),
             input  : $('#submit')
@@ -344,7 +347,7 @@ function addNewPinn(location) {
         createComment.bind('click', function (event) {
             console.log(this);
             var text = this.input.val();
-            commentc.post(text);
+            commentc.post(text, location.lat(), location.lng());
             $('#chat').append('<li>' + text + '</li>');
             // clear input text:
             this.input.val('');
