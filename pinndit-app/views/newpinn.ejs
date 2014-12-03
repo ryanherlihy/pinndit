@@ -2,23 +2,27 @@
 <html>
   <head>
     <title>New Pinn</title>
-    <link rel='stylesheet' href='/stylesheets/infoWindowStyle.css' />
+    <link rel='stylesheet' href='/public/stylesheets/infoWindowStyle.css' />
   </head>
   <body>
 
-    <p>Pinn Information</p>
+    <div id = "iw">
 
-    Event Name: <input id="event-name" type="text" name="event-name"> <br>
-    Event Description:  <input id="event-description" type="text" name="event-description"> <br>
-    <button name="create-event" id= "create-event" class="create-event">Create Event</button>
-    <br>
+      <p>Pinn Information</p>
 
-    Comment: <input id= "submit" type="text" size="15">
-    <button name="send" id= "send" class="send">Submit</button>
+      Event Name: <input id="event-name" type="text" name="event-name"> <br>
+      Event Description:  <input id="event-description" type="text" name="event-description"> <br>
+      <button name="create-event" id= "create-event" class="create-event">Create Event</button>
+      <br>
+
+      Comment: <input id= "submit" type="text" size="15">
+      <button name="send" id= "send" class="send">Submit</button>
 
 
-    <ul style="list-style: none" id="chat">
+      <ul style="list-style: none" id="chat">
       <!-- Fill in with the posts from server. -->
-    </ul>
+      </ul>
+    </div>
+
   </body>
 </html>
