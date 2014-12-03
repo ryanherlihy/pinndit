@@ -7,8 +7,8 @@ var controlPinn;
 var inActivePinn;
 var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
     '<div id = "iw"><p id="pinntitle">New Pinn Information</p>' +
-    'Event Name: <input id = "event-name" type="text" name="event-name"> <br>' +
-    'Event Description:  <input id="event-description" type="text" name="event-description"> <br>' +
+    '<input id = "event-name" type="text" name="event-name"> <br>' +
+    '<input id="event-description" type="text" name="event-description"> <br>' +
     '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
     '<br></div>';
 var pinnInfoString = '<div><p>Pinn Information</p>' +
