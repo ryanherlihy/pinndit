@@ -28,11 +28,11 @@ PinnClient.prototype = {
   },
 
   // Post text to the server.
-  post : function (name, desc, k, B) {
+  post : function (name, desc, k, B, posted) {
     $.ajax({
       type : 'POST',
       url  : '/postpinn',
-      data : { 'name' : name, 'desc' : desc, 'k' : k, 'B' : B},
+      data : { 'name' : name, 'desc' : desc, 'k' : k, 'B' : B, 'posted' : parseInt(new Date() / 1000,10)},
       dataType : 'json'
     }).done(function (data) {
       console.log('Post status: ' + data.status);
@@ -65,6 +65,17 @@ PinnClient.prototype = {
   //   });
   //} 
 };
+
+// exports.isTimePostedPastTenSeconds = function(timePosted){
+//   var len = pinnData.length;
+//   for (var i = 0; i < len; i++){
+//     var p = pinnData[i];
+//     if((timePosted - 10) > p.timePosted){
+//       return true; //return true because it's past 10 seconds since the post
+//     }
+//   }
+//   return false;
+// }
 
 function CommentClient(config) {
   for (var prop in config) {
