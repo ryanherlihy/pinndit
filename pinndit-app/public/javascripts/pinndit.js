@@ -146,7 +146,6 @@ CommentClient.prototype = {
             for (var i = 0; i < that.comments.length; i++) {
                 console.log(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB);
                 if(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB){
-                    console.log("ENTERED COMMENT CHECK IF\n");
                     li.html(that.comments[i].text);
                     that.view.append(li);
                 }
