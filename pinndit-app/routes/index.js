@@ -93,7 +93,7 @@ router.post('/checkcomments', function (req, res) {
 });
 
 router.post('/checkpinns', function (req, res) {
-  isTimePostedPast_Seconds(30);
+  isTimePostedPast_Seconds(600);
   console.log('Active Number of Pinns: ' + pinnData.length);
   var last = parseInt(req.body.last, 10);
   var rest = pinnData.slice(last, pinnData.length);

@@ -20,6 +20,7 @@ var pinnInfoString = '<div><p>Pinn Information</p>' +
     '<button name="send" id= "send" class="send">Submit</button>' +
     '<ul style="list-style: none" id="chat">' +
     '</ul></div>';
+var openPin = 'undefined';
 
 //never used?
 var PinndItPin = {
@@ -144,7 +145,6 @@ CommentClient.prototype = {
             that.view.empty();
             var li   = $('<li>');//lookups are slow, pulled this out of the loop
             for (var i = 0; i < that.comments.length; i++) {
-                console.log(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB);
                 if(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB){
                     li.html(that.comments[i].text);
                     that.view.append(li);
@@ -191,7 +191,18 @@ function addOldPinn(location){
     google.maps.event.addListener(pinn, 'click', function() {
         if(this.created === 1) {
             donepinnwindow.open(map, pinn);
+            if(openPin !== 'undefined' && openPin !== this){
+                google.maps.event.trigger(openPin, 'rightclick'); 
+            }
+           openPin = pinn;
+           console.log("OPEN PINN:" + openPin.position.toString());
+          // console.log("POSITION OF OPENPIN" + openPinn.position.lat());  
         }
+    });
+
+    google.maps.event.addListener(pinn, 'rightclick', function(){
+       console.log("my event got trigged nig");
+        donepinnwindow.close();
     });
 
     google.maps.event.addListener(donepinnwindow, 'domready', function() {
@@ -226,6 +237,7 @@ function addOldPinn(location){
 
     google.maps.event.addListener(donepinnwindow, 'closeclick', function(){
         donepinnwindow.close();
+        openPin = 'undefined';
     });
 }
 
