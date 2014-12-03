@@ -16,7 +16,14 @@ var inActivePinn;
         '<button name="send" id= "send" class="send">Submit</button>' +
         '<ul style="list-style: none" id="chat">' +
         '</ul></div>';
-var pinnInfoString = '<h1> pinn info goes here Derek you fat fuck<h1>';
+var pinnInfoString = '<div><p>Pinn Information</p>' + 
+                        'Event Name: <input id="event-name" type="text" name="event-name" readonly> <br>' + 
+                        'Event Description:  <input id="event-description" type="text" name="event-description" readonly> <br>' +  
+                        '</div>' +
+                        '<div>Comment: <input id= "submit" type="text" size="15">' +
+                        '<button name="send" id= "send" class="send">Submit</button>' +
+                        '<ul style="list-style: none" id="chat">' +
+                        '</ul></div>';
 
 
 
@@ -60,33 +67,33 @@ PinnClient.prototype = {
     }).done(function (data) {
       console.log('Post status: ' + data.status);
     });
-  }//,
+  },
 
   // Check for more messages on the server
   // given the last index we have for the
   // current posts.
-  // check : function () {
-  //   var that = this;    
-  //   $.ajax({
-  //     type : 'POST',
-  //     url  : '/check2',
-  //     data : { last : that.posts.length },
-  //     dataType : 'json'
-  //   }).done(function (data) {
-  //     console.log('Check rcvd: ' + JSON.stringify(data));
+  check : function () {
+    var that = this;    
+    $.ajax({
+      type : 'POST',
+      url  : '/checkpinns',
+      data : { last : that.pinnData.length },
+      dataType : 'json'
+    }).done(function (data) {
+      console.log('Check rcvd pinns: ' + JSON.stringify(data));
 
-  //     // Append the posts to the current posts:
-  //     that.posts = that.posts.concat(data);
+      // Append the posts to the current posts:
+      //that.pinnData = that.pinnData.concat(data);
 
-  //     // Rewrite to the view:
-  //     that.view.empty();
-  //     for (var i = 0; i < that.posts.length; i++) {
-  //       var li   = $('<li>');
-  //       li.html(that.posts[i].text);
-  //       that.view.append(li);
-  //     }
-  //   });
-  //} 
+      // Rewrite to the view:
+      // that.view.empty();
+      // for (var i = 0; i < that.posts.length; i++) {
+      //   var li   = $('<li>');
+      //   li.html(that.posts[i].text);
+      //   that.view.append(li);
+      // }
+    });
+  } 
 };
 
 function CommentClient(config) {
@@ -131,11 +138,11 @@ CommentClient.prototype = {
     var that = this;    
     $.ajax({
       type : 'POST',
-      url  : '/check',
+      url  : '/checkcomments',
       data : { last : that.comments.length },
       dataType : 'json'
     }).done(function (data) {
-      console.log('Check rcvd: ' + JSON.stringify(data));
+      console.log('Check rcvd comments: ' + JSON.stringify(data));
 
       // Append the posts to the current posts:
       that.comments = that.comments.concat(data);
@@ -281,18 +288,19 @@ function addNewPinn(location) {
 
     });
 
+    google.maps.event.addListener(donepinnwindow, 'domready', function() {
+        //pinnc.poll();
+    });
+
+    google.maps.event.addListener(donepinnwindow, 'closeclick', function(){
+        donepinnwindow.close();
+    });
+
     google.maps.event.addListener(infowindow, 'closeclick', function() {
        //creatingpinn toggles the visibility of the controlpinn and the inactive pinn
        $(controlPinn).trigger("creatingpinn");
        $(inActivePinn).trigger("creatingpinn");
-
-
-        if($('#event-name').attr('readonly') === 'readonly'){
-            infowindow.close();
-        }
-        else{
-            pinn.setMap(null);
-        }
+        pinn.setMap(null);
     });
 }
 
