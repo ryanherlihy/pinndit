@@ -13,7 +13,28 @@ function addPinn(pinn, callback){
 	
 	if(err){callback(error); return;}
 	
-	var pinnArr = [pinn.pinnID, pinn.Lattitude, pinn.Longitude, pinn.EventName, pinn.SessionID, pinn.Time]
+	var pinnArr = [pinn.pinnID, pinn.Lattitude, pinn.Longitude, pinn.EventName, pinn.SessionID, pinn.Time];
+	
+	var query = "INSERT into Pinns values ($1, 1, $2, $3, $4, ";
+	if(pinn.Description){query+= "$7, $5, 0, 0, $6);"; pinnArr.push(pinn.Description);}
+	else{query+="NULL, $5, 0, 0, $6);";}
+	
+	console.log(query);
+	pg.connect(conString,function(err, client, done){
+		if(err){
+			console.log(err);
+			callback(err, error);
+			return console.error('err',err);
+		}
+		client.query(query, pinnArr, function(err, results){
+			done();
+			if(err){
+				callback(error);
+				return;
+			}
+		});
+	});
+	pg.end();
 }
 
 function getComments(pinnID, callback){
