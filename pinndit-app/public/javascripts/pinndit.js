@@ -15,9 +15,9 @@ var pinnInfoString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindo
     '<div id="iw-event"><p id="pinntitle">Pinn Information</p>' +
     '<input id="event-name" type="text" name="event-name" readonly> <br>' +
     '<input id="event-description" type="text" name="event-description" readonly> <br>' +
-    '</div>' +
-    '<div><div id ="comment"> <input id= "submit" type="text" size="15">' +
-    '<button name="send" id= "send" class="send">Submit</button></div>' +
+    '</div> <br>'+
+    '<div> <div id="comment"> <div id="ctext"> <input id= "submit" type="text" size="15"> </div>' +
+    '<div id="cbutton"> <button name="send" id= "send" class="send">Submit</button> </div> </div>'  +
     '<ul style="list-style: none" id="chat">' +
     '</ul></div>';
 var openPin = 'undefined';

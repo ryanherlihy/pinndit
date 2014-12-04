@@ -33,11 +33,19 @@ head {
 #comment {
   display: inline-block;
 	vertical-align: top;
+  width: 340px;
 }
 
+#ctext {
+  float: left;
+}
+
+#cbutton {
+  float:right;
+}
 
 #submit {
-	width: 200px;
+	width: 240px;
 }
 
 button {
