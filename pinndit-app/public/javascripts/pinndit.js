@@ -91,8 +91,11 @@ PinnClient.prototype = {
                 }
             }
             if(type === 'refresh'){
-                for(var j =0; i<that.pinnData.length;j++){
-                    var LatLng = new google.maps.LatLng(that.pinnData[j].eventk, that.pinnData[j].eventB);
+                console.log('ENTERED REFRESH\n');
+                console.log(that.pinnData.length);
+                for(var i =0; i<that.pinnData.length;i++){
+                    var LatLng = new google.maps.LatLng(that.pinnData[i].eventk, that.pinnData[i].eventB);
+                    console.log('ADDING OLD PINN\n');
                     addOldPinn(LatLng);
                 }
             }
