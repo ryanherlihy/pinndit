@@ -149,7 +149,7 @@ function addOldPinn(location){
 
     var donepinnwindow = new InfoBox({
         content: pinnInfoString,
-        pixelOffset: new google.maps.Size(-380, -150),
+        pixelOffset: new google.maps.Size(-450, -185),
         closeBoxMargin: "10px 155px 0px 0px",
         maxWidth: 500
     });
@@ -157,6 +157,8 @@ function addOldPinn(location){
     google.maps.event.addListener(pinn, 'click', function() {
         if(this.created === 1) {
             donepinnwindow.open(map, pinn);
+            map.panTo(location);
+            map.setZoom(15);
             if(openPin !== 'undefined' && openPin !== this){
                 google.maps.event.trigger(openPin, 'closewindow');
             }
@@ -191,7 +193,7 @@ function addOldPinn(location){
             console.log(this);
             var text = this.input.val();
             commentc.post(text, location.lat(), location.lng());
-            $('#chat').append('<li>' + text + '</li>');
+            $('#chat').prepend('<li>' + text + '</li>');
             // clear input text:
             this.input.val('');
             return false;
@@ -242,7 +244,7 @@ CommentClient.prototype = {
                 if(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB){
                     var li   = $('<li>');   //had to have lookup in loop to create new <li>
                     li.html(that.comments[i].text);
-                    that.view.append(li);
+                    that.view.prepend(li);
                 }
             }
         });
@@ -396,7 +398,7 @@ function addNewPinn(location) {
             console.log(this);
             var text = this.input.val();
             commentc.post(text, location.lat(), location.lng());
-            $('#chat').append('<li>' + text + '</li>');
+            $('#chat').prepend('<li>' + text + '</li>');
             // clear input text:
             this.input.val('');
             return false;
