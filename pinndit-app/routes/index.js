@@ -67,10 +67,10 @@ router.post('/postpinn', function (req, res) {
     var timeSt = timeStamp(timePosted);
 
     console.log('recieved post: ' + '(Name: ' + eventname + ') ' + '(Desc: ' + descname + ') ' + '(k: ' + k + ') ' + '(B: ' + B + ')' + '(timePosted: ' + timePosted + ')');
-<<<<<<< HEAD
     console.log(timeSt);
 
     var pinn = {
+        PinnId: 1,
         Latitude: k,
         Longitude: B,
         EventName: eventname,
@@ -86,7 +86,10 @@ router.post('/postpinn', function (req, res) {
         console.log("Event Name: " + result.EventName + " added");
     });
     res.json({ status: 'OK'});
-=======
+
+    db.upvotePinn(6,  function(error, result){
+        if(error) return console.log(error);
+    });
 
     // console.log(timeSt);
 
@@ -107,7 +110,6 @@ router.post('/postpinn', function (req, res) {
     // });
     pinnData.push(new Pinn(eventname, descname, k, B, timePosted));
 	res.json({ status: 'OK'});
->>>>>>> db903e55c67d5ad01ff33c87811645236e7ee719
 });
 
 router.post('/removepinn', function (req, res) {
