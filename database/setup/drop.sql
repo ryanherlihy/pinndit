@@ -1,2 +1,2 @@
-drop table if exists Pinns;
-drop table if exists Comments;
+drop table if exists "Pinns";
+drop table if exists "Comments";
