@@ -1,6 +1,6 @@
 /* Up/Down Vote CSS */
 div.upvote {
-    text-align: center;
+    text-align: left;
 }
 
 div.upvote a.upvote-enabled {
@@ -45,4 +45,12 @@ div.upvote a.downvote.downvote-on {
 
 div.upvote-meta-stackoverflow a {
     background-image: url('/images/upDown.png');
+}
+
+#content {
+  margin-left:  20%;
+}
+#vote {
+  float: left;
+  width: 20%;
 }
