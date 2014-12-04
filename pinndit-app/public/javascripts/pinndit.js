@@ -211,9 +211,9 @@ CommentClient.prototype = {
 
             // Rewrite to the view:
             that.view.empty();
-            var li   = $('<li>');//lookups are slow, pulled this out of the loop
             for (var i = 0; i < that.comments.length; i++) {
                 if(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB){
+                    var li   = $('<li>');   //had to have lookup in loop to create new <li>
                     li.html(that.comments[i].text);
                     that.view.append(li);
                 }
