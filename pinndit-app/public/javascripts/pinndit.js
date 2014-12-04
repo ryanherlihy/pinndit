@@ -62,7 +62,6 @@ PinnClient.prototype = {
         }).done(function (data) {
             console.log('Post status: ' + data.status);
             that.pinnData = that.pinnData.concat(data);
-            console.log(pinnData);
         });
     },
 
@@ -92,11 +91,8 @@ PinnClient.prototype = {
                 }
             }
             if(type === 'refresh'){
-                console.log('ENTERED REFRESH\n');
-                console.log(that.pinnData.length);
                 for(var i =0; i<that.pinnData.length;i++){
                     var LatLng = new google.maps.LatLng(that.pinnData[i].eventk, that.pinnData[i].eventB);
-                    console.log('ADDING OLD PINN\n');
                     addOldPinn(LatLng);
                 }
             }
@@ -138,13 +134,10 @@ function addOldPinn(location){
                 google.maps.event.trigger(openPin, 'rightclick');
             }
             openPin = pinn;
-            console.log("OPEN PINN:" + openPin.position.toString());
-            // console.log("POSITION OF OPENPIN" + openPinn.position.lat());
         }
     });
 
     google.maps.event.addListener(pinn, 'rightclick', function(){
-        console.log("my event got trigged nig");
         donepinnwindow.close();
     });
 
@@ -331,13 +324,21 @@ function addNewPinn(location) {
     google.maps.event.addListener(pinn, 'click', function() {
         if(this.created === 1) {
             donepinnwindow.open(map, pinn);
+            if(openPin !== 'undefined' && openPin !== this){
+                google.maps.event.trigger(openPin, 'rightclick'); 
+            }
+           openPin = pinn;
         }
+    });
+
+    google.maps.event.addListener(pinn, 'rightclick', function(){
+        donepinnwindow.close();
     });
 
     google.maps.event.addListener(pinn, 'dblclick', function(){
         if(this.created === 1){
             this.setMap(null);
-
+            openPin = 'undefined';
             $(controlPinn).trigger("creatingpinn");
             $(inActivePinn).trigger("creatingpinn");
         }
@@ -376,6 +377,7 @@ function addNewPinn(location) {
 
     google.maps.event.addListener(donepinnwindow, 'closeclick', function(){
         donepinnwindow.close();
+        openPin = 'undefined';
     });
 
     google.maps.event.addListener(infowindow, 'closeclick', function() {
