@@ -30,6 +30,10 @@ head {
 	border-radius: 7px;
 }
 
+#submit {
+	width: 200px;
+}
+
 button {
   -webkit-border-radius: 6;
   -moz-border-radius: 6;

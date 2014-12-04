@@ -16,7 +16,7 @@ var pinnInfoString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindo
     '<input id="event-name" type="text" name="event-name" readonly> <br>' +
     '<input id="event-description" type="text" name="event-description" readonly> <br>' +
     '</div>' +
-    '<div>Comment: <input id= "submit" type="text" size="15">' +
+    '<div id ="comment">Comment: <input id= "submit" type="text" size="15">' +
     '<button name="send" id= "send" class="send">Submit</button>' +
     '<ul style="list-style: none" id="chat">' +
     '</ul></div>';
