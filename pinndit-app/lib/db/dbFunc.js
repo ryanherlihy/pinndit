@@ -53,7 +53,7 @@ function addComment(comment, callback){
     if(err){callback(error); return;}
 
     var comArr = [comment.pinnID, comment.Comment, comment.SessionID, comment.Time];
-    var query = "INSERT into Comments values (DEFAULT, $1, $2, 0, 0, $3, $4);";
+    var query = "INSERT into \"Comments\" values (DEFAULT, $1, $2, 0, 0, $3, $4);";
     console.log(query);
 
     pg.connect(conString,function(err, client, done){
@@ -77,7 +77,7 @@ function addComment(comment, callback){
 
 function getComments(pinnID, callback){
     var comArr = [pinnID];
-    var query = "SELECT * FROM Comments C WHERE C.PinnID = $1;";
+    var query = "SELECT * FROM \"Comments\" C WHERE C.\"PinnID\" = $1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, comArr, function(err, results){
@@ -92,7 +92,7 @@ function getComments(pinnID, callback){
 //given sessionId returns pinns dropped
 function getMyPinns(sessionID, callback){
     var pinnArr = [sessionID];
-    var query = "SELECT * FROM Pinns P WHERE P.SessionID = $1 AND P.Active=1;";
+    var query = "SELECT * FROM \"Pinns\" P WHERE P.\"SessionID\" = $1 AND P.\"Active\"=1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
@@ -107,7 +107,7 @@ function getMyPinns(sessionID, callback){
 //given area returns list of pinns
 function getVisiblePinns(minLat, maxLat, minLong, maxLong, callback){
     var pinnArr = [minLat, maxLat, minLong, maxLong];
-    var query = "SELECT * FROM Pinns P WHERE P.Latitude > $1 AND P.Latitude < $2 AND P.Longitude > $3 AND P.Longitude < $4 AND P.Active = 1";
+    var query = "SELECT * FROM \"Pinns\" P WHERE P.\"Latitude\" > $1 AND P.\"Latitude\" < $2 AND P.\"Longitude\" > $3 AND P.\"Longitude\" < $4 AND P.\"Active\" = 1";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
@@ -121,7 +121,7 @@ function getVisiblePinns(minLat, maxLat, minLong, maxLong, callback){
 
 function upvotePinn(pinnID, callback){
     var pinnArr = [pinnID];
-    var query = "UPDATE Pinns P SET Up = Up + 1 WHERE P.PinnID = $1 AND P.Active=1;";
+    var query = "UPDATE \"Pinns\" P SET \"Up\" = \"Up\" + 1 WHERE P.\"PinnID.\" = $1 AND P.\"Active\"=1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
@@ -135,7 +135,7 @@ function upvotePinn(pinnID, callback){
 
 function downvotePinn(pinnID, callback){
     var pinnArr = [pinnID];
-    var query = "UPDATE Pinns P SET Down = Down + 1 WHERE P.PinnID = $1 AND P.Active=1;";
+    var query = "UPDATE \"Pinns\" P SET \"Down\" = \"Down\" + 1 WHERE P.\"PinnID.\" = $1 AND P.\"Active\"=1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
@@ -149,7 +149,7 @@ function downvotePinn(pinnID, callback){
 
 function upvoteComment(commentID, callback){
     var commArr = [commentID];
-    var query = "UPDATE Comments C SET Up = Up + 1 WHERE CommentID = $1";
+    var query = "UPDATE \"Comments\" C SET \"Up\" = \"Up\" + 1 WHERE \"CommentID\" = $1";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, commArr, function(err, results){
@@ -163,7 +163,7 @@ function upvoteComment(commentID, callback){
 
 function downvoteComment(commentID, callback){
     var commArr = [commentID];
-    var query = "UPDATE Comments C SET Down = Down + 1 WHERE C.CommentID = $1";
+    var query = "UPDATE \"Comments\" C SET \"Down\" = \"Down\" + 1 WHERE C.\"CommentID\" = $1";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, commArr, function(err, results){
@@ -185,19 +185,19 @@ function editPinn(pinn, callback){
     if(err){callback(err); return;}
 
     var pinnArr = [pinn.PinnID, pinn.SessionID];
-    var query = "UPDATE Pinns P SET ";
+    var query = "UPDATE \"Pinns\" P SET ";
     if (pinn.EventName !== null && pinn.Description !== null){
-        query+= "P.EventName = $3, P.Description = $4 ";
+        query+= "P.\"EventName\" = $3, P.\"Description\" = $4 ";
         pinnArr.push(pinn.EventName);
         pinnArr.push(pinn.Description);
     }else if(pinn.EventName !== null){
-        query+= "P.EventName = $3 ";
+        query+= "P.\"EventName\" = $3 ";
         pinnArr.push(pinn.EventName);
     }else if(pinn.Description !== null){
-        query+= "P.Description = $3 ";
+        query+= "P.\"Description\" = $3 ";
         pinnArr.push(pinn.Description);
     }
-    query += "WHERE P.PinnID = $1 AND P.SessionID = $2 AND P.Active=1;";
+    query += "WHERE P.\"PinnID.\" = $1 AND P.\"SessionID\" = $2 AND P.\"Active\"=1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
@@ -211,7 +211,7 @@ function editPinn(pinn, callback){
 
 function markInactive(pinnID, callback){
     var pinnArr = [pinnID];
-    var query = "UPDATE Pinns P SET Active = 0 WHERE P.PinnID = $1;";
+    var query = "UPDATE \"Pinns\" P SET \"Active\" = 0 WHERE P.\"PinnID.\" = $1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
@@ -231,7 +231,7 @@ function getID(pinn, callback){
     if(err){callback(err); return;}
 
     var pinnArr = [pinn.Latitude, pinn.Longitude];
-    var query = "Select PinnID FROM  Pinns P WHERE P.Longitude = $1 AND P.Latitude = $2 LIMIT 1;";
+    var query = "Select \"PinnID\" FROM  \"Pinns\" P WHERE P.\"Longitude\" = $1 AND P.\"Latitude\" = $2 LIMIT 1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
