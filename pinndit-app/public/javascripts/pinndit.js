@@ -243,7 +243,7 @@ CommentClient.prototype = {
                 if(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB){
                     var li   = $('<li>');   //had to have lookup in loop to create new <li>
                     li.html(that.comments[i].text);
-                    that.view.append(li);
+                    that.view.prepend(li);
                 }
             }
         });
