@@ -6,12 +6,12 @@ var pg = require('pg');
 var conString = 'postgres://postgres:pass@localhost/pinndit';
 
 function addPinn(pinn, callback){
-    console.log("addpin");
     var err = null;
     if(pinn.Latitude === null){err = "null latt"}
     else if(pinn.Longitude === null){err = "null long"}
     else if(pinn.Latitude === null){err = "null latt"}
-    else if(pinn.EventName === null || pinn.EventName.length > 25){err = "Need EventName length more than 0, less than 25"}
+    else if(pinn.EventName === null || pinn.EventName.length > 25){err =
+        "Need EventName length more than 0, less than 25"}
     else if(pinn.SessionID === null){err = "null sessionID"}
     else if(pinn.Time === null){err = "null time"}
     else if(pinn.Description !== null && pinn.Description.length > 25){err = "Description too long"}
@@ -45,14 +45,14 @@ function addPinn(pinn, callback){
 
 function addComment(comment, callback){
     var err = null;
-    if(comment.pinnID === null){ err = "null pinnID"}
+    if(comment.PinnID === null){ err = "null PinnID"}
     else if(comment.Comment === null || comment.Comment.length > 25){err = "Comment length needs to be more than 0 and less than 25"}
     else if(comment.SessionID === null){err = "null sessionID"}
     else if(comment.Time === null){err = "null time"}
 
     if(err){callback(error); return;}
 
-    var comArr = [comment.pinnID, comment.Comment, comment.SessionID, comment.Time];
+    var comArr = [comment.PinnID, comment.Comment, comment.SessionID, comment.Time];
     var query = "INSERT into Comments values (DEFAULT, $1, $2, 0, 0, $3, $4);";
     console.log(query);
 
@@ -68,15 +68,14 @@ function addComment(comment, callback){
                 callback(error);
                 return;
             }
-            comment.CommentID = results.rows[0].CommentID;
-            callback(err, comment);
+            callback(err, results);
         });
     });
     pg.end();
 }
 
-function getComments(pinnID, callback){
-    var comArr = [pinnID];
+function getComments(PinnID, callback){
+    var comArr = [PinnID];
     var query = "SELECT * FROM Comments C WHERE C.PinnID = $1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
@@ -119,8 +118,8 @@ function getVisiblePinns(minLat, maxLat, minLong, maxLong, callback){
     pg.end();
 }
 
-function upvotePinn(pinnID, callback){
-    var pinnArr = [pinnID];
+function upvotePinn(PinnID, callback){
+    var pinnArr = [PinnID];
     var query = "UPDATE Pinns P SET Up = Up + 1 WHERE P.PinnID = $1 AND P.Active=1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
@@ -133,8 +132,8 @@ function upvotePinn(pinnID, callback){
     pg.end();
 }
 
-function downvotePinn(pinnID, callback){
-    var pinnArr = [pinnID];
+function downvotePinn(PinnID, callback){
+    var pinnArr = [PinnID];
     var query = "UPDATE Pinns P SET Down = Down + 1 WHERE P.PinnID = $1 AND P.Active=1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
@@ -209,8 +208,8 @@ function editPinn(pinn, callback){
     pg.end();
 }
 
-function markInactive(pinnID, callback){
-    var pinnArr = [pinnID];
+function markInactive(PinnID, callback){
+    var pinnArr = [PinnID];
     var query = "UPDATE Pinns P SET Active = 0 WHERE P.PinnID = $1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
@@ -223,7 +222,7 @@ function markInactive(pinnID, callback){
     pg.end();
 }
 
-function getID(pinn, callback){
+function getID(pinn, callback){ //not functioning (long and lat too precise)
     var err = null;
     if(pinn.Latitude === null){err = "null latt"}
     else if(pinn.Longitude === null){err = "null long"}
