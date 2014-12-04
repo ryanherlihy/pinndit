@@ -15,11 +15,11 @@ var pinnInfoString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindo
     '<div id="iw-event"><p id="pinntitle">Pinn Information</p>' +
     '<input id="event-name" type="text" name="event-name" readonly> <br>' +
     '<input id="event-description" type="text" name="event-description" readonly> <br>' +
-    '</div>' +
-    '<div id ="comment">Comment: <input id= "submit" type="text" size="15">' +
-    '<button name="send" id= "send" class="send">Submit</button>' +
-    '<ul style="list-style: none" id="chat">' +
-    '</ul></div>';
+    '</div> <br>'+
+    '<div> <div id="comment"> <div id="ctext"> <input id= "submit" type="text" size="15"> </div>' +
+    '<div id="cbutton"> <button name="send" id= "send" class="send">Submit</button> </div> </div>'  +
+    '<div id="clist"> <ul style="list-style: none" id="chat">' +
+    '</ul> </div> </div>';
 var openPin = 'undefined';
 
 //never used?
@@ -265,8 +265,8 @@ function addNewPinn(location) {
 
     var donepinnwindow = new InfoBox({
         content: pinnInfoString,
-        pixelOffset: new google.maps.Size(-380, -150),
-        closeBoxMargin: "10px 238px 0px 0px",
+        pixelOffset: new google.maps.Size(-380, -175),
+        closeBoxMargin: "10px 155px 0px 0px",
         maxWidth: 500
     });
 

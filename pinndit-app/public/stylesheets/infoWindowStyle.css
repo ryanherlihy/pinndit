@@ -31,12 +31,30 @@ head {
 }
 
 #comment {
-	text-align: center;
+  display: inline-block;
+	vertical-align: top;
+  width: 340px;
 }
 
+#ctext {
+  float: left;
+}
+
+#cbutton {
+  float:right;
+}
+
+#clist {
+  border: 4px solid white;
+  border-color: #E84C3D;
+  border-radius: 7px;
+  width: 330px;
+  height: 125px;
+  overflow: scroll;
+}
 
 #submit {
-	width: 200px;
+	width: 240px;
 }
 
 button {
