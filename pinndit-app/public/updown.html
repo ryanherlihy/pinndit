@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="/javascripts/jquery-2.0.2.min.js"></script>
+  <script src="/javascripts/jquery.upvote.js"></script>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script type="text/javascript">
+            function gen(target, cssClass, params) {
+                var obj = $('#templates .upvote').clone();
+                obj.addClass(cssClass);
+                $(target).append(obj);
+                return obj.upvote(params);
+            }
+
+            $(function() {
+                    function gen_examples(params) {
+                        gen('#examples', '', params);
+                    }
+                    var functions = [gen_examples];
+                    for (var i in functions) {
+                        var fun = functions[i];
+                        fun({count: 4});
+                    }
+            });
+        </script>
+</head>
+<body>
+ <div class="container">
+                <h3>PinndIt Up/Down</h3>
+                <div class="examples" id="examples"></div>
+    </div>
+    <div id="templates" class="hidden">
+        <div class="upvote">
+            <a class="upvote" title="Great Event!"></a>
+            <span class="count" title="Net votes"></span>
+            <a class="downvote" title="This sucks!"></a>
+        </div>
+    </div>
+</body>
+</html>
