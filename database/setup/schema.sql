@@ -4,7 +4,7 @@ CREATE TABLE "Comments" (
     "Comment" text,
     "Up" integer DEFAULT 0 NOT NULL,
     "Down" integer DEFAULT 0 NOT NULL,
-    "SessionID" integer NOT NULL
+    "SessionID" integer NOT NULL,
     "Time" timestamp(6) without time zone NOT NULL
 );
 
