@@ -30,6 +30,11 @@ head {
 	border-radius: 7px;
 }
 
+#comment {
+	text-align: center;
+}
+
+
 #submit {
 	width: 200px;
 }
