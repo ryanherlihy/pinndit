@@ -267,7 +267,7 @@ function addNewPinn(location) {
     var donepinnwindow = new InfoBox({
         content: pinnInfoString,
         pixelOffset: new google.maps.Size(-380, -150),
-        closeBoxMargin: "10px 185px 0px 0px",
+        closeBoxMargin: "10px 155px 0px 0px",
         maxWidth: 500
     });
 
