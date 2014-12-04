@@ -426,7 +426,7 @@ function AddInactivePinn(controlDiv, map){
     inActivePinn.style.display = 'none';
     controlDiv.appendChild(inActivePinn);
     $(inActivePinn).on("creatingpinn", function(){
-        $(this).toggle();
+       // $(this).toggle();
     });
 
 
@@ -457,7 +457,7 @@ function AddControlPinn(controlDiv, map) {
     });
 
     contPinn.on("creatingpinn", function(){
-        $(this).toggle();
+       // $(this).toggle();
 
     });
 }
