@@ -135,7 +135,6 @@ function CommentClient(config) {
         }
     }
 }
-
 function addOldPinn(location){
     console.log(location.toString());
 
@@ -159,13 +158,13 @@ function addOldPinn(location){
         if(this.created === 1) {
             donepinnwindow.open(map, pinn);
             if(openPin !== 'undefined' && openPin !== this){
-                google.maps.event.trigger(openPin, 'rightclick');
+                google.maps.event.trigger(openPin, 'closewindow');
             }
             openPin = pinn;
         }
     });
 
-    google.maps.event.addListener(pinn, 'rightclick', function(){
+    google.maps.event.addListener(pinn, 'closewindow', function(){
         donepinnwindow.close();
     });
 
@@ -354,13 +353,13 @@ function addNewPinn(location) {
             map.panTo(location);
             map.setZoom(15);
             if(openPin !== 'undefined' && openPin !== this){
-                google.maps.event.trigger(openPin, 'rightclick'); 
+                google.maps.event.trigger(openPin, 'closewindow'); 
             }
            openPin = pinn;
         }
     });
 
-    google.maps.event.addListener(pinn, 'rightclick', function(){
+    google.maps.event.addListener(pinn, 'closewindow', function(){
         donepinnwindow.close();
     });
 
