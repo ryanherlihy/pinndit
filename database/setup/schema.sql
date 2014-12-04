@@ -25,8 +25,8 @@ CREATE TABLE "Pinns"
 (
   "PinnID" SERIAL,
   "Active" integer NOT NULL DEFAULT 1,
-  "Latitude" real NOT NULL,
-  "Longitude" real NOT NULL,
+  "Latitude" double precision NOT NULL,
+  "Longitude" double precision NOT NULL,
   "EventName" text,
   "Description" text,
   "SessionID" integer,

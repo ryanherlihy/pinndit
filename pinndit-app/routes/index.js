@@ -55,29 +55,35 @@ function isTimePostedPast_Seconds(seconds){
 
 router.post('/postpinn', function (req, res) {
 	var eventname = req.body.name;
+    var descname = null;
 
     if(req.body.desc!==null){
-        var descname = req.body.desc;
+        descname = req.body.desc;
     }
 
 	var k = req.body.k;
 	var B = req.body.B;
 	var timePosted = req.body.posted;
-	console.log('recieved post: ' + '(Name: ' + eventname + ') ' + '(Desc: ' + descname + ') ' + '(k: ' + k + ') ' + '(B: ' + B + ')' + '(timePosted: ' + timePosted + ')');
-	pinnData.push(new Pinn(eventname, descname, k, B, timePosted));
+    var timeSt = timeStamp(timePosted);
+
+    console.log('recieved post: ' + '(Name: ' + eventname + ') ' + '(Desc: ' + descname + ') ' + '(k: ' + k + ') ' + '(B: ' + B + ')' + '(timePosted: ' + timePosted + ')');
+
+    console.log(timeSt);
+
     var pinn = {
-        Latitude: 40,
-        Longitude: 60,
-        EventName: "test",
-        SessionID: 15, //integer
-        Time:  '2014-12-04 04:05:06' //timestamp function to get current time is in pinndit.js
+        Latitude: k,
+        Longitude: B,
+        EventName: eventname,
+        SessionID: 15, //
+        Time: timeSt //timestamp function to get current time is in pinndit.js
     };
+    console.log(pinn);
     if(descname!==null){
         pinn.Description = descname;
     }
     db.addPinn(pinn, function(error, result){
         if(error) return console.log(error);
-        console.log("Event Name: " + result.EventName + " added, ID: " + result.PinnID );
+        console.log("Event Name: " + result.EventName + " added");
     });
 	res.json({ status: 'OK'});
 });
@@ -120,14 +126,15 @@ router.post('/checkpinns', function (req, res) {
 });
 
 module.exports = router;
-function timeStamp() {
-    var now = new Date();
+function timeStamp(seconds) {
+    var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+    d.setUTCSeconds(seconds);
 
 // Create an array with the current month, day and time
-    var date = [ now.getMonth() + 1, now.getDate(), now.getFullYear() ];
+    var date = [ d.getMonth() + 1, d.getDate(), d.getFullYear() ];
 
 // Create an array with the current hour, minute and second
-    var time = [ now.getHours(), now.getMinutes(), now.getSeconds() ];
+    var time = [ d.getHours(), d.getMinutes(), d.getSeconds() ];
 
 // If seconds and minutes are less than 10, add a zero
     for ( var i = 1; i < 3; i++ ) {
@@ -137,5 +144,4 @@ function timeStamp() {
     }
 // Return the formatted string
     return date.join("/") + " " + time.join(":");
-
 }

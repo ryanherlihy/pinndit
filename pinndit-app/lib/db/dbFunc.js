@@ -8,9 +8,9 @@ var conString = 'postgres://postgres:pass@localhost/pinndit';
 function addPinn(pinn, callback){
     console.log("addpin");
     var err = null;
-    if(pinn.Lattitude === null){err = "null latt"}
+    if(pinn.Latitude === null){err = "null latt"}
     else if(pinn.Longitude === null){err = "null long"}
-    else if(pinn.Lattitude === null){err = "null latt"}
+    else if(pinn.Latitude === null){err = "null latt"}
     else if(pinn.EventName === null || pinn.EventName.length > 25){err = "Need EventName length more than 0, less than 25"}
     else if(pinn.SessionID === null){err = "null sessionID"}
     else if(pinn.Time === null){err = "null time"}
@@ -24,7 +24,6 @@ function addPinn(pinn, callback){
     if(pinn.Description){query+= '$6, $4, 0, 0, $5);'; pinnArr.push(pinn.Description);}
     else{query+='NULL, $4, 0, 0, $5);';}
 
-    console.log(query);
     pg.connect(conString,function(err, client, done){
         if(err){
             console.log(err);
@@ -107,7 +106,7 @@ function getMyPinns(sessionID, callback){
 
 //given area returns list of pinns
 function getVisiblePinns(minLat, maxLat, minLong, maxLong, callback){
-    var pinnArr = [minLat, maxLat, minLong, maxLong]
+    var pinnArr = [minLat, maxLat, minLong, maxLong];
     var query = "SELECT * FROM Pinns P WHERE P.Latitude > $1 AND P.Latitude < $2 AND P.Longitude > $3 AND P.Longitude < $4 AND P.Active = 1";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
@@ -183,18 +182,18 @@ function editPinn(pinn, callback){
     else if(pinn.SessionID === null){err = "null sessionID"}
     else if(pinn.Description === null && pinn.EventName === null){err = "Need new event name or desc"}
 
-    if(err){callback(error); return;}
+    if(err){callback(err); return;}
 
     var pinnArr = [pinn.PinnID, pinn.SessionID];
     var query = "UPDATE Pinns P SET ";
-    if (pinn.EventName !== null && pinn.Decription !== null){
+    if (pinn.EventName !== null && pinn.Description !== null){
         query+= "P.EventName = $3, P.Description = $4 ";
         pinnArr.push(pinn.EventName);
         pinnArr.push(pinn.Description);
     }else if(pinn.EventName !== null){
         query+= "P.EventName = $3 ";
         pinnArr.push(pinn.EventName);
-    }else if(pinn.Decription !== null){
+    }else if(pinn.Description !== null){
         query+= "P.Description = $3 ";
         pinnArr.push(pinn.Description);
     }
@@ -210,6 +209,42 @@ function editPinn(pinn, callback){
     pg.end();
 }
 
+function markInactive(pinnID, callback){
+    var pinnArr = [pinnID];
+    var query = "UPDATE Pinns P SET Active = 0 WHERE P.PinnID = $1;";
+    pg.connect(conString, function(err, client, done){
+        if(err) {console.log(err); return;}
+        client.query(query, pinnArr, function(err, results){
+            done();
+            console.log(results);
+            callback(err, results.rows[0]);
+        });
+    });
+    pg.end();
+}
+
+function getID(pinn, callback){
+    var err = null;
+    if(pinn.Latitude === null){err = "null latt"}
+    else if(pinn.Longitude === null){err = "null long"}
+
+    if(err){callback(err); return;}
+
+    var pinnArr = [pinn.Latitude, pinn.Longitude];
+    var query = "Select PinnID FROM  Pinns P WHERE P.Longitude = $1 AND P.Latitude = $2 LIMIT 1;";
+    pg.connect(conString, function(err, client, done){
+        if(err) {console.log(err); return;}
+        client.query(query, pinnArr, function(err, results){
+            done();
+            console.log("got ID: " + results);
+            callback(err, results.rows[0]);
+        });
+    });
+    pg.end();
+}
+
+exports.getID = getID;
+exports.markInactive = markInactive;
 exports.getVisiblePinns = getVisiblePinns;
 exports.addPinn = addPinn;
 exports.getMyPinns = getMyPinns;
