@@ -11,11 +11,12 @@ var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindo
     '<input id="event-description" type="text" name="event-description"> <br>' +
     '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
     '<br></div>';
-var pinnInfoString = '<div><p>Pinn Information</p>' +
-    'Event Name: <input id="event-name" type="text" name="event-name" readonly> <br>' +
-    'Event Description:  <input id="event-description" type="text" name="event-description" readonly> <br>' +
+var pinnInfoString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
+    '<div id="iw-event"><p id="pinntitle">Pinn Information</p>' +
+    '<input id="event-name" type="text" name="event-name" readonly> <br>' +
+    '<input id="event-description" type="text" name="event-description" readonly> <br>' +
     '</div>' +
-    '<div>Comment: <input id= "submit" type="text" size="15">' +
+    '<div id ="comment">Comment: <input id= "submit" type="text" size="15">' +
     '<button name="send" id= "send" class="send">Submit</button>' +
     '<ul style="list-style: none" id="chat">' +
     '</ul></div>';
@@ -125,6 +126,8 @@ function addOldPinn(location){
 
     var donepinnwindow = new InfoBox({
         content: pinnInfoString,
+        pixelOffset: new google.maps.Size(-380, -150),
+        closeBoxMargin: "10px 155px 0px 0px",
         maxWidth: 500
     });
 
@@ -264,12 +267,14 @@ function addNewPinn(location) {
     var infowindow = new InfoBox({
         content: pinnformString,
         pixelOffset: new google.maps.Size(-380, -150),
-        closeBoxMargin: "0px 0px 155px 0px",
+        closeBoxMargin: "10px 155px 0px 0px",
         maxWidth: 500
     });
 
     var donepinnwindow = new InfoBox({
         content: pinnInfoString,
+        pixelOffset: new google.maps.Size(-380, -150),
+        closeBoxMargin: "10px 238px 0px 0px",
         maxWidth: 500
     });
 

@@ -1,4 +1,5 @@
 var express = require('express');
+var db = require('../lib/db');
 var router = express.Router();
 
 // Records all the posts made to the server.
@@ -54,12 +55,30 @@ function isTimePostedPast_Seconds(seconds){
 
 router.post('/postpinn', function (req, res) {
 	var eventname = req.body.name;
-	var descname = req.body.desc;
+
+    if(req.body.desc!==null){
+        var descname = req.body.desc;
+    }
+
 	var k = req.body.k;
 	var B = req.body.B;
 	var timePosted = req.body.posted;
 	console.log('recieved post: ' + '(Name: ' + eventname + ') ' + '(Desc: ' + descname + ') ' + '(k: ' + k + ') ' + '(B: ' + B + ')' + '(timePosted: ' + timePosted + ')');
 	pinnData.push(new Pinn(eventname, descname, k, B, timePosted));
+    var pinn = {
+        Latitude: 40,
+        Longitude: 60,
+        EventName: "test",
+        SessionID: 15, //integer
+        Time:  '2014-12-04 04:05:06' //timestamp function to get current time is in pinndit.js
+    };
+    if(descname!==null){
+        pinn.Description = descname;
+    }
+    db.addPinn(pinn, function(error, result){
+        if(error) return console.log(error);
+        console.log("Event Name: " + result.EventName + " added, ID: " + result.PinnID );
+    });
 	res.json({ status: 'OK'});
 });
 
@@ -101,3 +120,22 @@ router.post('/checkpinns', function (req, res) {
 });
 
 module.exports = router;
+function timeStamp() {
+    var now = new Date();
+
+// Create an array with the current month, day and time
+    var date = [ now.getMonth() + 1, now.getDate(), now.getFullYear() ];
+
+// Create an array with the current hour, minute and second
+    var time = [ now.getHours(), now.getMinutes(), now.getSeconds() ];
+
+// If seconds and minutes are less than 10, add a zero
+    for ( var i = 1; i < 3; i++ ) {
+        if ( time[i] < 10 ) {
+            time[i] = "0" + time[i];
+        }
+    }
+// Return the formatted string
+    return date.join("/") + " " + time.join(":");
+
+}

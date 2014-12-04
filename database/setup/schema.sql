@@ -1,23 +1,40 @@
-CREATE TABLE "Comments" (
-	"CommentID" integer PRIMARY KEY,
-    "PinnID" integer NOT NULL,
-    "Comment" text,
-    "Up" integer DEFAULT 0 NOT NULL,
-    "Down" integer DEFAULT 0 NOT NULL,
-    "SessionID" integer NOT NULL
-    "Time" timestamp(6) without time zone NOT NULL
+-- Table: "Comments"
+
+-- DROP TABLE "Comments";
+
+CREATE TABLE "Comments"
+(
+  "CommentID" SERIAL,
+  "PinnID" integer NOT NULL,
+  "Comment" text,
+  "Up" integer NOT NULL DEFAULT 0,
+  "Down" integer NOT NULL DEFAULT 0,
+  "SessionID" integer NOT NULL,
+  "Time" timestamp(6) without time zone NOT NULL,
+  CONSTRAINT "Comments_pkey" PRIMARY KEY ("CommentID")
+)
+WITH (
+  OIDS=FALSE
 );
+  
+-- Table: "Pinns"
 
+-- DROP TABLE "Pinns";
 
-CREATE TABLE "Pinns" (
-    "PinnID" integer PRIMARY KEY,
-	"Active" integer DEFAULT 1 NOT NULL,
-    "Latitude" real NOT NULL,
-    "Longitude" real NOT NULL,
-    "EventName" text,
-	"Description" text,
-    "SessionID" integer,
-    "Up" integer DEFAULT 0 NOT NULL,
-    "Down" integer DEFAULT 0 NOT NULL,
-    "Time" timestamp without time zone NOT NULL
+CREATE TABLE "Pinns"
+(
+  "PinnID" SERIAL,
+  "Active" integer NOT NULL DEFAULT 1,
+  "Latitude" real NOT NULL,
+  "Longitude" real NOT NULL,
+  "EventName" text,
+  "Description" text,
+  "SessionID" integer,
+  "Up" integer NOT NULL DEFAULT 0,
+  "Down" integer NOT NULL DEFAULT 0,
+  "Time" timestamp without time zone NOT NULL,
+  CONSTRAINT "Pinns_pkey" PRIMARY KEY ("PinnID")
+)
+WITH (
+  OIDS=FALSE
 );
