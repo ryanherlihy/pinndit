@@ -266,7 +266,7 @@ function addNewPinn(location) {
 
     var donepinnwindow = new InfoBox({
         content: pinnInfoString,
-        pixelOffset: new google.maps.Size(-380, -175),
+        pixelOffset: new google.maps.Size(-380, -185),
         closeBoxMargin: "10px 155px 0px 0px",
         maxWidth: 500
     });
@@ -324,6 +324,8 @@ function addNewPinn(location) {
     google.maps.event.addListener(pinn, 'click', function() {
         if(this.created === 1) {
             donepinnwindow.open(map, pinn);
+            map.panTo(location);
+            map.setZoom(15);
             if(openPin !== 'undefined' && openPin !== this){
                 google.maps.event.trigger(openPin, 'rightclick'); 
             }

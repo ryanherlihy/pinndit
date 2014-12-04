@@ -107,3 +107,19 @@ input {
     width: 280px;
     font-family: Arial;
 }
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #E84C3D;
+    opacity: .6;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #E84C3D;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #E84C3D;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:    #E84C3D;
+}
