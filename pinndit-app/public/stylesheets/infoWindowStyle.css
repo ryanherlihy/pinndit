@@ -46,6 +46,7 @@ head {
 
 #ctext {
   float: left;
+
   /*margin: 0px 0 5px 0;*/
 }
 
@@ -77,9 +78,13 @@ ul {
   font-size: 16px;
 }
 
-/*li {
-  border-bottom: 2px solid white;
-}*/
+
+
+li {
+  border-style: solid;
+  border-width: 1px;
+  margin-bottom: 20px;
+}
 
 button {
   -webkit-border-radius: 6;
