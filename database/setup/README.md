@@ -1,6 +1,6 @@
 ##To use the db creation script you need change your password to the correct password:
 
-	sudo -u postgres psql -c "alter user postgres password 'pass'"
+	sudo -u postgres psql -c "alter user $USER password 'pass'"
 
 ##Then run the shell script:
 

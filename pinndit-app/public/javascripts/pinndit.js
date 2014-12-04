@@ -263,7 +263,6 @@ function addNewPinn(location) {
     map.panTo(location);
     map.setZoom(15);
 
-
     var infowindow = new InfoBox({
         content: pinnformString,
         pixelOffset: new google.maps.Size(-380, -150),
@@ -454,9 +453,6 @@ function success(position) {
     overlay.setMap(map);
 
 
-
-    //unused?
-
     AddControlPinn(pinnDiv, map);
     AddInactivePinn(pinnDiv, map);
 
@@ -494,25 +490,5 @@ if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success);
 } else {
     error('Geo Location is not supported');
-
-}
-
-function timeStamp() {
-    var now = new Date();
-
-// Create an array with the current month, day and time
-    var date = [ now.getMonth() + 1, now.getDate(), now.getFullYear() ];
-
-// Create an array with the current hour, minute and second
-    var time = [ now.getHours(), now.getMinutes(), now.getSeconds() ];
-
-// If seconds and minutes are less than 10, add a zero
-    for ( var i = 1; i < 3; i++ ) {
-        if ( time[i] < 10 ) {
-            time[i] = "0" + time[i];
-        }
-    }
-// Return the formatted string
-    return date.join("/") + " " + time.join(":");
 
 }

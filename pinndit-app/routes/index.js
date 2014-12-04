@@ -8,32 +8,32 @@ var pinnData = [];
 
 // Represents a post:
 function Comment(text, eventk, eventB) {
-  this.text = text;
-  this.date = new Date();
-  this.eventk = eventk;
-  this.eventB = eventB;
+    this.text = text;
+    this.date = new Date();
+    this.eventk = eventk;
+    this.eventB = eventB;
 }
 
 function Pinn(eventname, eventdesc, eventk, eventB, timePosted){
-	this.eventname = eventname;
-	this.eventdesc = eventdesc;
-	this.eventk = eventk;
-	this.eventB = eventB;
-	this.timePosted = timePosted;
+    this.eventname = eventname;
+    this.eventdesc = eventdesc;
+    this.eventk = eventk;
+    this.eventB = eventB;
+    this.timePosted = timePosted;
 }
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Pinndit' });
+    res.render('index', { title: 'Pinndit' });
 });
 
 function isTimePostedPast_Seconds(seconds){
-  var currentTime = parseInt(new Date() / 1000,10);
-  for(var i = pinnData.length - 1; i >= 0; i--){
-    var p = pinnData[i];
-    if((currentTime - seconds) > p.timePosted){
-      pinnData.splice(i, 1);
-	  }
-  }
+    var currentTime = parseInt(new Date() / 1000,10);
+    for(var i = pinnData.length - 1; i >= 0; i--){
+        var p = pinnData[i];
+        if((currentTime - seconds) > p.timePosted){
+            pinnData.splice(i, 1);
+        }
+    }
 }
 
 //Will work once up/down is implemented
@@ -54,21 +54,20 @@ function isTimePostedPast_Seconds(seconds){
 // timeRemaining(18000,1800) // 18000 = 5 hours, 1800 = 30 minutes
 
 router.post('/postpinn', function (req, res) {
-	var eventname = req.body.name;
+    var eventname = req.body.name;
     var descname = null;
 
     if(req.body.desc!==null){
         descname = req.body.desc;
     }
 
-	var k = req.body.k;
-	var B = req.body.B;
-	var timePosted = req.body.posted;
+    var k = req.body.k;
+    var B = req.body.B;
+    var timePosted = req.body.posted;
     var timeSt = timeStamp(timePosted);
 
     console.log('recieved post: ' + '(Name: ' + eventname + ') ' + '(Desc: ' + descname + ') ' + '(k: ' + k + ') ' + '(B: ' + B + ')' + '(timePosted: ' + timePosted + ')');
 
-    console.log(timeSt);
 
     var pinn = {
         Latitude: k,
@@ -85,44 +84,72 @@ router.post('/postpinn', function (req, res) {
         if(error) return console.log(error);
         console.log("Event Name: " + result.EventName + " added");
     });
-	res.json({ status: 'OK'});
+    res.json({ status: 'OK'});
 });
 
 router.post('/removepinn', function (req, res) {
-  var k = req.body.k;
-  var B = req.body.B;
-  console.log('removed post: ' + '(k: ' + k + ') ' + '(B: ' + B + ')');
-  for(var i = pinnData.length - 1; i >= 0; i--){
-    var p = pinnData[i];
-    if(p.k === k){
-      pinnData.splice(i, 1);
-      console.log('removed post: ' + pinnData[i]);
-    }
-  }
-  res.json({ status: 'OK'});
+    var k = req.body.k;
+    var B = req.body.B;
+    var id = getPinnID(k, B);
+
+    db.markInactive(id, function(error, result){
+        if(error) return console.log(error);
+        console.log("Pinn with id: " + result.PinnID + "marked inactive");
+    });
+
+    res.json({ status: 'OK'});
 });
 
 router.post('/postcomment', function (req, res) {
-  var text = req.body.text;
-  var k = req.body.k;
-  var B = req.body.B;
-  console.log('received post: ' + text + '(k: ' + k + ') ' + '(B: ' + B + ')');
-  comments.push(new Comment(text, k, B));
-  res.json({ status: 'OK'});
+    var text = req.body.text;
+    var k = req.body.k;
+    var B = req.body.B;
+    var id = getPinnID(k, B);
+    var timePosted = req.body.posted;
+    var timeSt = timeStamp(timePosted);
+
+    var comment = {
+        PinnID: id,
+        Comment: text,
+        SessionID: 15,
+        Time: timeSt
+    };
+
+    db.addComment(comment, function(error, result){
+        if(error) return console.log(error);
+        console.log("Comment: " + result.Comment + " added");
+    });
+
+    console.log('received post: ' + text + '(k: ' + k + ') ' + '(B: ' + B + ')');
+    res.json({ status: 'OK'});
 });
 
+//router.post('/checkcomments', function (req, res) {
+//    var last = parseInt(req.body.last, 10);
+//    var rest = comments.slice(last, comments.length);
+//    res.json(rest);
+//});
+
 router.post('/checkcomments', function (req, res) {
-  var last = parseInt(req.body.last, 10);
-  var rest = comments.slice(last, comments.length);
-  res.json(rest);
+    var k = req.body.k;
+    var B = req.body.B;
+    var id = getPinnID(k, B);
+
+    db.getComments(id, function(error, result){
+        if(error) return console.log(error);
+        console.log("Comments found for PinnID: " + id);
+        var retJson = JSON.stringify(result);
+        res.json(retJson);
+    });
+
 });
 
 router.post('/checkpinns', function (req, res) {
-  isTimePostedPast_Seconds(600);
-  console.log('Active Number of Pinns: ' + pinnData.length);
-  var last = parseInt(req.body.last, 10);
-  var rest = pinnData.slice(last, pinnData.length);
-  res.json(rest);
+    isTimePostedPast_Seconds(600);
+    console.log('Active Number of Pinns: ' + pinnData.length);
+    var last = parseInt(req.body.last, 10);
+    var rest = pinnData.slice(last, pinnData.length);
+    res.json(rest);
 });
 
 module.exports = router;
@@ -144,4 +171,16 @@ function timeStamp(seconds) {
     }
 // Return the formatted string
     return date.join("/") + " " + time.join(":");
+}
+
+function getPinnID(k, B){
+    var pinn = {
+        Latitude: k,
+        Longitude: B
+    };
+    db.getID(pinn, function(error, result){
+        if(error) return console.log(error);
+        console.log("Event Name: " + result.EventName + " added");
+        return result.PinnID;
+    });
 }
