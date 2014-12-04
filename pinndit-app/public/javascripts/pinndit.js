@@ -123,6 +123,8 @@ function addOldPinn(location){
 
     var donepinnwindow = new InfoBox({
         content: pinnInfoString,
+        pixelOffset: new google.maps.Size(-380, -150),
+        closeBoxMargin: "10px 155px 0px 0px",
         maxWidth: 500
     });
 
@@ -268,6 +270,8 @@ function addNewPinn(location) {
 
     var donepinnwindow = new InfoBox({
         content: pinnInfoString,
+        pixelOffset: new google.maps.Size(-380, -150),
+        closeBoxMargin: "10px 238px 0px 0px",
         maxWidth: 500
     });
 
