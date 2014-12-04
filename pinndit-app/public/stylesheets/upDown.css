@@ -14,7 +14,6 @@ div.upvote a {
     overflow: hidden;
     display: block;
     margin: 0 auto;
-    width: 41px;
     height: 25px;
 }
 
@@ -23,8 +22,8 @@ div.upvote span.count {
     font-size: 24px;
     font-family: Arial, Liberation, Sans, DejaVu Sans, sans-serif;
     color: #555;
-    text-align: center;
     line-height: 1;
+    margin-left: 13px;
 }
 
 div.upvote a.upvote {
@@ -45,12 +44,4 @@ div.upvote a.downvote.downvote-on {
 
 div.upvote-meta-stackoverflow a {
     background-image: url('/images/upDown.png');
-}
-
-#content {
-  margin-left:  20%;
-}
-#vote {
-  float: left;
-  width: 20%;
 }
