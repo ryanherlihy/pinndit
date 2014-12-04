@@ -11,6 +11,7 @@ var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindo
     '<input id="event-description" type="text" name="event-description" placeholder="Event Description"> <br>' +
     '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
     '<br></div>';
+
 var pinnInfoString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
     '<div id="iw-event"><p id="pinntitle">Pinn Information</p>' +
     '<input id="event-name" type="text" name="event-name" readonly> <br>' +

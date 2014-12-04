@@ -12,6 +12,10 @@ head {
 	border: 2px solid white;
 }
 
+.pinnform-wrapper {
+  display: none;
+}
+
 #iw {
 	background-color: #565050;
 	width: 300px;
