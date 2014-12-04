@@ -122,25 +122,25 @@ router.post('/postcomment', function (req, res) {
     res.json({ status: 'OK'});
 });
 
-//router.post('/checkcomments', function (req, res) {
-//    var last = parseInt(req.body.last, 10);
-//    var rest = comments.slice(last, comments.length);
-//    res.json(rest);
-//});
-
 router.post('/checkcomments', function (req, res) {
-    var k = req.body.k;
-    var B = req.body.B;
-    var id = getPinnID(k, B);
-
-    db.getComments(id, function(error, result){
-        if(error) return console.log(error);
-        console.log("Comments found for PinnID: " + id);
-        var retJson = JSON.stringify(result);
-        res.json(retJson);
-    });
-
+   var last = parseInt(req.body.last, 10);
+   var rest = comments.slice(last, comments.length);
+   res.json(rest);
 });
+
+// router.post('/checkcomments', function (req, res) {
+//     var k = req.body.k;
+//     var B = req.body.B;
+//     var id = getPinnID(k, B);
+
+//     db.getComments(id, function(error, result){
+//         if(error) return console.log(error);
+//         console.log("Comments found for PinnID: " + id);
+//         var retJson = JSON.stringify(result);
+//         res.json(retJson);
+//     });
+
+// });
 
 router.post('/checkpinns', function (req, res) {
     isTimePostedPast_Seconds(300);

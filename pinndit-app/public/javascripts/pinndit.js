@@ -12,19 +12,42 @@ var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindo
     '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
     '<br></div>';
 
-var pinnInfoString = '<body>'+
-    '<p>Pinn Information</p>' +
+var pinnInfoString = '<head> <link rel="stylesheet" href=/stylesheets/infoWindowStyle.css /> </head>' +
+    '<body>'+
+    '<div id="iw-event">'+
+    '<p id="pinntitle">Pinn Information</p>' +
     '<div id="vote">'+
-    '<iframe src="/updown.html" frameborder="0" width=50 height=77 scrolling=no></iframe>' +
+    '<iframe src="/updown.html" frameborder="0" width=75 height=85 scrolling=no></iframe>' +
     '</div>'+
-    '<div id="content">'+
-    'Event Name: <input id="event-name" type="text" name="event-name" readonly> <br>' +
-    'Event Description:  <input id="event-description" type="text" name="event-description" readonly> <br>' +
+    '<div id="input-boxes">' +
+    '<input id="event-name" type="text" name="event-name" readonly> <br>' +
+    '<input id="event-description" type="text" name="event-description" readonly> <br>' +
+    '</div>' +
     '</div>'+
-    '<div>Comment: <input id= "submit" type="text" size="15">' +
-    '<button name="send" id= "send" class="send">Submit</button>' +
+    '<div id="comment">' +
+    '<div id="ctext">' +
+    '<input id= "submit" type="text" size="15" placeholder="Comments"> </div>' +
+    '<div id="cbutton">' +
+    '<button name="send" id= "send" class="send">Submit</button> </div>' +
+    '</div>' +
+    '<div id="clist">' +
     '<ul style="list-style: none" id="chat">' +
-    '</ul></body>';
+    '</ul> </div> </body>';
+
+// var pinnInfoString = '<body>'+
+//     '<p>Pinn Information</p>' +
+//     '<div id="vote">'+
+//     '<iframe src="/updown.html" frameborder="0" width=50 height=77 scrolling=no></iframe>' +
+//     '</div>'+
+//     '<div id="content">'+
+//     'Event Name: <input id="event-name" type="text" name="event-name" readonly> <br>' +
+//     'Event Description:  <input id="event-description" type="text" name="event-description" readonly> <br>' +
+//     '</div>'+
+//     '<div>Comment: <input id= "submit" type="text" size="15">' +
+//     '<button name="send" id= "send" class="send">Submit</button>' +
+//     '<ul style="list-style: none" id="chat">' +
+//     '</ul></body>';
+
 var openPin = 'undefined';
 
 //never used?
@@ -270,7 +293,7 @@ function addNewPinn(location) {
 
     var donepinnwindow = new InfoBox({
         content: pinnInfoString,
-        pixelOffset: new google.maps.Size(-380, -185),
+        pixelOffset: new google.maps.Size(-450, -185),
         closeBoxMargin: "10px 155px 0px 0px",
         maxWidth: 500
     });
