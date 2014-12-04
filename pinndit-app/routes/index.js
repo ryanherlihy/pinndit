@@ -88,7 +88,7 @@ router.post('/postpinn', function (req, res) {
     pinnData.push(new Pinn(eventname, descname, k, B, timePosted));
 	res.json({ status: 'OK'});
 });
-
+/*
 router.post('/removepinn', function (req, res) {
     var k = req.body.k;
     var B = req.body.B;
@@ -101,13 +101,14 @@ router.post('/removepinn', function (req, res) {
 
     res.json({ status: 'OK'});
 });
-
+*/
 router.post('/postcomment', function (req, res) {
     var text = req.body.text;
     var k = req.body.k;
     var B = req.body.B;
-    var id = getPinnID(k, B);
+   // var id = getPinnID(k, B);
     var timePosted = req.body.posted;
+/*
     var timeSt = timeStamp(timePosted);
 
     var comment = {PinnID: id, Comment: text, SessionID: 15, Time: timeSt };
@@ -116,18 +117,18 @@ router.post('/postcomment', function (req, res) {
         if(error) return console.log(error);
         console.log("Comment: " + result.Comment + " added");
     });
-
+*/
     console.log('received post: ' + text + '(k: ' + k + ') ' + '(B: ' + B + ')');
     comments.push(new Comment(text, k, B));
     res.json({ status: 'OK'});
 });
 
-//router.post('/checkcomments', function (req, res) {
-//    var last = parseInt(req.body.last, 10);
-//    var rest = comments.slice(last, comments.length);
-//    res.json(rest);
-//});
-
+    router.post('/checkcomments', function (req, res) {
+    var last = parseInt(req.body.last, 10);
+    var rest = comments.slice(last, comments.length);
+    res.json(rest);
+});
+/*
 router.post('/checkcomments', function (req, res) {
     var k = req.body.k;
     var B = req.body.B;
@@ -141,6 +142,7 @@ router.post('/checkcomments', function (req, res) {
     });
 
 });
+*/
 
 router.post('/checkpinns', function (req, res) {
     isTimePostedPast_Seconds(300);
@@ -170,7 +172,7 @@ function timeStamp(seconds) {
 // Return the formatted string
     return date.join("/") + " " + time.join(":");
 }
-
+/*
 function getPinnID(k, B){
     var pinn = {
         Latitude: k,
@@ -182,3 +184,4 @@ function getPinnID(k, B){
         return result.PinnID;
     });
 }
+*/

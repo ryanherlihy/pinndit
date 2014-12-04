@@ -12,7 +12,3 @@ INSERT INTO "Pinns" VALUES (DEFAULT, 1, 60.01, 60.01, 'Event2',  'second event',
 INSERT INTO "Pinns" VALUES (DEFAULT, 1, 60.02, 60.02, 'Event3', NULL, 101, 0, 0, '2014-12-03 04:05:06');
 
 INSERT INTO "Pinns" VALUES (DEFAULT, 0, 60.03, 60.03, 'Event4',  NULL, 101, 0, 0, '2014-12-03 04:05:06');
-<<<<<<< HEAD
-	
-=======
->>>>>>> 81fcf03185262e8efa3ba2a4858f968151e8ca32
