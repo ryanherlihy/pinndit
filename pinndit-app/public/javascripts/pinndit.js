@@ -14,7 +14,7 @@ var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindo
 
 var pinnInfoString = '<body>'+
     '<p>Pinn Information</p>' +
-    '<div style="width:50px;">' +
+    '<div style="width:20px;">' +
     '<iframe src="/updown.html"></iframe>' +
     '</div>' +
     'Event Name: <input id="event-name" type="text" name="event-name" readonly> <br>' +
