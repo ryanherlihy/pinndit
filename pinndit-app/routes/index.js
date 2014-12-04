@@ -67,7 +67,7 @@ router.post('/postpinn', function (req, res) {
     var timeSt = timeStamp(timePosted);
 
     console.log('recieved post: ' + '(Name: ' + eventname + ') ' + '(Desc: ' + descname + ') ' + '(k: ' + k + ') ' + '(B: ' + B + ')' + '(timePosted: ' + timePosted + ')');
-
+    pinnData.push(new Pinn(eventname, descname, k, B, timePosted));
     console.log(timeSt);
 
     var pinn = {
