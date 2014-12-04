@@ -299,18 +299,10 @@ function addNewPinn(location) {
         maxWidth: 500
     });
 
-    // var infowindow = new google.maps.InfoWindow({
-    //     content: pinnformString,
-
-    //     maxWidth: 500
-    // });
-
-    // var donepinnwindow = new google.maps.InfoWindow({
-    //     content: pinnInfoString,
-
-    //     maxWidth: 500
-
-    // });
+    // google.maps.event.addListener(pinnDiv, 'onmouseover', function {
+    //     //infowindow.close();
+    //     donepinnwindow.close();
+    // }); 
 
 
 
