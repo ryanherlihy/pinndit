@@ -7,16 +7,17 @@ var controlPinn;
 var inActivePinn;
 var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
     '<div id = "iw"><p id="pinntitle">New Pinn Information</p>' +
-    '<input id = "event-name" type="text" name="event-name"> <br>' +
-    '<input id="event-description" type="text" name="event-description"> <br>' +
+    '<input id = "event-name" type="text" name="event-name" placeholder="Event Name"> <br>' +
+    '<input id="event-description" type="text" name="event-description" placeholder="Event Description"> <br>' +
     '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
     '<br></div>';
+
 var pinnInfoString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
     '<div id="iw-event"><p id="pinntitle">Pinn Information</p>' +
     '<input id="event-name" type="text" name="event-name" readonly> <br>' +
     '<input id="event-description" type="text" name="event-description" readonly> <br>' +
-    '</div> <br>'+
-    '<div> <div id="comment"> <div id="ctext"> <input id= "submit" type="text" size="15"> </div>' +
+    '</div>' +
+    '<div> <div id="comment"> <div id="ctext"> <input id= "submit" type="text" size="15" placeholder="Comments"> </div>' +
     '<div id="cbutton"> <button name="send" id= "send" class="send">Submit</button> </div> </div>'  +
     '<div id="clist"> <ul style="list-style: none" id="chat">' +
     '</ul> </div> </div>';
@@ -211,9 +212,9 @@ CommentClient.prototype = {
 
             // Rewrite to the view:
             that.view.empty();
-            var li   = $('<li>');//lookups are slow, pulled this out of the loop
             for (var i = 0; i < that.comments.length; i++) {
                 if(pinn.position.lat() == that.comments[i].eventk && pinn.position.lng() == that.comments[i].eventB){
+                    var li   = $('<li>');   //had to have lookup in loop to create new <li>
                     li.html(that.comments[i].text);
                     that.view.append(li);
                 }
@@ -265,7 +266,7 @@ function addNewPinn(location) {
 
     var donepinnwindow = new InfoBox({
         content: pinnInfoString,
-        pixelOffset: new google.maps.Size(-380, -175),
+        pixelOffset: new google.maps.Size(-380, -185),
         closeBoxMargin: "10px 155px 0px 0px",
         maxWidth: 500
     });
@@ -323,6 +324,8 @@ function addNewPinn(location) {
     google.maps.event.addListener(pinn, 'click', function() {
         if(this.created === 1) {
             donepinnwindow.open(map, pinn);
+            map.panTo(location);
+            map.setZoom(15);
             if(openPin !== 'undefined' && openPin !== this){
                 google.maps.event.trigger(openPin, 'rightclick'); 
             }

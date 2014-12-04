@@ -5,7 +5,7 @@
 var pg = require('pg');
 var conString = 'postgres://postgres:pass@localhost/pinndit';
 
-function addPinn(pinn, callback){
+function addPinn(pinn, callback){ //WORKS
     var err = null;
     if(pinn.Latitude === null){err = "null latt"}
     else if(pinn.Longitude === null){err = "null long"}
@@ -43,7 +43,7 @@ function addPinn(pinn, callback){
     pg.end();
 }
 
-function addComment(comment, callback){
+function addComment(comment, callback){ //WORKS
     var err = null;
     if(comment.PinnID === null){ err = "null PinnID"}
     else if(comment.Comment === null || comment.Comment.length > 25){err = "Comment length needs to be more than 0 and less than 25"}
@@ -53,7 +53,7 @@ function addComment(comment, callback){
     if(err){callback(error); return;}
 
     var comArr = [comment.PinnID, comment.Comment, comment.SessionID, comment.Time];
-    var query = "INSERT into Comments values (DEFAULT, $1, $2, 0, 0, $3, $4);";
+    var query = "INSERT into \"Comments\" values (DEFAULT, $1, $2, 0, 0, $3, $4);";
     console.log(query);
 
     pg.connect(conString,function(err, client, done){
@@ -68,15 +68,15 @@ function addComment(comment, callback){
                 callback(error);
                 return;
             }
-            callback(err, results);
+            callback(err, "success");
         });
     });
     pg.end();
 }
 
-function getComments(PinnID, callback){
+function getComments(PinnID, callback){ //WORKS
     var comArr = [PinnID];
-    var query = "SELECT * FROM Comments C WHERE C.PinnID = $1;";
+    var query = "SELECT * FROM \"Comments\" WHERE \"PinnID\" = $1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, comArr, function(err, results){
@@ -89,9 +89,9 @@ function getComments(PinnID, callback){
 }
 
 //given sessionId returns pinns dropped
-function getMyPinns(sessionID, callback){
+function getMyPinns(sessionID, callback){ //WORKS
     var pinnArr = [sessionID];
-    var query = "SELECT * FROM Pinns P WHERE P.SessionID = $1 AND P.Active=1;";
+    var query = "SELECT * FROM \"Pinns\" WHERE \"SessionID\" = $1 AND \"Active\"=1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
@@ -106,7 +106,7 @@ function getMyPinns(sessionID, callback){
 //given area returns list of pinns
 function getVisiblePinns(minLat, maxLat, minLong, maxLong, callback){
     var pinnArr = [minLat, maxLat, minLong, maxLong];
-    var query = "SELECT * FROM Pinns P WHERE P.Latitude > $1 AND P.Latitude < $2 AND P.Longitude > $3 AND P.Longitude < $4 AND P.Active = 1";
+    var query = "SELECT * FROM \"Pinns\" WHERE \"Latitude\" > $1 AND \"Latitude\" < $2 AND \"Longitude\" > $3 AND \"Longitude\" < $4 AND \"Active\" = 1";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
@@ -118,57 +118,57 @@ function getVisiblePinns(minLat, maxLat, minLong, maxLong, callback){
     pg.end();
 }
 
-function upvotePinn(PinnID, callback){
+function upvotePinn(PinnID, callback){ //WORKS
     var pinnArr = [PinnID];
-    var query = "UPDATE Pinns P SET Up = Up + 1 WHERE P.PinnID = $1 AND P.Active=1;";
+    var query = "UPDATE \"Pinns\" SET \"Up\" = \"Up\" + 1 WHERE \"PinnID\" = $1 AND \"Active\"=1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
             done();
             console.log(results);
-            callback(err, results.rows[0]);
+            callback(err, PinnID);
         });
     });
     pg.end();
 }
 
-function downvotePinn(PinnID, callback){
+function downvotePinn(PinnID, callback){ //WORKS
     var pinnArr = [PinnID];
-    var query = "UPDATE Pinns P SET Down = Down + 1 WHERE P.PinnID = $1 AND P.Active=1;";
+    var query = "UPDATE \"Pinns\" SET \"Down\" = \"Down\" + 1 WHERE \"PinnID\" = $1 AND \"Active\"=1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
             done();
             console.log(results);
-            callback(err, results.rows[0]);
+            callback(err, PinnID);
         });
     });
     pg.end();
 }
 
-function upvoteComment(commentID, callback){
+function upvoteComment(commentID, callback){ //WORKS
     var commArr = [commentID];
-    var query = "UPDATE Comments C SET Up = Up + 1 WHERE CommentID = $1";
+    var query = "UPDATE \"Comments\" SET \"Up\" = \"Up\" + 1 WHERE \"CommentID\" = $1";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, commArr, function(err, results){
             done();
             console.log(results);
-            callback(err, results.rows[0]);
+            callback(err, commentID);
         });
     });
     pg.end();
 }
 
-function downvoteComment(commentID, callback){
+function downvoteComment(commentID, callback){ //WORKS
     var commArr = [commentID];
-    var query = "UPDATE Comments C SET Down = Down + 1 WHERE C.CommentID = $1";
+    var query = "UPDATE \"Comments\" SET \"Down\" = \"Down\" + 1 WHERE \"CommentID\" = $1";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, commArr, function(err, results){
             done();
             console.log(results);
-            callback(err, results.rows[0]);
+            callback(err, commentID);
         });
     });
     pg.end();
@@ -184,39 +184,40 @@ function editPinn(pinn, callback){
     if(err){callback(err); return;}
 
     var pinnArr = [pinn.PinnID, pinn.SessionID];
-    var query = "UPDATE Pinns P SET ";
+    var query = "UPDATE \"Pinns\" SET ";
     if (pinn.EventName !== null && pinn.Description !== null){
-        query+= "P.EventName = $3, P.Description = $4 ";
+        query+= "\"EventName\" = $3, \"Description\" = $4 ";
         pinnArr.push(pinn.EventName);
         pinnArr.push(pinn.Description);
     }else if(pinn.EventName !== null){
-        query+= "P.EventName = $3 ";
+        query+= "\"EventName\" = $3 ";
         pinnArr.push(pinn.EventName);
     }else if(pinn.Description !== null){
-        query+= "P.Description = $3 ";
+        query+= "\"Description\" = $3 ";
         pinnArr.push(pinn.Description);
     }
-    query += "WHERE P.PinnID = $1 AND P.SessionID = $2 AND P.Active=1;";
+    query += "WHERE \"PinnID\" = $1 AND \"SessionID\" = $2 AND \"Active\"=1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
             done();
             console.log(results);
-            callback(err, results.rows[0]);
+            pinn.PinnID = results.rows[0];
+            callback(err, pinn);
         });
     });
     pg.end();
 }
 
-function markInactive(PinnID, callback){
+function markInactive(PinnID, callback){ //WORKS
     var pinnArr = [PinnID];
-    var query = "UPDATE Pinns P SET Active = 0 WHERE P.PinnID = $1;";
+    var query = "UPDATE \"Pinns\" SET \"Active\" = 0 WHERE \"PinnID\" = $1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
             done();
             console.log(results);
-            callback(err, results.rows[0]);
+            callback(err, PinnID);
         });
     });
     pg.end();
@@ -230,7 +231,7 @@ function getID(pinn, callback){ //not functioning (long and lat too precise)
     if(err){callback(err); return;}
 
     var pinnArr = [pinn.Latitude, pinn.Longitude];
-    var query = "Select PinnID FROM  Pinns P WHERE P.Longitude = $1 AND P.Latitude = $2 LIMIT 1;";
+    var query = "Select P.\"PinnID\" FROM  \"Pinns\" P WHERE P.\"Longitude\" = $1 AND P.\"Latitude\" = $2 LIMIT 1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
