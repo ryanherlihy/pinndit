@@ -4,7 +4,7 @@
 
 CREATE TABLE "Comments"
 (
-  "CommentID" integer NOT NULL,
+  "CommentID" SERIAL,
   "PinnID" integer NOT NULL,
   "Comment" text,
   "Up" integer NOT NULL DEFAULT 0,
@@ -23,7 +23,7 @@ WITH (
 
 CREATE TABLE "Pinns"
 (
-  "PinnID" integer NOT NULL,
+  "PinnID" SERIAL,
   "Active" integer NOT NULL DEFAULT 1,
   "Latitude" real NOT NULL,
   "Longitude" real NOT NULL,

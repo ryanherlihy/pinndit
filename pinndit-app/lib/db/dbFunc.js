@@ -3,9 +3,10 @@
  */
 
 var pg = require('pg');
-var conString = 'postgres://'+process.env.USER+':pass@localhost/pinndit';
+var conString = 'postgres://postgres:pass@localhost/pinndit';
 
 function addPinn(pinn, callback){
+    console.log("addpin");
     var err = null;
     if(pinn.Lattitude === null){err = "null latt"}
     else if(pinn.Longitude === null){err = "null long"}
@@ -15,13 +16,13 @@ function addPinn(pinn, callback){
     else if(pinn.Time === null){err = "null time"}
     else if(pinn.Description !== null && pinn.Description.length > 25){err = "Description too long"}
 
-    if(err){callback(error); return;}
+    if(err){callback(err); return;}
 
-    var pinnArr = [pinn.Lattitude, pinn.Longitude, pinn.EventName, pinn.SessionID, pinn.Time];
+    var pinnArr = [pinn.Latitude, pinn.Longitude, pinn.EventName, pinn.SessionID, pinn.Time];
 
-    var query = "INSERT into Pinns values (DEFAULT, 1, $1, $2, $3, ";
-    if(pinn.Description){query+= "$6, $4, 0, 0, $5);"; pinnArr.push(pinn.Description);}
-    else{query+="NULL, $4, 0, 0, $5);";}
+    var query = 'INSERT into "Pinns" values (DEFAULT , 1, $1, $2, $3, ';
+    if(pinn.Description){query+= '$6, $4, 0, 0, $5);'; pinnArr.push(pinn.Description);}
+    else{query+='NULL, $4, 0, 0, $5);';}
 
     console.log(query);
     pg.connect(conString,function(err, client, done){
@@ -33,10 +34,10 @@ function addPinn(pinn, callback){
         client.query(query, pinnArr, function(err, results){
             done();
             if(err){
-                callback(error);
+                callback(err);
                 return;
             }
-            pinn.PinnID = results.rows[0].PinnID;
+            pinn.PinnID = results.rows[0];
             callback(err, pinn);
         });
     });

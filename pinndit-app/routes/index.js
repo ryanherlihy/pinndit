@@ -9,7 +9,7 @@ var pinnData = [];
 // Represents a post:
 function Comment(text, eventk, eventB) {
   this.text = text;
-  this.date = new Date();2
+  this.date = new Date();
   this.eventk = eventk;
   this.eventB = eventB;
 }
@@ -64,16 +64,16 @@ router.post('/postpinn', function (req, res) {
 	var B = req.body.B;
 	var timePosted = req.body.posted;
 	console.log('recieved post: ' + '(Name: ' + eventname + ') ' + '(Desc: ' + descname + ') ' + '(k: ' + k + ') ' + '(B: ' + B + ')' + '(timePosted: ' + timePosted + ')');
-	//pinnData.push(new Pinn(eventname, descname, k, B, timePosted));
+	pinnData.push(new Pinn(eventname, descname, k, B, timePosted));
     var pinn = {
-        Latitude: k,
-        Longitude: B,
-        EventName: eventname,
-        SessionID:  Math.floor(Math.random()*1000), //integer
-        Time:  timestamp()//timestamp function to get current time is in pinndit.js
+        Latitude: 40,
+        Longitude: 60,
+        EventName: "test",
+        SessionID: 15, //integer
+        Time:  '2014-12-04 04:05:06' //timestamp function to get current time is in pinndit.js
     };
     if(descname!==null){
-        pinn.push(descname);
+        pinn.Description = descname;
     }
     db.addPinn(pinn, function(error, result){
         if(error) return console.log(error);
