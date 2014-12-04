@@ -12,15 +12,17 @@ var pinnformString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindo
     '<button name="create-event" id= "create-event" class="create-event">Create Event</button>' +
     '<br></div>';
 
-var pinnInfoString = '<head> <link rel="stylesheet" href="/stylesheets/infoWindowStyle.css"/> </head>' +
-    '<div id="iw-event"><p id="pinntitle">Pinn Information</p>' +
-    '<input id="event-name" type="text" name="event-name" readonly> <br>' +
-    '<input id="event-description" type="text" name="event-description" readonly> <br>' +
+var pinnInfoString = '<body>'+
+    '<p>Pinn Information</p>' +
+    '<div style="width:50px;">' +
+    '<iframe src="/updown.html"></iframe>' +
     '</div>' +
-    '<div> <div id="comment"> <div id="ctext"> <input id= "submit" type="text" size="15" placeholder="Comments"> </div>' +
-    '<div id="cbutton"> <button name="send" id= "send" class="send">Submit</button> </div> </div>'  +
-    '<div id="clist"> <ul style="list-style: none" id="chat">' +
-    '</ul> </div> </div>';
+    'Event Name: <input id="event-name" type="text" name="event-name" readonly> <br>' +
+    'Event Description:  <input id="event-description" type="text" name="event-description" readonly> <br>' +
+    '<div>Comment: <input id= "submit" type="text" size="15">' +
+    '<button name="send" id= "send" class="send">Submit</button>' +
+    '<ul style="list-style: none" id="chat">' +
+    '</ul></body>';
 var openPin = 'undefined';
 
 //never used?
