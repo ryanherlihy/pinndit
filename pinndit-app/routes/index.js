@@ -138,12 +138,23 @@ router.post('/checkcomments', function (req, res) {
 });
 */
 
+
 router.post('/checkpinns', function (req, res) {
-    isTimePostedPast_Seconds(300);
-    console.log('Active Number of Pinns: ' + pinnData.length);
-    var last = parseInt(req.body.last, 10);
-    var rest = pinnData.slice(last, pinnData.length);
-    res.json(rest);
+    console.log("check pinns");
+    var k = req.body.k;
+    var B = req.body.B;
+    var minLat = req.body.minLat;
+    var maxLat = req.body.maxLat;
+    var minLong = req.body.minLong;
+    var maxLong = req.body.maxLong;
+
+    db.getVisiblePinns(minLat, maxLat, minLong, maxLong, function(error, result){
+        if(error) return console.log(error);
+        for(row in result){
+            console.log("Found Pinns around k: " + k + "B: " + B);
+        }
+        res.json(result);
+    });
 });
 
 module.exports = router;

@@ -97,30 +97,31 @@ PinnClient.prototype = {
     // Check for more messages on the server
     // given the last index we have for the
     // current posts.
-    check : function (type, pinn) {
+    check : function (type, pinn, pinnk) {
         var that = this;
         $.ajax({
             type : 'POST',
             url  : '/checkpinns',
-            data : { last : that.pinnData.length },
+            data : { last : that.pinnData.length, minLat: pinnk.minLat, maxLat: pinnk.maxLat,
+                minLong: pinnk.minLong, maxLong: pinnk.minLong },
             dataType : 'json'
         }).done(function (data) {
             console.log('Check rcvd pinns: ' + JSON.stringify(data));
 
             // Append the posts to the current posts:
-            that.pinnData = that.pinnData.concat(data);
+            that.pinnData = (data);
 
             if(type === 'done'){
                 for(var i =0; i<that.pinnData.length;i++){
-                    if(pinn.position.lat() == that.pinnData[i].eventk && pinn.position.lng() == that.pinnData[i].eventB){
-                        that.view.val(that.pinnData[i].eventname);
-                        that.view2.val(that.pinnData[i].eventdesc);
+                    if(pinn.position.lat() == that.pinnData[i].Latitude && pinn.position.lng() == that.pinnData[i].Longitude){
+                        that.view.val(that.pinnData[i].EventName);
+                        that.view2.val(that.pinnData[i].Description);
                     }
                 }
             }
             if(type === 'refresh'){
                 for(var i =0; i<that.pinnData.length;i++){
-                    var LatLng = new google.maps.LatLng(that.pinnData[i].eventk, that.pinnData[i].eventB);
+                    var LatLng = new google.maps.LatLng(that.pinnData[i].Latitude, that.pinnData[i].Longitude);
                     addOldPinn(LatLng);
                 }
             }
@@ -187,7 +188,14 @@ function addOldPinn(location){
             view2 : eventDescription
 
         });
-        pinnc.check('done', pinn);
+        var visLong = (map.Size.width)/(overlay.getProjection().getWorldWidth())*360;
+        var pinnk = {
+            minLat: map.coords.latitude - visLong,
+            maxLat: map.coords.latitude + visLong,
+            minLong: map.coords.longitude - visLong,
+            maxLong: map.coords.longitude + visLong
+        };
+        pinnc.check('done', pinn, pinnk);
         // Bind a click event:
         createComment.bind('click', function (event) {
             console.log(this);
@@ -392,7 +400,14 @@ function addNewPinn(location) {
             view2 : eventDescription
 
         });
-        pinnc.check('done', pinn);
+        var visLong = (map.Size.width)/(overlay.getProjection().getWorldWidth())*360;
+        var pinnk = {
+            minLat: map.coords.latitude - visLong,
+            maxLat: map.coords.latitude + visLong,
+            minLong: map.coords.longitude - visLong,
+            maxLong: map.coords.longitude + visLong
+        };
+        pinnc.check('done', pinn, pinnk);
         // Bind a click event:
         createComment.bind('click', function (event) {
             console.log(this);
@@ -435,7 +450,7 @@ function AddInactivePinn(controlDiv, map){
 }
 
 function AddControlPinn(controlDiv, map) {
-
+    console.log("add control pinn");
     controlDiv.style.padding = '15px';
 
 
@@ -464,7 +479,7 @@ function AddControlPinn(controlDiv, map) {
 }
 
 function success(position) {
-
+    console.log("success");
     var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
     var options = {
@@ -485,12 +500,19 @@ function success(position) {
     overlay.onAdd = function(){};
     overlay.setMap(map);
 
-
+    console.log("pre-add control pinn");
     AddControlPinn(pinnDiv, map);
     AddInactivePinn(pinnDiv, map);
 
     var pinnc = new PinnClient({});
-    pinnc.check('refresh', null);
+    var visLong = (map.Size.width)/(overlay.getProjection().getWorldWidth())*360;
+    var pinnk = {
+        minLat: map.coords.latitude - visLong,
+        maxLat: map.coords.latitude + visLong,
+        minLong: map.coords.longitude - visLong,
+        maxLong: map.coords.longitude + visLong
+    };
+    pinnc.check('refresh', null, pinnk);
 
 
     //addNewPinn(coords);
