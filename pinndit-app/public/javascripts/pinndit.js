@@ -192,7 +192,7 @@ function addOldPinn(location){
             console.log(this);
             var text = this.input.val();
             commentc.post(text, location.lat(), location.lng());
-            $('#chat').append('<li>' + text + '</li>');
+            $('#chat').prepend('<li>' + text + '</li>');
             // clear input text:
             this.input.val('');
             return false;
@@ -397,7 +397,7 @@ function addNewPinn(location) {
             console.log(this);
             var text = this.input.val();
             commentc.post(text, location.lat(), location.lng());
-            $('#chat').append('<li>' + text + '</li>');
+            $('#chat').prepend('<li>' + text + '</li>');
             // clear input text:
             this.input.val('');
             return false;
