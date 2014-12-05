@@ -9,7 +9,7 @@ CREATE TABLE "Comments"
   "Comment" text,
   "Up" integer NOT NULL DEFAULT 0,
   "Down" integer NOT NULL DEFAULT 0,
-  "SessionID" integer NOT NULL,
+  "SessionID" text NOT NULL,
   "Time" timestamp(6) without time zone NOT NULL,
   CONSTRAINT "Comments_pkey" PRIMARY KEY ("CommentID")
 )
@@ -29,7 +29,7 @@ CREATE TABLE "Pinns"
   "Longitude" double precision NOT NULL,
   "EventName" text,
   "Description" text,
-  "SessionID" integer,
+  "SessionID" text,
   "Up" integer NOT NULL DEFAULT 0,
   "Down" integer NOT NULL DEFAULT 0,
   "Time" timestamp without time zone NOT NULL,

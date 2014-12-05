@@ -85,18 +85,18 @@ PinnClient.prototype = {
     // Check for more messages on the server
     // given the last index we have for the
     // current posts.
-    check : function (type, pinn) {
+    check : function (type, pinn, pinnk) {
         var that = this;
         $.ajax({
             type : 'POST',
             url  : '/checkpinns',
-            data : { last : that.pinnData.length },
+            data : { last : that.pinnData.length, minLat: pinnk.minLat, maxLat: pinnk.maxLat,
+                minLong: pinnk.minLong, maxLong: pinnk.maxLong, selecting: pinnk.selecting, k: pinnk.k, B: pinnk.B},
             dataType : 'json'
         }).done(function (data) {
             console.log('Check rcvd pinns: ' + JSON.stringify(data));
-
             // Append the posts to the current posts:
-            that.pinnData = that.pinnData.concat(data);
+            that.pinnData = (data);
 
             function isTimePostedPast_Seconds(seconds){
                 var currentTime = parseInt(new Date() / 1000,10);
@@ -111,17 +111,13 @@ PinnClient.prototype = {
             }
 
             if(type === 'done'){
-                for(var i =0; i<that.pinnData.length;i++){
-                    if(pinn.position.lat() == that.pinnData[i].eventk && pinn.position.lng() == that.pinnData[i].eventB){
-                        that.view.val(that.pinnData[i].eventname);
-                        that.view2.val(that.pinnData[i].eventdesc);
-                    }
-                }
+                that.view.val(data.EventName);
+                that.view2.val(data.Description);
             }
             if(type === 'refresh'){
                 isTimePostedPast_Seconds(600);
                 for(var i =0; i<that.pinnData.length;i++){
-                    var LatLng = new google.maps.LatLng(that.pinnData[i].eventk, that.pinnData[i].eventB);
+                    var LatLng = new google.maps.LatLng(that.pinnData[i].Latitude, that.pinnData[i].Longitude);
                     addOldPinn(LatLng);
                 }
             }
@@ -180,15 +176,26 @@ function addOldPinn(location){
             view   : $('#send'),
             input  : $('#submit')
         });
-        var eventName = $('#event-name');              //repeated lookups are slow
-        var eventDescription = $('#event-description');
+        var EventName = $('#event-name');              //repeated lookups are slow
+        var Description = $('#event-description');
 
         var pinnc = new PinnClient({
-            view  : eventName,
-            view2 : eventDescription
+            view  : EventName,
+            view2 : Description
 
         });
-        pinnc.check('done', pinn);
+        var visLong = (map.width)/(overlay.getProjection().getWorldWidth())*360;
+        var pinnk = {
+            minLat: map.center.latitude - visLong,
+            maxLat: map.center.latitude + visLong,
+            minLong: map.center.longitude - visLong,
+            maxLong: map.center.longitude + visLong,
+            selecting: 1,
+            k: pinn.position.lng(),
+            B: pinn.position.lat()
+        };
+        console.log("done: 199");
+        pinnc.check('done', pinn, pinnk);
         // Bind a click event:
         createComment.bind('click', function (event) {
             console.log(this);
@@ -325,17 +332,17 @@ function addNewPinn(location) {
         $(controlPinn).trigger("creatingpinn");
         $(inActivePinn).trigger("creatingpinn");
 
-        var eventName = $('#event-name');              //repeated lookups are slow
-        var eventDescription = $('#event-description');
+        var EventName = $('#event-name');              //repeated lookups are slow
+        var Description = $('#event-description');
         var pinnc = new PinnClient({
-            view  : eventName,
-            view2 : eventDescription
+            view  : EventName,
+            view2 : Description
 
         });
         var createEvent = new PostButton({
             view    : $('#create-event'),
-            input   : eventName,
-            input2  : eventDescription
+            input   : EventName,
+            input2  : Description
         });
 
         createEvent.bind('click', function (event) {
@@ -364,7 +371,7 @@ function addNewPinn(location) {
             map.panTo(location);
             map.setZoom(15);
             if(openPin !== 'undefined' && openPin !== this){
-                google.maps.event.trigger(openPin, 'closewindow'); 
+                google.maps.event.trigger(openPin, 'closewindow');
             }
            openPin = pinn;
         }
@@ -396,15 +403,25 @@ function addNewPinn(location) {
             view   : $('#send'),
             input  : $('#submit')
         });
-        var eventName = $('#event-name');              //repeated lookups are slow
-        var eventDescription = $('#event-description');
+        var EventName = $('#event-name');              //repeated lookups are slow
+        var Description = $('#event-description');
 
         var pinnc = new PinnClient({
-            view  : eventName,
-            view2 : eventDescription
+            view  : EventName,
+            view2 : Description
 
         });
-        pinnc.check('done', pinn);
+        var visLong = (map.width)/(overlay.getProjection().getWorldWidth())*360;
+        var pinnk = {
+            minLat: map.center.latitude - visLong,
+            maxLat: map.center.latitude + visLong,
+            minLong: map.center.longitude - visLong,
+            maxLong: map.center.longitude + visLong,
+            selecting: 1,
+            k: pinn.position.lng(),
+            B: pinn.position.lat()
+        };
+        pinnc.check('done', pinn, pinnk);
         // Bind a click event:
         createComment.bind('click', function (event) {
             console.log(this);
@@ -449,7 +466,7 @@ function AddInactivePinn(controlDiv, map){
 }
 
 function AddControlPinn(controlDiv, map) {
-
+    console.log("add control pinn");
     controlDiv.style.padding = '15px';
 
 
@@ -478,7 +495,7 @@ function AddControlPinn(controlDiv, map) {
 }
 
 function success(position) {
-
+    console.log("success");
     var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
     var options = {
@@ -499,12 +516,30 @@ function success(position) {
     overlay.onAdd = function(){};
     overlay.setMap(map);
 
-
+    console.log("pre-add control pinn");
     AddControlPinn(pinnDiv, map);
     AddInactivePinn(pinnDiv, map);
 
-    var pinnc = new PinnClient({});
-    pinnc.check('refresh', null);
+
+    google.maps.event.addListenerOnce(overlay,"projection_changed", function() {
+        console.log("projection_changed");
+        var pinnc = new PinnClient({});
+        var cor1 = map.getBounds().getNorthEast();
+        var cor2 = map.getBounds().getSouthWest();
+        console.log(cor1.lng() + " " + cor2.lng());
+        var pinnk = {
+            minLat: cor2.lat(),
+            maxLat: cor1.lat(),
+            minLong: cor2.lng(),
+            maxLong: cor1.lng(),
+            selecting: 0,
+            k: 0,
+            B: 0
+        };
+        console.log(pinnk.minLat + " " + pinnk.maxLat + " " + pinnk.minLong + " " + pinnk.maxLong);
+        pinnc.check('refresh', null, pinnk);
+    });
+
 
 
     //addNewPinn(coords);
