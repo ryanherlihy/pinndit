@@ -26,20 +26,20 @@ router.get('/', function(req, res) {
     res.render('index', { title: 'Pinndit' });
 });
 
-function isTimePostedPast_Seconds(seconds){
-    var currentTime = parseInt(new Date() / 1000,10);
-    for(var i = pinnData.length - 1; i >= 0; i--){
-        var p = pinnData[i];
-        // var getttt = getPinnID(p.k, p.B);
-        // db.markInactive(getttt, function(error, result){
-        //     if(error) return console.log(error);
-        //     console.log("Event Name: " + result.EventName + " added");
-        // });
-        if((currentTime - seconds) > p.timePosted){
-            pinnData.splice(i, 1);
-        }
-    }
-}
+//function isTimePostedPast_Seconds(seconds){
+//    var currentTime = parseInt(new Date() / 1000,10);
+//    for(var i = pinnData.length - 1; i >= 0; i--){
+//        var p = pinnData[i];
+//        // var getttt = getPinnID(p.k, p.B);
+//        // db.markInactive(getttt, function(error, result){
+//        //     if(error) return console.log(error);
+//        //     console.log("Event Name: " + result.EventName + " added");
+//        // });
+//        if((currentTime - seconds) > p.timePosted){
+//            pinnData.splice(i, 1);
+//        }
+//    }
+//}
 
 //Will work once up/down is implemented
 
@@ -149,9 +149,10 @@ router.post('/checkpinns', function (req, res) {
     console.log("check pinns: " + selecting);
     if(selecting ===  '1') {
         console.log("get Pinn ID: " + k +","+ B);
-        var ID = getPinnID(k, B,function(PinnID){
+        getPinnID(k, B,function(error, PinnID){
+            if(error){console.log(error);return;}
             db.getPinn(PinnID, function(error, result){
-                if(error) return console.log(error);
+                if(error){console.log(error);return;}
                 res.json(result);
             });
         });
@@ -202,13 +203,12 @@ function getPinnID(k, B){
 */
 
 function getPinnID(k, B, callback){
-    var pinn = {
-        Latitude: k,
-        Longitude: B
-    };
+    console.log("boop");
+    var pinn = [k, B];
+    console.log("pinnArr: " + pinn);
     db.getID(pinn, function(error, result){
-        if(error) return console.log(error);
+        if(error){callback(error);return;}
         console.log(result.PinnID);
-        callback(result.PinnID);
+        callback(error, result.PinnID);
     });
 }

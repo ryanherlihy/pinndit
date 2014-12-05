@@ -228,21 +228,17 @@ function markInactive(PinnID, callback){
 }
 
 function getID(pinn, callback){ //not functioning (long and lat too precise)
-    console.log("getID: " + pinn.Latitude + ", " + pinn.Longitude);
-    var err = null;
-    if(pinn.Latitude === null){err = "null latt"}
-    else if(pinn.Longitude === null){err = "null long"}
+    console.log("pinARR:" + pinn);
+    var query = "Select \"PinnID\" FROM  \"Pinns\" WHERE ABS(\"Longitude\"" +
+        "- $1) < .00000001 AND ABS(\"Latitude\" - $2) < .000000001 LIMIT 1;";
 
-    if(err){callback(err); return;}
-
-    var pinnArr = [pinn.Latitude, pinn.Longitude];
-    var query = "Select \"PinnID\" FROM  \"Pinns\" WHERE ABS(\"Longitude\" - $2)<=.000000001 AND ABS(\"Latitude\" - $1)<=.000000001 LIMIT 1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
-        client.query(query, pinnArr, function(err, results){
-            console.log("got ID: " + results.rows[0].PinnID);
-            done();
+        client.query(query, pinn, function(err, results){
+            console.log(results.rows[0]);
+            if(err){callback(err);return;}
             callback(err, results.rows[0]);
+            done();
         });
     });
     pg.end();

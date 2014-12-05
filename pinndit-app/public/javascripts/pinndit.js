@@ -107,8 +107,6 @@ PinnClient.prototype = {
             dataType : 'json'
         }).done(function (data) {
             console.log('Check rcvd pinns: ' + JSON.stringify(data));
-            console.log('data: ' + data);
-            console.log('eventname: ' + data.EventName);
             // Append the posts to the current posts:
             that.pinnData = (data);
 
