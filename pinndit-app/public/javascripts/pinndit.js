@@ -103,7 +103,7 @@ PinnClient.prototype = {
             type : 'POST',
             url  : '/checkpinns',
             data : { last : that.pinnData.length, minLat: pinnk.minLat, maxLat: pinnk.maxLat,
-                minLong: pinnk.minLong, maxLong: pinnk.minLong, selecting: pinnk.done},
+                minLong: pinnk.minLong, maxLong: pinnk.minLong, selecting: pinnk.selecting},
             dataType : 'json'
         }).done(function (data) {
             console.log('Check rcvd pinns: ' + JSON.stringify(data));
@@ -332,17 +332,17 @@ function addNewPinn(location) {
         $(controlPinn).trigger("creatingpinn");
         $(inActivePinn).trigger("creatingpinn");
 
-        var eventName = $('#event-name');              //repeated lookups are slow
-        var eventDescription = $('#event-description');
+        var EventName = $('#event-name');              //repeated lookups are slow
+        var Description = $('#event-description');
         var pinnc = new PinnClient({
-            view  : eventName,
-            view2 : eventDescription
+            view  : EventName,
+            view2 : Description
 
         });
         var createEvent = new PostButton({
             view    : $('#create-event'),
-            input   : eventName,
-            input2  : eventDescription
+            input   : EventName,
+            input2  : Description
         });
 
         createEvent.bind('click', function (event) {

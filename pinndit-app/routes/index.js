@@ -148,9 +148,13 @@ router.post('/checkpinns', function (req, res) {
     var maxLong = req.body.maxLong;
     var selecting = req.body.selecting;
     if(selecting ===  1) {
+        console.log("get Pinn ID");
         var ID = getPinnID(k, B);
+        console.log("get Pinn");
         db.getPinn(ID, function(error, result){
             if(error) return console.log(error);
+            console.log("result: " + result);
+            console.log("row1: " + result[0]);
             for(row in result){
                 console.log("Found Pinn at k: " + k + "B: " + B);
             }
