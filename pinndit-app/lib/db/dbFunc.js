@@ -105,13 +105,15 @@ function getMyPinns(sessionID, callback){ //WORKS
 
 //given area returns list of pinns
 function getVisiblePinns(minLat, maxLat, minLong, maxLong, callback){
+    console.log("GETVISIBLE");
     var pinnArr = [minLat, maxLat, minLong, maxLong];
+    console.log("minLat: " + minLat + " maxLat: " + maxLat + " minLong: " + minLong);
     var query = "SELECT * FROM \"Pinns\" WHERE \"Latitude\" > $1 AND \"Latitude\" < $2 AND \"Longitude\" > $3 AND \"Longitude\" < $4 AND \"Active\" = 1";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
             done();
-            console.log(results);
+            console.log(JSON.stringify(results));
             callback(err, results.rows);
         });
     });
@@ -176,6 +178,7 @@ function downvoteComment(commentID, callback){ //WORKS
 
 //use to edit event names and/or descriptions
 function editPinn(pinn, callback){
+    console.log("editPinn: " + pinn.PinnID);
     var err = null;
     if(pinn.PinnID === null){err = "null PinnID"}
     else if(pinn.SessionID === null){err = "null sessionID"}
@@ -209,7 +212,8 @@ function editPinn(pinn, callback){
     pg.end();
 }
 
-function markInactive(PinnID, callback){ //WORKS
+function markInactive(PinnID, callback){
+    console.log("markInactive: " + PinnID);
     var pinnArr = [PinnID];
     var query = "UPDATE \"Pinns\" SET \"Active\" = 0 WHERE \"PinnID\" = $1;";
     pg.connect(conString, function(err, client, done){
@@ -224,25 +228,43 @@ function markInactive(PinnID, callback){ //WORKS
 }
 
 function getID(pinn, callback){ //not functioning (long and lat too precise)
+    console.log("pinARR:" + pinn);
+    var query = "Select \"PinnID\" FROM  \"Pinns\" WHERE ABS(\"Longitude\"" +
+        "- $1) < .00000001 AND ABS(\"Latitude\" - $2) < .000000001 LIMIT 1;";
+
+    pg.connect(conString, function(err, client, done){
+        if(err) {console.log(err); return;}
+        client.query(query, pinn, function(err, results){
+            console.log(results.rows[0]);
+            if(err){callback(err);return;}
+            callback(err, results.rows[0]);
+            done();
+        });
+    });
+    pg.end();
+}
+
+function getPinn(PinnID, callback){ //not functioning (long and lat too precise)
+    console.log("getPinn: " + PinnID);
     var err = null;
-    if(pinn.Latitude === null){err = "null latt"}
-    else if(pinn.Longitude === null){err = "null long"}
+    if(PinnID === null){err = "null pinnID"}
 
     if(err){callback(err); return;}
 
-    var pinnArr = [pinn.Latitude, pinn.Longitude];
-    var query = "Select P.\"PinnID\" FROM  \"Pinns\" P WHERE P.\"Longitude\" = $1 AND P.\"Latitude\" = $2 LIMIT 1;";
+    var pinnArr = [PinnID];
+    var query = "Select * FROM  \"Pinns\"  WHERE \"PinnID\" = $1 LIMIT 1;";
     pg.connect(conString, function(err, client, done){
         if(err) {console.log(err); return;}
         client.query(query, pinnArr, function(err, results){
             done();
-            console.log("got ID: " + results);
+            console.log("got Pinn: " + results.rows[0].PinnID);
             callback(err, results.rows[0]);
         });
     });
     pg.end();
 }
 
+exports.getPinn = getPinn;
 exports.getID = getID;
 exports.markInactive = markInactive;
 exports.getVisiblePinns = getVisiblePinns;
