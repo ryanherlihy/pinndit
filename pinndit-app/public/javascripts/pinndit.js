@@ -34,20 +34,6 @@ var pinnInfoString = '<head> <link rel="stylesheet" href=/stylesheets/infoWindow
     '<ul style="list-style: none" id="chat">' +
     '</ul> </div> </body>';
 
-// var pinnInfoString = '<body>'+
-//     '<p>Pinn Information</p>' +
-//     '<div id="vote">'+
-//     '<iframe src="/updown.html" frameborder="0" width=50 height=77 scrolling=no></iframe>' +
-//     '</div>'+
-//     '<div id="content">'+
-//     'Event Name: <input id="event-name" type="text" name="event-name" readonly> <br>' +
-//     'Event Description:  <input id="event-description" type="text" name="event-description" readonly> <br>' +
-//     '</div>'+
-//     '<div>Comment: <input id= "submit" type="text" size="15">' +
-//     '<button name="send" id= "send" class="send">Submit</button>' +
-//     '<ul style="list-style: none" id="chat">' +
-//     '</ul></body>';
-
 var openPin = 'undefined';
 
 var newPinnOpen = false;
