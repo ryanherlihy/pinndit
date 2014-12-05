@@ -110,6 +110,16 @@ PinnClient.prototype = {
             // Append the posts to the current posts:
             that.pinnData = that.pinnData.concat(data);
 
+            function isTimePostedPast_Seconds(seconds){
+                var currentTime = parseInt(new Date() / 1000,10);
+                for(var i = that.pinnData.length - 1; i >= 0; i--){
+                    var p = that.pinnData[i];
+                     if((currentTime - seconds) > p.timePosted){
+                         that.pinnData.splice(i, 1);
+                    }
+                }
+            }
+
             if(type === 'done'){
                 for(var i =0; i<that.pinnData.length;i++){
                     if(pinn.position.lat() == that.pinnData[i].eventk && pinn.position.lng() == that.pinnData[i].eventB){
@@ -119,6 +129,7 @@ PinnClient.prototype = {
                 }
             }
             if(type === 'refresh'){
+                isTimePostedPast_Seconds(30);
                 for(var i =0; i<that.pinnData.length;i++){
                     var LatLng = new google.maps.LatLng(that.pinnData[i].eventk, that.pinnData[i].eventB);
                     addOldPinn(LatLng);

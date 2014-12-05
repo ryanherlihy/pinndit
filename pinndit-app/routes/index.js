@@ -26,16 +26,6 @@ router.get('/', function(req, res) {
     res.render('index', { title: 'Pinndit' });
 });
 
-function isTimePostedPast_Seconds(seconds){
-  var currentTime = parseInt(new Date() / 1000,10);
-  for(var i = pinnData.length - 1; i >= 0; i--){
-    var p = pinnData[i];
-    if((currentTime - seconds) > p.timePosted){
-      pinnData.splice(i, 1);
-      }
-   }
-}
-
  // var getttt = getPinnID(p.k, p.B);
         // db.markInactive(getttt, function(error, result){
         //     if(error) return console.log(error);
@@ -141,7 +131,6 @@ router.post('/checkcomments', function (req, res) {
 */
 
 router.post('/checkpinns', function (req, res) {
-    isTimePostedPast_Seconds(30);
     console.log('Active Number of Pinns: ' + pinnData.length);
     var last = parseInt(req.body.last, 10);
     var rest = pinnData.slice(last, pinnData.length);
