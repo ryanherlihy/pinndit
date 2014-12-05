@@ -50,6 +50,8 @@ var pinnInfoString = '<head> <link rel="stylesheet" href=/stylesheets/infoWindow
 
 var openPin = 'undefined';
 
+var newPinnOpen = false;
+
 //never used?
 //var PinndItPin = {
 //    url: '/images/PinndItPin.png',
@@ -166,7 +168,7 @@ function addOldPinn(location){
     });
 
     google.maps.event.addListener(pinn, 'click', function() {
-        if(this.created === 1) {
+        if(this.created === 1 && newPinnOpen === false) {
             donepinnwindow.open(map, pinn);
             map.panTo(location);
             map.setZoom(15);
@@ -284,6 +286,8 @@ function addNewPinn(location) {
 
     console.log(location.toString());
 
+    newPinnOpen = true;
+
     var pinnImage = '/images/PinndItPin50x50.png';
 
     var pinn = new google.maps.Marker({
@@ -348,12 +352,15 @@ function addNewPinn(location) {
             pinnc.post(text, text2, location.lat(), location.lng());
             infowindow.close();
             pinn.created = 1;
+
+            newPinnOpen = false;
+
             return false;
         });
     });
 
     google.maps.event.addListener(pinn, 'click', function() {
-        if(this.created === 1) {
+        if(this.created === 1 && newPinnOpen === false) {
             donepinnwindow.open(map, pinn);
             map.panTo(location);
             map.setZoom(15);
