@@ -436,6 +436,7 @@ function addNewPinn(location) {
         //creatingpinn toggles the visibility of the controlpinn and the inactive pinn
         $(controlPinn).trigger("creatingpinn");
         $(inActivePinn).trigger("creatingpinn");
+        newPinnOpen = false;
         pinn.setMap(null);
     });
 }
