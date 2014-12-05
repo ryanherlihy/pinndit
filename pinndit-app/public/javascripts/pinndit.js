@@ -207,8 +207,9 @@ function addOldPinn(location){
         createComment.bind('click', function (event) {
             console.log(this);
             var text = this.input.val();
-            commentc.post(text, location.lat(), location.lng());
-            $('#chat').prepend('<li>' + text + '</li>');
+            var injectionProofText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            commentc.post(injectionProofText, location.lat(), location.lng());
+            $('#chat').prepend('<li>' + injectionProofText + '</li>');
             // clear input text:
             this.input.val('');
             return false;
@@ -354,11 +355,14 @@ function addNewPinn(location) {
         createEvent.bind('click', function (event) {
             console.log(this);
             var text = this.input.val();
+            var injectionProofText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             //$('#event-name').prop('readonly', true);
             var text2 = this.input2.val();
+            var injectionProofText2 = text2.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
             //$('#event-description').prop('readonly', true);
             //$('#create-event').remove();
-            pinnc.post(text, text2, location.lat(), location.lng());
+            pinnc.post(injectionProofText, injectionProofText2, location.lat(), location.lng());
             infowindow.close();
             pinn.created = 1;
 
@@ -419,8 +423,9 @@ function addNewPinn(location) {
         createComment.bind('click', function (event) {
             console.log(this);
             var text = this.input.val();
-            commentc.post(text, location.lat(), location.lng());
-            $('#chat').prepend('<li>' + text + '</li>');
+            var injectionProofText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            commentc.post(injectionProofText, location.lat(), location.lng());
+            $('#chat').prepend('<li>' + injectionProofText + '</li>');
             // clear input text:
             this.input.val('');
             return false;
