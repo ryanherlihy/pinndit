@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="668eaa3e-ed84-496f-b4b7-71d77885f239" name="Default" comment="" />
+    <list default="true" id="668eaa3e-ed84-496f-b4b7-71d77885f239" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/db/dbFunc.js" afterPath="$PROJECT_DIR$/lib/db/dbFunc.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/pinndit.js" afterPath="$PROJECT_DIR$/public/javascripts/pinndit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="pinndit-app.iws" />
     <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,74 +29,27 @@
     <favorites_list name="pinndit-app" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.57238734">
+    <splitter split-orientation="horizontal" split-proportion="0.514861">
       <split-first>
         <leaf>
-          <file leaf-file-name="pinndit.js" pinned="false" current="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/public/javascripts/pinndit.js">
+          <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/routes/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-1.0197369" vertical-offset="3319" max-vertical-offset="4539">
-                  <caret line="473" column="53" selection-start-line="473" selection-start-column="53" selection-end-line="473" selection-end-column="53" />
-                  <folding>
-                    <element signature="n#!!block;n#CommentClient#0" expanded="false" />
-                    <element signature="e#5031#5081#0" expanded="false" />
-                    <element signature="n#!!block;n#addOldPinn#0" expanded="false" />
-                    <element signature="e#7660#9102#0" expanded="false" />
-                    <element signature="n#!!block;n#PostButton#0" expanded="false" />
-                    <element signature="e#9288#9449#0" expanded="false" />
-                    <element signature="n#!!block;n#addNewPinn#0" expanded="false" />
-                    <marker date="1417738523091" expanded="true" signature="1582:1598" placeholder="..." />
-                    <marker date="1417738523091" expanded="true" signature="14610:14621" placeholder="..." />
-                  </folding>
+                <state vertical-scroll-proportion="0.40597016" vertical-offset="2329" max-vertical-offset="3723">
+                  <caret line="145" column="31" selection-start-line="145" selection-start-column="31" selection-end-line="145" selection-end-column="31" />
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="dbFunc.js" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/lib/db/dbFunc.js">
+          <file leaf-file-name="pinndit.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/public/javascripts/pinndit.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="468" max-vertical-offset="1190">
-                  <caret line="256" column="45" selection-start-line="256" selection-start-column="45" selection-end-line="256" selection-end-column="45" />
+                <state vertical-scroll-proportion="-2.9411764" vertical-offset="8213" max-vertical-offset="9673">
+                  <caret line="489" column="16" selection-start-line="489" selection-start-column="16" selection-end-line="489" selection-end-column="16" />
                   <folding>
-                    <element signature="n#!!block;n#addPinn#0" expanded="false" />
-                    <element signature="e#469#534#0" expanded="false" />
-                    <element signature="e#1136#1538#0" expanded="false" />
-                    <element signature="e#1153#1273#0" expanded="false" />
-                    <element signature="e#1333#1530#0" expanded="false" />
-                    <element signature="e#1374#1444#0" expanded="false" />
-                    <element signature="n#!!block;n#addComment#0" expanded="false" />
-                    <element signature="e#2235#2355#0" expanded="false" />
-                    <element signature="n#!!block;n#getComments#0" expanded="false" />
-                    <element signature="e#2800#3018#0" expanded="false" />
-                    <element signature="e#2904#3010#0" expanded="false" />
-                    <element signature="n#!!block;n#getMyPinns#0" expanded="false" />
-                    <element signature="e#3298#3517#0" expanded="false" />
-                    <element signature="e#3403#3509#0" expanded="false" />
-                    <element signature="n#!!block;n#getVisiblePinns#0" expanded="false" />
-                    <element signature="n#!!block;n#upvotePinn#0" expanded="false" />
-                    <element signature="e#4471#4684#0" expanded="false" />
-                    <element signature="e#4576#4676#0" expanded="false" />
-                    <element signature="n#!!block;n#downvotePinn#0" expanded="false" />
-                    <element signature="e#4938#5151#0" expanded="false" />
-                    <element signature="e#5043#5143#0" expanded="false" />
-                    <element signature="n#!!block;n#upvoteComment#0" expanded="false" />
-                    <element signature="e#5396#5612#0" expanded="false" />
-                    <element signature="e#5501#5604#0" expanded="false" />
-                    <element signature="n#!!block;n#downvoteComment#0" expanded="false" />
-                    <element signature="e#5863#6079#0" expanded="false" />
-                    <element signature="e#5968#6071#0" expanded="false" />
-                    <element signature="n#!!block;n#editPinn#0" expanded="false" />
-                    <element signature="e#6603#6749#0" expanded="false" />
-                    <element signature="e#6781#6865#0" expanded="false" />
-                    <element signature="e#6899#6987#0" expanded="false" />
-                    <element signature="e#7120#7374#0" expanded="false" />
-                    <element signature="e#7225#7366#0" expanded="false" />
-                    <element signature="n#!!block;n#markInactive#0" expanded="false" />
-                    <element signature="e#7602#7815#0" expanded="false" />
-                    <element signature="e#7707#7807#0" expanded="false" />
-                    <element signature="n#!!block;n#getID#0" expanded="false" />
-                    <element signature="e#8297#8532#0" expanded="false" />
-                    <element signature="e#8402#8524#0" expanded="false" />
+                    <marker date="1417804338177" expanded="true" signature="1582:1598" placeholder="..." />
+                    <marker date="1417804338177" expanded="true" signature="14539:14550" placeholder="..." />
                   </folding>
                 </state>
               </provider>
@@ -99,34 +59,13 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/routes/index.js">
+          <file leaf-file-name="dbFunc.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/lib/db/dbFunc.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.8881579" vertical-offset="631" max-vertical-offset="1649">
-                  <caret line="148" column="39" selection-start-line="148" selection-start-column="39" selection-end-line="148" selection-end-column="39" />
+                <state vertical-scroll-proportion="-4.9700994" vertical-offset="1683" max-vertical-offset="4913">
+                  <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
                   <folding>
-                    <element signature="n#!!block;n#Comment#0" expanded="false" />
-                    <element signature="n#!!block;n#Pinn#0" expanded="false" />
-                    <element signature="e#566#586#0" expanded="false" />
-                    <element signature="e#622#672#0" expanded="false" />
-                    <element signature="n#!!block;n#isTimePostedPast_Seconds#0" expanded="false" />
-                    <element signature="e#823#1202#0" expanded="false" />
-                    <element signature="e#862#898#0" expanded="false" />
-                    <element signature="e#1150#1196#0" expanded="false" />
-                    <element signature="e#1247#1317#0" expanded="false" />
-                    <element signature="e#1818#2766#0" expanded="false" />
-                    <element signature="e#1909#1950#0" expanded="false" />
-                    <element signature="e#2268#2428#0" expanded="false" />
-                    <element signature="e#2454#2498#0" expanded="false" />
-                    <element signature="e#2543#2662#0" expanded="false" />
-                    <element signature="e#2769#3113#0" expanded="false" />
-                    <element signature="e#3814#3935#0" expanded="false" />
-                    <element signature="e#3938#4308#0" expanded="false" />
-                    <element signature="e#5294#5380#0" expanded="false" />
-                    <element signature="n#!!block;n#timeStamp#0" expanded="false" />
-                    <element signature="e#5945#6029#0" expanded="false" />
-                    <element signature="e#5975#6023#0" expanded="false" />
-                    <element signature="e#6113#6406#0" expanded="false" />
+                    <element signature="n#!!doc" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -141,19 +80,20 @@
       <setting name="OPEN_NEW_TAB" value="true" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="IdeDocumentHistory">
-    <option name="changedFiles">
+    <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/javascripts/dispMap.js" />
-        <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
-        <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/views/index.ejs" />
-        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="$PROJECT_DIR$/lib/db/dbFunc.js" />
         <option value="$PROJECT_DIR$/public/javascripts/pinndit.js" />
-        <option value="$PROJECT_DIR$/routes/index.js" />
       </list>
     </option>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
@@ -161,7 +101,7 @@
     <option name="width" value="1296" />
     <option name="height" value="701" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -187,6 +127,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -285,40 +226,31 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="JavaScript.Libraries" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="FullScreen" value="false" />
     <property name="recentsLimit" value="5" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="restartRequiresConfirmation" value="true" />
   </component>
   <component name="RunManager" selected="Node.js.Unnamed">
     <configuration default="false" name="Unnamed" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files (x86)/nodejs/node" path-to-js-file="www" working-dir="$PROJECT_DIR$/bin">
+      <RunnerSettings RunnerId="Basic" />
       <RunnerSettings RunnerId="NodeJS.run" />
+      <ConfigurationWrapper RunnerId="Basic" />
       <ConfigurationWrapper RunnerId="NodeJS.run" />
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="name" value="Dart" />
-      <option name="saveOutputToFile" value="false" />
-      <option name="showConsoleOnStdErr" value="false" />
-      <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
       <method />
     </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
@@ -332,16 +264,19 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="CucumberJavaScriptRunConfigurationType" factoryName="Cucumber.js">
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
       <option name="cucumberJsArguments" />
       <option name="executablePath" />
       <option name="filePath" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
-    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <method />
     </configuration>
     <list size="1">
@@ -361,6 +296,7 @@
     <task active="true" id="Default" summary="Default task">
       <changelist id="668eaa3e-ed84-496f-b4b7-71d77885f239" name="Default" comment="" />
       <created>1414341331827</created>
+      <option name="number" value="Default" />
       <updated>1414341331827</updated>
     </task>
     <servers />
@@ -372,17 +308,18 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291367" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28956833" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24980047" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16759777" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34700856" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.11652035" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36870503" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28956833" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -406,22 +343,74 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/public/javascripts/pinndit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="8041" max-vertical-offset="9571">
+          <caret line="473" column="53" selection-start-line="473" selection-start-column="53" selection-end-line="473" selection-end-column="53" />
+          <folding>
+            <marker date="1417804338177" expanded="true" signature="1582:1598" placeholder="..." />
+            <marker date="1417804338177" expanded="true" signature="14539:14550" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/db/dbFunc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="4794">
+          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3808">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/pinndit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="8041" max-vertical-offset="9571">
+          <caret line="473" column="53" selection-start-line="473" selection-start-column="53" selection-end-line="473" selection-end-column="53" />
+          <folding>
+            <marker date="1417804338177" expanded="true" signature="1582:1598" placeholder="..." />
+            <marker date="1417804338177" expanded="true" signature="14539:14550" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/db/dbFunc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="4794">
+          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3808">
+          <caret line="148" column="39" selection-start-line="148" selection-start-column="39" selection-end-line="148" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/pinndit.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4709" max-vertical-offset="8483">
           <caret line="277" column="7" selection-start-line="277" selection-start-column="7" selection-end-line="277" selection-end-column="7" />
           <folding>
-            <element signature="n#!!block;n#CommentClient#0" expanded="false" />
-            <element signature="e#5031#5081#0" expanded="false" />
-            <element signature="n#!!block;n#addOldPinn#0" expanded="false" />
-            <element signature="e#7660#9102#0" expanded="false" />
-            <element signature="n#!!block;n#PostButton#0" expanded="false" />
-            <element signature="e#9288#9449#0" expanded="false" />
-            <element signature="n#!!block;n#addNewPinn#0" expanded="false" />
-            <marker date="1417738523091" expanded="true" signature="1582:1598" placeholder="..." />
-            <marker date="1417738523091" expanded="true" signature="14610:14621" placeholder="..." />
+            <marker date="1417804338177" expanded="true" signature="1582:1598" placeholder="..." />
+            <marker date="1417804338177" expanded="true" signature="14539:14550" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -430,7 +419,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="391">
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -439,15 +427,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6970">
           <caret line="240" column="1" selection-start-line="240" selection-start-column="1" selection-end-line="240" selection-end-column="1" />
           <folding>
-            <element signature="n#!!block;n#CommentClient#0" expanded="false" />
-            <element signature="e#5031#5081#0" expanded="false" />
-            <element signature="n#!!block;n#addOldPinn#0" expanded="false" />
-            <element signature="e#7660#9102#0" expanded="false" />
-            <element signature="n#!!block;n#PostButton#0" expanded="false" />
-            <element signature="e#9288#9449#0" expanded="false" />
-            <element signature="n#!!block;n#addNewPinn#0" expanded="false" />
-            <marker date="1417738523091" expanded="true" signature="1582:1598" placeholder="..." />
-            <marker date="1417738523091" expanded="true" signature="14610:14621" placeholder="..." />
+            <marker date="1417804338177" expanded="true" signature="1582:1598" placeholder="..." />
+            <marker date="1417804338177" expanded="true" signature="14539:14550" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -456,7 +437,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="391">
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -595,107 +575,37 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="391">
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/db/dbFunc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="468" max-vertical-offset="1190">
-          <caret line="256" column="45" selection-start-line="256" selection-start-column="45" selection-end-line="256" selection-end-column="45" />
-          <folding>
-            <element signature="n#!!block;n#addPinn#0" expanded="false" />
-            <element signature="e#469#534#0" expanded="false" />
-            <element signature="e#1136#1538#0" expanded="false" />
-            <element signature="e#1153#1273#0" expanded="false" />
-            <element signature="e#1333#1530#0" expanded="false" />
-            <element signature="e#1374#1444#0" expanded="false" />
-            <element signature="n#!!block;n#addComment#0" expanded="false" />
-            <element signature="e#2235#2355#0" expanded="false" />
-            <element signature="n#!!block;n#getComments#0" expanded="false" />
-            <element signature="e#2800#3018#0" expanded="false" />
-            <element signature="e#2904#3010#0" expanded="false" />
-            <element signature="n#!!block;n#getMyPinns#0" expanded="false" />
-            <element signature="e#3298#3517#0" expanded="false" />
-            <element signature="e#3403#3509#0" expanded="false" />
-            <element signature="n#!!block;n#getVisiblePinns#0" expanded="false" />
-            <element signature="n#!!block;n#upvotePinn#0" expanded="false" />
-            <element signature="e#4471#4684#0" expanded="false" />
-            <element signature="e#4576#4676#0" expanded="false" />
-            <element signature="n#!!block;n#downvotePinn#0" expanded="false" />
-            <element signature="e#4938#5151#0" expanded="false" />
-            <element signature="e#5043#5143#0" expanded="false" />
-            <element signature="n#!!block;n#upvoteComment#0" expanded="false" />
-            <element signature="e#5396#5612#0" expanded="false" />
-            <element signature="e#5501#5604#0" expanded="false" />
-            <element signature="n#!!block;n#downvoteComment#0" expanded="false" />
-            <element signature="e#5863#6079#0" expanded="false" />
-            <element signature="e#5968#6071#0" expanded="false" />
-            <element signature="n#!!block;n#editPinn#0" expanded="false" />
-            <element signature="e#6603#6749#0" expanded="false" />
-            <element signature="e#6781#6865#0" expanded="false" />
-            <element signature="e#6899#6987#0" expanded="false" />
-            <element signature="e#7120#7374#0" expanded="false" />
-            <element signature="e#7225#7366#0" expanded="false" />
-            <element signature="n#!!block;n#markInactive#0" expanded="false" />
-            <element signature="e#7602#7815#0" expanded="false" />
-            <element signature="e#7707#7807#0" expanded="false" />
-            <element signature="n#!!block;n#getID#0" expanded="false" />
-            <element signature="e#8297#8532#0" expanded="false" />
-            <element signature="e#8402#8524#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/pinndit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.0197369" vertical-offset="3319" max-vertical-offset="4539">
-          <caret line="473" column="53" selection-start-line="473" selection-start-column="53" selection-end-line="473" selection-end-column="53" />
+        <state vertical-scroll-proportion="-2.9411764" vertical-offset="8213" max-vertical-offset="9673">
+          <caret line="489" column="16" selection-start-line="489" selection-start-column="16" selection-end-line="489" selection-end-column="16" />
           <folding>
-            <element signature="n#!!block;n#CommentClient#0" expanded="false" />
-            <element signature="e#5031#5081#0" expanded="false" />
-            <element signature="n#!!block;n#addOldPinn#0" expanded="false" />
-            <element signature="e#7660#9102#0" expanded="false" />
-            <element signature="n#!!block;n#PostButton#0" expanded="false" />
-            <element signature="e#9288#9449#0" expanded="false" />
-            <element signature="n#!!block;n#addNewPinn#0" expanded="false" />
-            <marker date="1417738523091" expanded="true" signature="1582:1598" placeholder="..." />
-            <marker date="1417738523091" expanded="true" signature="14610:14621" placeholder="..." />
+            <marker date="1417804338177" expanded="true" signature="1582:1598" placeholder="..." />
+            <marker date="1417804338177" expanded="true" signature="14539:14550" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8881579" vertical-offset="631" max-vertical-offset="1649">
-          <caret line="148" column="39" selection-start-line="148" selection-start-column="39" selection-end-line="148" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.40597016" vertical-offset="2329" max-vertical-offset="3723">
+          <caret line="145" column="31" selection-start-line="145" selection-start-column="31" selection-end-line="145" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/db/dbFunc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.9700994" vertical-offset="1683" max-vertical-offset="4913">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
           <folding>
-            <element signature="n#!!block;n#Comment#0" expanded="false" />
-            <element signature="n#!!block;n#Pinn#0" expanded="false" />
-            <element signature="e#566#586#0" expanded="false" />
-            <element signature="e#622#672#0" expanded="false" />
-            <element signature="n#!!block;n#isTimePostedPast_Seconds#0" expanded="false" />
-            <element signature="e#823#1202#0" expanded="false" />
-            <element signature="e#862#898#0" expanded="false" />
-            <element signature="e#1150#1196#0" expanded="false" />
-            <element signature="e#1247#1317#0" expanded="false" />
-            <element signature="e#1818#2766#0" expanded="false" />
-            <element signature="e#1909#1950#0" expanded="false" />
-            <element signature="e#2268#2428#0" expanded="false" />
-            <element signature="e#2454#2498#0" expanded="false" />
-            <element signature="e#2543#2662#0" expanded="false" />
-            <element signature="e#2769#3113#0" expanded="false" />
-            <element signature="e#3814#3935#0" expanded="false" />
-            <element signature="e#3938#4308#0" expanded="false" />
-            <element signature="e#5294#5380#0" expanded="false" />
-            <element signature="n#!!block;n#timeStamp#0" expanded="false" />
-            <element signature="e#5945#6029#0" expanded="false" />
-            <element signature="e#5975#6023#0" expanded="false" />
-            <element signature="e#6113#6406#0" expanded="false" />
+            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
   </component>
 </project>
-

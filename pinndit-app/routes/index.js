@@ -139,7 +139,6 @@ router.post('/checkcomments', function (req, res) {
 */
 
 router.post('/checkpinns', function (req, res) {
-    console.log("check pinns");
     var k = req.body.k;
     var B = req.body.B;
     var minLat = req.body.minLat;
@@ -147,26 +146,21 @@ router.post('/checkpinns', function (req, res) {
     var minLong = req.body.minLong;
     var maxLong = req.body.maxLong;
     var selecting = req.body.selecting;
-    if(selecting ===  1) {
-        console.log("get Pinn ID");
-        var ID = getPinnID(k, B);
-        console.log("get Pinn");
-        db.getPinn(ID, function(error, result){
-            if(error) return console.log(error);
-            console.log("result: " + result);
-            console.log("row1: " + result[0]);
-            for(row in result){
-                console.log("Found Pinn at k: " + k + "B: " + B);
-            }
-            res.json(result);
+    console.log("check pinns: " + selecting);
+    if(selecting ===  '1') {
+        console.log("get Pinn ID: " + k +","+ B);
+        var ID = getPinnID(k, B,function(PinnID){
+            db.getPinn(PinnID, function(error, result){
+                if(error) return console.log(error);
+                res.json(result);
+            });
         });
     }
-    else if(selecting === 0){
+    else if(selecting === '0'){
+        console.log("index.js: getVisiblePinns call (" + minLat + ", " + maxLat + ", " + ", " + minLong + ", " + maxLong+ ")");
         db.getVisiblePinns(minLat, maxLat, minLong, maxLong, function(error, result){
             if(error) return console.log(error);
-            for(row in result){
-                console.log("Found Pinns around k: " + k + "B: " + B);
-            }
+
             res.json(result);
         });
     }
@@ -207,7 +201,7 @@ function getPinnID(k, B){
 }
 */
 
-function getPinnID(k, B){
+function getPinnID(k, B, callback){
     var pinn = {
         Latitude: k,
         Longitude: B
@@ -215,5 +209,6 @@ function getPinnID(k, B){
     db.getID(pinn, function(error, result){
         if(error) return console.log(error);
         console.log(result.PinnID);
+        callback(result.PinnID);
     });
 }

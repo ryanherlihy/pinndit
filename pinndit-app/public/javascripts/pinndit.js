@@ -103,21 +103,18 @@ PinnClient.prototype = {
             type : 'POST',
             url  : '/checkpinns',
             data : { last : that.pinnData.length, minLat: pinnk.minLat, maxLat: pinnk.maxLat,
-                minLong: pinnk.minLong, maxLong: pinnk.minLong, selecting: pinnk.selecting},
+                minLong: pinnk.minLong, maxLong: pinnk.maxLong, selecting: pinnk.selecting, k: pinnk.k, B: pinnk.B},
             dataType : 'json'
         }).done(function (data) {
             console.log('Check rcvd pinns: ' + JSON.stringify(data));
-
+            console.log('data: ' + data);
+            console.log('eventname: ' + data.EventName);
             // Append the posts to the current posts:
             that.pinnData = (data);
 
             if(type === 'done'){
-                for(var i =0; i<that.pinnData.length;i++){
-                    if(Math.abs(pinn.position.lat()- that.pinnData[i].Latitude)<.00000001 && Math.abs(pinn.position.lng()- that.pinnData[i].Longitude)<.000000001){
-                        that.view.val(that.pinnData[i].EventName);
-                        that.view2.val(that.pinnData[i].Description);
-                    }
-                }
+                that.view.val(data.EventName);
+                that.view2.val(data.Description);
             }
             if(type === 'refresh'){
                 for(var i =0; i<that.pinnData.length;i++){
@@ -194,7 +191,9 @@ function addOldPinn(location){
             maxLat: map.center.latitude + visLong,
             minLong: map.center.longitude - visLong,
             maxLong: map.center.longitude + visLong,
-            selecting: 1
+            selecting: 1,
+            k: pinn.position.lng(),
+            B: pinn.position.lat()
         };
         console.log("done: 199");
         pinnc.check('done', pinn, pinnk);
@@ -365,7 +364,7 @@ function addNewPinn(location) {
             map.panTo(location);
             map.setZoom(15);
             if(openPin !== 'undefined' && openPin !== this){
-                google.maps.event.trigger(openPin, 'closewindow'); 
+                google.maps.event.trigger(openPin, 'closewindow');
             }
            openPin = pinn;
         }
@@ -408,9 +407,10 @@ function addNewPinn(location) {
             maxLat: map.center.latitude + visLong,
             minLong: map.center.longitude - visLong,
             maxLong: map.center.longitude + visLong,
-            selecting: 1
+            selecting: 1,
+            k: pinn.position.lng(),
+            B: pinn.position.lat()
         };
-        console.log("done:413");
         pinnc.check('done', pinn, pinnk);
         // Bind a click event:
         createComment.bind('click', function (event) {
@@ -510,15 +510,21 @@ function success(position) {
 
 
     google.maps.event.addListenerOnce(overlay,"projection_changed", function() {
+        console.log("projection_changed");
         var pinnc = new PinnClient({});
-        var visLong = (map.width)/(overlay.getProjection().getWorldWidth())*360;
+        var cor1 = map.getBounds().getNorthEast();
+        var cor2 = map.getBounds().getSouthWest();
+        console.log(cor1.lng() + " " + cor2.lng());
         var pinnk = {
-            minLat: map.center.latitude - visLong,
-            maxLat: map.center.latitude + visLong,
-            minLong: map.center.longitude - visLong,
-            maxLong: map.center.longitude + visLong,
-            selecting: 0
+            minLat: cor2.lat(),
+            maxLat: cor1.lat(),
+            minLong: cor2.lng(),
+            maxLong: cor1.lng(),
+            selecting: 0,
+            k: 0,
+            B: 0
         };
+        console.log(pinnk.minLat + " " + pinnk.maxLat + " " + pinnk.minLong + " " + pinnk.maxLong);
         pinnc.check('refresh', null, pinnk);
     });
 
