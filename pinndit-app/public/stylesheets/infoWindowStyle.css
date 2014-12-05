@@ -3,17 +3,9 @@
 	font-family: sans-serif;
 	font-size: 26px;
 	text-align: center;
-	padding: 0px;
-  margin: 0px;
+	padding: 0;
+  margin: 0;
   margin-bottom: 10px;
-}
-
-head {
-	border: 2px solid white;
-}
-
-.pinnform-wrapper {
-  display: none;
 }
 
 #iw {
@@ -36,17 +28,18 @@ head {
 	border-radius: 7px;
 }
 
-
 #comment {
   /*display: inline-block;*/
 	vertical-align: top;
   width: 415px;
-  margin-top: 5px;
+  margin-top: 15px;
+  margin-bottom: 55px;
 }
 
 #ctext {
   float: left;
-  /*margin: 0px 0 5px 0;*/
+
+  /*margin: 0px 0 5px  0;*/
 }
 
 #cbutton {
@@ -61,7 +54,8 @@ head {
   width: 410px;
   height: 150px;
   overflow: scroll;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.75);
+  overflow-x: hidden;
 }
 
 #submit {
@@ -72,14 +66,22 @@ head {
   margin-top: 5px;
 }
 
+head {
+  border: 2px solid white;
+}
+
 ul {
   color: #E84C3D;
   font-size: 16px;
 }
 
-/*li {
-  border-bottom: 2px solid white;
-}*/
+li {
+  /*border-style: solid;*/
+  border-bottom: 1px solid #E84C3D;
+  margin-bottom: 20px;
+  width: 325px;
+  padding-bottom: 15px;
+}
 
 button {
   -webkit-border-radius: 6;
@@ -93,7 +95,7 @@ button {
   text-decoration: none;
   display: block;
   margin:0 auto;
-  border-width: 0px;
+  border-width: 0;
 }
 
 button:hover {

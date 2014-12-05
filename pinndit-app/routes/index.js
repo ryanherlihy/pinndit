@@ -88,18 +88,25 @@ router.post('/postpinn', function (req, res) {
     pinnData.push(new Pinn(eventname, descname, k, B, timePosted));
     res.json({ status: 'OK'});
 });
-/*
+
 router.post('/removepinn', function (req, res) {
-    var k = req.body.k;
-    var B = req.body.B;
-    var id = getPinnID(k, B);
-    db.markInactive(id, function(error, result){
-        if(error) return console.log(error);
-        console.log("Pinn with id: " + result.PinnID + "marked inactive");
-    });
-    res.json({ status: 'OK'});
+  var k = req.body.k;
+  var B = req.body.B;
+  for(var i = pinnData.length - 1; i >= 0; i--){
+    if(pinnData[i].eventk === k){
+      console.log('removed post: ' + '(k: ' + k + ') ' + '(B: ' + B + ')');
+      for(var j = comments.length - 1; j >= 0; j--){
+        if(pinnData[i].eventk === comments[j].eventk){
+          console.log('removed comment: ' + '(k: ' + k + ') ' + '(B: ' + B + ')');
+          comments.splice(j, 1);
+        }
+      } 
+      pinnData.splice(i, 1); 
+    }
+  }
+  res.json({ status: 'OK'});
 });
-*/
+
 router.post('/postcomment', function (req, res) {
     var text = req.body.text;
     var k = req.body.k;
