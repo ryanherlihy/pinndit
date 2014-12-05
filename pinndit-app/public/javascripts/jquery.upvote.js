@@ -19,7 +19,7 @@
             var jqdom = $(this);
             methods.destroy(jqdom);
 
-            var count = parseInt(jqdom.find(dot_count_css).text(), 10);
+            var count = parseInt(jqdom.find(dot_count_css).text(), 10) + 1;
             count = isNaN(count) ? 0 : count;
             var initial = {
                 id: jqdom.attr('data-id'),
