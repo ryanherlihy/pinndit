@@ -115,7 +115,9 @@ PinnClient.prototype = {
                 for(var i = that.pinnData.length - 1; i >= 0; i--){
                     var p = that.pinnData[i];
                      if((currentTime - seconds) > p.timePosted){
-                         that.pinnData.splice(i, 1);
+                        var pinnc = new PinnClient({});
+                        pinnc.removePinn(that.pinnData[i].eventk, that.pinnData[i].eventB);
+                        that.pinnData.splice(i, 1);
                     }
                 }
             }
