@@ -103,7 +103,7 @@ PinnClient.prototype = {
             type : 'POST',
             url  : '/checkpinns',
             data : { last : that.pinnData.length, minLat: pinnk.minLat, maxLat: pinnk.maxLat,
-                minLong: pinnk.minLong, maxLong: pinnk.minLong },
+                minLong: pinnk.minLong, maxLong: pinnk.minLong, selecting: pinnk.done},
             dataType : 'json'
         }).done(function (data) {
             console.log('Check rcvd pinns: ' + JSON.stringify(data));
@@ -113,7 +113,7 @@ PinnClient.prototype = {
 
             if(type === 'done'){
                 for(var i =0; i<that.pinnData.length;i++){
-                    if(pinn.position.lat() == that.pinnData[i].Latitude && pinn.position.lng() == that.pinnData[i].Longitude){
+                    if(Math.abs(pinn.position.lat()- that.pinnData[i].Latitude)<.00000001 && Math.abs(pinn.position.lng()- that.pinnData[i].Longitude)<.000000001){
                         that.view.val(that.pinnData[i].EventName);
                         that.view2.val(that.pinnData[i].Description);
                     }
@@ -180,21 +180,23 @@ function addOldPinn(location){
             view   : $('#send'),
             input  : $('#submit')
         });
-        var eventName = $('#event-name');              //repeated lookups are slow
-        var eventDescription = $('#event-description');
+        var EventName = $('#event-name');              //repeated lookups are slow
+        var Description = $('#event-description');
 
         var pinnc = new PinnClient({
-            view  : eventName,
-            view2 : eventDescription
+            view  : EventName,
+            view2 : Description
 
         });
-        var visLong = (map.Size.width)/(overlay.getProjection().getWorldWidth())*360;
+        var visLong = (map.width)/(overlay.getProjection().getWorldWidth())*360;
         var pinnk = {
-            minLat: map.coords.latitude - visLong,
-            maxLat: map.coords.latitude + visLong,
-            minLong: map.coords.longitude - visLong,
-            maxLong: map.coords.longitude + visLong
+            minLat: map.center.latitude - visLong,
+            maxLat: map.center.latitude + visLong,
+            minLong: map.center.longitude - visLong,
+            maxLong: map.center.longitude + visLong,
+            selecting: 1
         };
+        console.log("done: 199");
         pinnc.check('done', pinn, pinnk);
         // Bind a click event:
         createComment.bind('click', function (event) {
@@ -392,21 +394,23 @@ function addNewPinn(location) {
             view   : $('#send'),
             input  : $('#submit')
         });
-        var eventName = $('#event-name');              //repeated lookups are slow
-        var eventDescription = $('#event-description');
+        var EventName = $('#event-name');              //repeated lookups are slow
+        var Description = $('#event-description');
 
         var pinnc = new PinnClient({
-            view  : eventName,
-            view2 : eventDescription
+            view  : EventName,
+            view2 : Description
 
         });
-        var visLong = (map.Size.width)/(overlay.getProjection().getWorldWidth())*360;
+        var visLong = (map.width)/(overlay.getProjection().getWorldWidth())*360;
         var pinnk = {
-            minLat: map.coords.latitude - visLong,
-            maxLat: map.coords.latitude + visLong,
-            minLong: map.coords.longitude - visLong,
-            maxLong: map.coords.longitude + visLong
+            minLat: map.center.latitude - visLong,
+            maxLat: map.center.latitude + visLong,
+            minLong: map.center.longitude - visLong,
+            maxLong: map.center.longitude + visLong,
+            selecting: 1
         };
+        console.log("done:413");
         pinnc.check('done', pinn, pinnk);
         // Bind a click event:
         createComment.bind('click', function (event) {
@@ -504,15 +508,20 @@ function success(position) {
     AddControlPinn(pinnDiv, map);
     AddInactivePinn(pinnDiv, map);
 
-    var pinnc = new PinnClient({});
-    var visLong = (map.Size.width)/(overlay.getProjection().getWorldWidth())*360;
-    var pinnk = {
-        minLat: map.coords.latitude - visLong,
-        maxLat: map.coords.latitude + visLong,
-        minLong: map.coords.longitude - visLong,
-        maxLong: map.coords.longitude + visLong
-    };
-    pinnc.check('refresh', null, pinnk);
+
+    google.maps.event.addListenerOnce(overlay,"projection_changed", function() {
+        var pinnc = new PinnClient({});
+        var visLong = (map.width)/(overlay.getProjection().getWorldWidth())*360;
+        var pinnk = {
+            minLat: map.center.latitude - visLong,
+            maxLat: map.center.latitude + visLong,
+            minLong: map.center.longitude - visLong,
+            maxLong: map.center.longitude + visLong,
+            selecting: 0
+        };
+        pinnc.check('refresh', null, pinnk);
+    });
+
 
 
     //addNewPinn(coords);

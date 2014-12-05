@@ -119,7 +119,7 @@ router.post('/postcomment', function (req, res) {
     res.json({ status: 'OK'});
 });
 
-    router.post('/checkcomments', function (req, res) {
+router.post('/checkcomments', function (req, res) {
     var last = parseInt(req.body.last, 10);
     var rest = comments.slice(last, comments.length);
     res.json(rest);
@@ -138,7 +138,6 @@ router.post('/checkcomments', function (req, res) {
 });
 */
 
-
 router.post('/checkpinns', function (req, res) {
     console.log("check pinns");
     var k = req.body.k;
@@ -147,14 +146,27 @@ router.post('/checkpinns', function (req, res) {
     var maxLat = req.body.maxLat;
     var minLong = req.body.minLong;
     var maxLong = req.body.maxLong;
+    var selecting = req.body.selecting;
+    if(selecting ===  1) {
+        var ID = getPinnID(k, B);
+        db.getPinn(ID, function(error, result){
+            if(error) return console.log(error);
+            for(row in result){
+                console.log("Found Pinn at k: " + k + "B: " + B);
+            }
+            res.json(result);
+        });
+    }
+    else if(selecting === 0){
+        db.getVisiblePinns(minLat, maxLat, minLong, maxLong, function(error, result){
+            if(error) return console.log(error);
+            for(row in result){
+                console.log("Found Pinns around k: " + k + "B: " + B);
+            }
+            res.json(result);
+        });
+    }
 
-    db.getVisiblePinns(minLat, maxLat, minLong, maxLong, function(error, result){
-        if(error) return console.log(error);
-        for(row in result){
-            console.log("Found Pinns around k: " + k + "B: " + B);
-        }
-        res.json(result);
-    });
 });
 
 module.exports = router;
@@ -190,3 +202,14 @@ function getPinnID(k, B){
     });
 }
 */
+
+function getPinnID(k, B){
+    var pinn = {
+        Latitude: k,
+        Longitude: B
+    };
+    db.getID(pinn, function(error, result){
+        if(error) return console.log(error);
+        console.log(result.PinnID);
+    });
+}
