@@ -288,6 +288,11 @@ function addNewPinn(location) {
 
     newPinnOpen = true;
 
+    if(openPin !== 'undefined' && openPin !== this) {
+        google.maps.event.trigger(openPin, 'closewindow');
+    }
+    openPin = 'undefined';
+
     var pinnImage = '/images/PinndItPin50x50.png';
 
     var pinn = new google.maps.Marker({
@@ -296,6 +301,8 @@ function addNewPinn(location) {
         icon: pinnImage,
         created: 0 //NEW ATTRIBUTE should be 1 AFTER it's created
     });
+
+    openPin = pinn;
 
     map.panTo(location);
     map.setZoom(15);
