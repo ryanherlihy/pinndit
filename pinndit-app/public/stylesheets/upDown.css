@@ -27,19 +27,19 @@ div.upvote span.count {
 }
 
 div.upvote a.upvote {
-    background-position: 0px -265px;
+    background-position: 0 -265px;
 }
 
 div.upvote a.upvote.upvote-on {
-    background-position: 0px -230px;
+    background-position: 0 -230px;
 }
 
 div.upvote a.downvote {
-    background-position: 0px -300px;
+    background-position: 0 -300px;
 }
 
 div.upvote a.downvote.downvote-on {
-    background-position: 0px -330px;
+    background-position: 0 -330px;
 }
 
 div.upvote-meta-stackoverflow a {
