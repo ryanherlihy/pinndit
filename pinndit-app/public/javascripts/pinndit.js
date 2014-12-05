@@ -239,7 +239,6 @@ CommentClient.prototype = {
 
             // Append the posts to the current posts:
             that.comments = that.comments.concat(data);
-            console.log('Comments length : ' + that.comments.length);
 
             // Rewrite to the view:
             that.view.empty();

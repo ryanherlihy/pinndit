@@ -83,8 +83,6 @@ router.post('/postpinn', function (req, res) {
 router.post('/removepinn', function (req, res) {
   var k = req.body.k;
   var B = req.body.B;
-  console.log('posts: ' + pinnData.length);
-  console.log('comments: ' + comments.length);
   for(var i = pinnData.length - 1; i >= 0; i--){
     if(pinnData[i].eventk === k){
       console.log('removed post: ' + '(k: ' + k + ') ' + '(B: ' + B + ')');
@@ -97,8 +95,6 @@ router.post('/removepinn', function (req, res) {
       pinnData.splice(i, 1); 
     }
   }
-  console.log('posts: ' + pinnData.length);
-  console.log('comments: ' + comments.length);
   res.json({ status: 'OK'});
 });
 
