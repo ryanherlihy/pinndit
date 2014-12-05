@@ -411,7 +411,7 @@ function addNewPinn(location) {
             var text = this.input.val();
             var injectionProofText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             commentc.post(injectionProofText, location.lat(), location.lng());
-            $('#chat').prepend('<li><div style="float: left; width: 20%;"><iframe src="/updown.html" frameborder="0" width=75 height=85 scrolling=no></iframe></div><div style="margin-left:  20%;">' + injectionProofText + '</div></li>');
+            $('#chat').prepend('<li><div style="height: 150px;"><div style="float: left; width: 20%;"><iframe src="/updown.html" frameborder="0" width=75 height=85 scrolling=no></iframe></div><div style="margin-left:  20%;">' + injectionProofText + '</div></div></li>');
             // clear input text:
             this.input.val('');
             return false;

@@ -39,7 +39,7 @@
 #ctext {
   float: left;
 
-  /*margin: 0px 0 5px  0;*/
+  /*margin: 0px 0 5px 0;*/
 }
 
 #cbutton {
@@ -78,9 +78,8 @@ ul {
 li {
   /*border-style: solid;*/
   border-bottom: 1px solid #E84C3D;
-  margin-bottom: 20px;
   width: 325px;
-  padding-bottom: 15px;
+  padding-bottom: 1px;
 }
 
 button {
