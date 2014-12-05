@@ -32,13 +32,14 @@
   /*display: inline-block;*/
 	vertical-align: top;
   width: 415px;
-  margin-top: 5px;
+  margin-top: 15px;
+  margin-bottom: 55px;
 }
 
 #ctext {
   float: left;
 
-  /*margin: 0px 0 5px 0;*/
+  /*margin: 0px 0 5px  0;*/
 }
 
 #cbutton {
@@ -79,7 +80,7 @@ li {
   border-bottom: 1px solid #E84C3D;
   margin-bottom: 20px;
   width: 325px;
-  padding-bottom: 5px;
+  padding-bottom: 15px;
 }
 
 button {
