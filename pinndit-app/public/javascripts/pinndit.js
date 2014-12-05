@@ -91,7 +91,7 @@ PinnClient.prototype = {
             dataType : 'json'
         }).done(function (data) {
             console.log('Post status: ' + data.status);
-            that.pinnData = that.pinnData.concat(data);
+            //that.pinnData = that.pinnData.concat(data);
         });
     },
 
@@ -133,7 +133,7 @@ PinnClient.prototype = {
                 }
             }
             if(type === 'refresh'){
-                isTimePostedPast_Seconds(30);
+                isTimePostedPast_Seconds(600);
                 for(var i =0; i<that.pinnData.length;i++){
                     var LatLng = new google.maps.LatLng(that.pinnData[i].eventk, that.pinnData[i].eventB);
                     addOldPinn(LatLng);
@@ -253,6 +253,7 @@ CommentClient.prototype = {
 
             // Append the posts to the current posts:
             that.comments = that.comments.concat(data);
+            console.log('Comments length : ' + that.comments.length);
 
             // Rewrite to the view:
             that.view.empty();

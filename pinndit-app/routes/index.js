@@ -83,12 +83,22 @@ router.post('/postpinn', function (req, res) {
 router.post('/removepinn', function (req, res) {
   var k = req.body.k;
   var B = req.body.B;
+  console.log('posts: ' + pinnData.length);
+  console.log('comments: ' + comments.length);
   for(var i = pinnData.length - 1; i >= 0; i--){
     if(pinnData[i].eventk === k){
       console.log('removed post: ' + '(k: ' + k + ') ' + '(B: ' + B + ')');
-      pinnData.splice(i, 1);
+      for(var j = comments.length - 1; j >= 0; j--){
+        if(pinnData[i].eventk === comments[j].eventk){
+          console.log('removed comment: ' + '(k: ' + k + ') ' + '(B: ' + B + ')');
+          comments.splice(j, 1);
+        }
+      } 
+      pinnData.splice(i, 1); 
     }
   }
+  console.log('posts: ' + pinnData.length);
+  console.log('comments: ' + comments.length);
   res.json({ status: 'OK'});
 });
 
