@@ -81,7 +81,7 @@ PinnClient.prototype = {
         });
     },
 
-    remove : function (k, B) {
+    removePinn : function (k, B) {
         $.ajax({
             type : 'POST',
             url  : '/removepinn',
@@ -365,7 +365,9 @@ function addNewPinn(location) {
         donepinnwindow.close();
     });
 
-    google.maps.event.addListener(pinn, 'dblclick', function(){
+    google.maps.event.addListener(pinn, 'rightclick', function(){
+        var pinnc = new PinnClient({});
+        pinnc.removePinn(location.lat(), location.lng());
         if(this.created === 1){
             this.setMap(null);
             openPin = 'undefined';
