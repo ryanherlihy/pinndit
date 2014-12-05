@@ -27,19 +27,20 @@ router.get('/', function(req, res) {
 });
 
 function isTimePostedPast_Seconds(seconds){
-    var currentTime = parseInt(new Date() / 1000,10);
-    for(var i = pinnData.length - 1; i >= 0; i--){
-        var p = pinnData[i];
-        // var getttt = getPinnID(p.k, p.B);
+  var currentTime = parseInt(new Date() / 1000,10);
+  for(var i = pinnData.length - 1; i >= 0; i--){
+    var p = pinnData[i];
+    if((currentTime - seconds) > p.timePosted){
+      pinnData.splice(i, 1);
+      }
+   }
+}
+
+ // var getttt = getPinnID(p.k, p.B);
         // db.markInactive(getttt, function(error, result){
         //     if(error) return console.log(error);
         //     console.log("Event Name: " + result.EventName + " added");
         // });
-        if((currentTime - seconds) > p.timePosted){
-            pinnData.splice(i, 1);
-        }
-    }
-}
 
 //Will work once up/down is implemented
 
@@ -140,7 +141,7 @@ router.post('/checkcomments', function (req, res) {
 */
 
 router.post('/checkpinns', function (req, res) {
-    isTimePostedPast_Seconds(300);
+    isTimePostedPast_Seconds(30);
     console.log('Active Number of Pinns: ' + pinnData.length);
     var last = parseInt(req.body.last, 10);
     var rest = pinnData.slice(last, pinnData.length);

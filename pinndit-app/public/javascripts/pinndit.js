@@ -360,6 +360,7 @@ function addNewPinn(location) {
     google.maps.event.addListener(pinn, 'rightclick', function(){
         var pinnc = new PinnClient({});
         pinnc.removePinn(location.lat(), location.lng());
+        donepinnwindow.close();
         if(this.created === 1){
             this.setMap(null);
             openPin = 'undefined';
