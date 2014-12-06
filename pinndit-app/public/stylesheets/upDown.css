@@ -42,6 +42,6 @@ div.upvote a.downvote.downvote-on {
     background-position: 0 -330px;
 }
 
-div.upvote-meta-stackoverflow a {
+div.upvote-meta a {
     background-image: url('/images/upDown.png');
 }
