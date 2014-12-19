@@ -2,6 +2,7 @@ var overlay;
 var map;
 // made pinn icon and its div global Ariel
 var pinnDiv = document.createElement('div');
+//pinnDiv.setAttribute('class', 'controlPinn');
 var controlPinn;
 //inactivePinn is undraggable pinn in top right corner when in the middle of creating new events Ariel
 var inActivePinn;
@@ -458,7 +459,7 @@ function AddInactivePinn(controlDiv, map){
     inActivePinn.style.display = 'none';
     controlDiv.appendChild(inActivePinn);
     $(inActivePinn).on("creatingpinn", function(){
-       // $(this).toggle();
+       $(this).toggle();
     });
 
 
@@ -489,7 +490,7 @@ function AddControlPinn(controlDiv, map) {
     });
 
     contPinn.on("creatingpinn", function(){
-       // $(this).toggle();
+       $(this).toggle();
 
     });
 }
