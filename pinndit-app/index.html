@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <img src="../graphics/Logo/PinndItLogo250.png" alt="Logo">
+    <style type="text/css">
+      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaPH3EcFX_G-bjbb6JIdKwT65_N9mKX7E">
+    </script>
+    <script type="text/javascript">
+
+    'use strict'
+
+      function initialize() {
+        var mapOptions = {
+          center: { lat: 42.154, lng: -71.223},
+          zoom: 15
+        };
+        let map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        google.maps.event.addListener(map, 'click', function(e) {
+          addMarker(e.latLng);
+        })
+
+        function addMarker(coords) {
+          let marker = new google.maps.Marker({
+            position: coords,
+            title: 'New Marker'
+          });
+
+          marker.setMap(map)
+        }
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+<div id="map-canvas"></div>
+  </body>
+  <footer align="center">
+      Pinnd.It &copy; Copyright 2014
+  </footer>
+</html>
